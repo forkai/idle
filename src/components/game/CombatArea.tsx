@@ -18,7 +18,7 @@ import { getZoneBoss } from '@/constants/enemies'
 import { getSkillById } from '@/constants/skills'
 import type { Monster } from '@/types/enemy'
 import { MonsterType } from '@/types/enemy'
-import { CombatState } from '@/types/combat'
+import { CombatState, Element } from '@/types/combat'
 
 /**
  * 伤害数字动画组件
@@ -360,6 +360,7 @@ export function CombatArea() {
   const [lastRewards, setLastRewards] = useState<{ exp: number; gold: number; items: number } | null>(null)
   const [defeatCountdown, setDefeatCountdown] = useState(3)
   const [isMonsterDying, setIsMonsterDying] = useState(false)
+  const [elementalReaction, setElementalReaction] = useState<string | null>(null)
 
   // 获取当前可用的第一个技能（简化逻辑，实际可扩展为技能选择UI）
   const currentSkill = selectedSkillId && unlockedSkills.includes(selectedSkillId)
@@ -456,6 +457,12 @@ export function CombatArea() {
 
           // 造成伤害
           damageEnemy(result.finalDamage, result.isCrit, result.element)
+
+          // 元素技能命中时显示元素反应提示
+          if (result.element !== Element.PHYSICAL) {
+            setElementalReaction(result.element)
+            setTimeout(() => setElementalReaction(null), 1500)
+          }
 
           // 添加伤害数字
           setDamageNumbers(prev => [
@@ -793,6 +800,35 @@ export function CombatArea() {
               maxHealth={currentEnemy.maxHealth}
               isDying={isMonsterDying}
             />
+          )}
+
+          {/* 连击计数显示 */}
+          {useCombatStore.getState().comboCount > 1 && (
+            <div className="absolute top-2 right-2 px-3 py-1 bg-amber-600/80 rounded-full animate-bounce">
+              <span className="text-amber-100 font-bold">🔥 {useCombatStore.getState().comboCount} 连击!</span>
+            </div>
+          )}
+
+          {/* 元素反应提示 */}
+          {elementalReaction && (
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-elemental-reaction">
+              <div className={`px-4 py-2 rounded-lg font-bold text-white ${
+                elementalReaction === 'vaporize' ? 'bg-cyan-500/80' :
+                elementalReaction === 'freeze' ? 'bg-blue-500/80' :
+                elementalReaction === 'shock' ? 'bg-yellow-500/80' :
+                elementalReaction === 'burn' ? 'bg-orange-500/80' :
+                elementalReaction === 'melt' ? 'bg-red-500/80' :
+                elementalReaction === 'supercharge' ? 'bg-purple-500/80' :
+                'bg-gray-500/80'
+              }`}>
+                {elementalReaction === 'vaporize' && '💥 蒸发!'}
+                {elementalReaction === 'freeze' && '❄️ 冻结!'}
+                {elementalReaction === 'shock' && '⚡ 感电!'}
+                {elementalReaction === 'burn' && '🔥 燃烧!'}
+                {elementalReaction === 'melt' && '🩷 融化!'}
+                {elementalReaction === 'supercharge' && '💫 过载!'}
+              </div>
+            </div>
           )}
 
           {/* 技能热键栏 */}

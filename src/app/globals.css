@@ -709,6 +709,17 @@ body {
 
 .animate-float-up { animation: float-up 1s ease-out forwards; }
 
+/* 元素反应动画 */
+@keyframes elemental-reaction {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+  20% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+  40% { transform: translate(-50%, -50%) scale(1); }
+  80% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+}
+
+.animate-elemental-reaction { animation: elemental-reaction 1.5s ease-out forwards; }
+
 /* 经验条渐变流动 */
 .bar-exp-shimmer {
   background: linear-gradient(
