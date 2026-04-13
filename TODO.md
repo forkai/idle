@@ -155,9 +155,9 @@
 - [ ] 支持多用户数据独立存储
 
 #### 3.15 无尽层数系统
-- [ ] 层数递进算法
-- [ ] 怪物等级缩放
-- [ ] 层数奖励
+- [x] 层数递进算法
+- [x] 怪物等级缩放
+- [x] 层数奖励
 
 #### 3.16 离线收益系统
 - [x] 离线计算引擎
@@ -268,7 +268,10 @@ src/lib/game/
 ├── combat.ts       ✅ 伤害公式、暴击、元素抗性
 ├── stats.ts        ✅ 属性计算、装备加成
 ├── sound.ts        ✅ Web Audio音效
-└── procedural.ts  ✅ 程序化生成
+├── procedural.ts  ✅ 程序化生成
+├── combat-ai.ts    ✅ 战斗AI、元素反应
+├── infinite-floor.ts  ✅ 无尽层数系统
+└── offline-rewards.ts  ✅ 离线收益
 ```
 
 ### 数据库
@@ -291,7 +294,8 @@ src/stores/
 ├── zoneStore.ts       ✅ 区域
 ├── combatStore.ts    ✅ 战斗
 ├── codexStore.ts     ✅ 图鉴
-└── settingsStore.ts ✅ 设置
+├── settingsStore.ts ✅ 设置
+└── leaderboardStore.ts ✅ 排行榜
 ```
 
 ### UI组件
@@ -307,7 +311,12 @@ src/components/game/
 ├── CodexPanel.tsx       ✅ 图鉴
 ├── CombatLogPanel.tsx   ✅ 战斗日志
 ├── CharacterPanel.tsx   ✅ 角色属性
-└── SettingsPanel.tsx    ✅ 设置
+├── SettingsPanel.tsx    ✅ 设置
+├── EnhancementPanel.tsx  ✅ 装备强化
+├── AchievementPanel.tsx  ✅ 成就面板
+├── SetPanel.tsx         ✅ 套装面板
+├── LeaderboardPanel.tsx  ✅ 排行榜
+└── OfflineRewardModal.tsx  ✅ 离线奖励弹窗
 ```
 
 ### 测试
