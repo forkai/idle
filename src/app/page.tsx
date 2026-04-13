@@ -7,7 +7,7 @@
 
 import { useEffect, useState } from 'react'
 import { useGameStore } from '@/stores/gameStore'
-import { CharacterCreate, StatusBar, CombatArea, ZoneSelection, InventoryPanel, SkillsPanel } from '@/components/game'
+import { CharacterCreate, StatusBar, CombatArea, ZoneSelection, InventoryPanel, SkillsPanel, EquipmentPanel } from '@/components/game'
 
 /**
  * 游戏主页面组件
@@ -15,7 +15,7 @@ import { CharacterCreate, StatusBar, CombatArea, ZoneSelection, InventoryPanel, 
 export default function GamePage() {
   const { player } = useGameStore()
   const [isLoading, setIsLoading] = useState(true)
-  const [activeTab, setActiveTab] = useState<'zone' | 'inventory' | 'skills'>('zone')
+  const [activeTab, setActiveTab] = useState<'zone' | 'inventory' | 'equipment' | 'skills'>('zone')
 
   // 检查是否有存档
   useEffect(() => {
@@ -52,6 +52,7 @@ export default function GamePage() {
             <nav className="flex gap-0.5 sm:gap-1">
               {[
                 { id: 'zone', label: '🗺️', labelFull: '探索' },
+                { id: 'equipment', label: '⚔️', labelFull: '装备' },
                 { id: 'inventory', label: '🎒', labelFull: '背包' },
                 { id: 'skills', label: '⚡', labelFull: '技能' },
               ].map(tab => (
@@ -98,6 +99,7 @@ export default function GamePage() {
           <section className="col-span-12 lg:col-span-6 xl:col-span-8">
             {activeTab === 'zone' && <CombatArea />}
             {activeTab === 'inventory' && <InventoryPanel />}
+            {activeTab === 'equipment' && <EquipmentPanel />}
             {activeTab === 'skills' && <SkillsPanel />}
           </section>
 

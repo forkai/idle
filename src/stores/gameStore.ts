@@ -73,6 +73,14 @@ export function useGameStore() {
     getAvailableStatPoints: playerState.getAvailableStatPoints,
     /** 更新战斗中血量/蓝量 */
     updateCombatStats: playerState.updateCombatStats,
+    /** 刷新计算属性（穿戴/卸下装备后调用） */
+    refreshComputedStats: () => {
+      playerState.refreshComputedStats(equipmentState.equipment, skillState.unlockedSkills.map(id => ({
+        skillId: id,
+        level: skillState.skillLevels[id] ?? 1,
+        unlocked: true,
+      })))
+    },
     /** 重置所有数据（回到初始状态） */
     resetCharacter: () => {
       playerState.resetPlayer()
