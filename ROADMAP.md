@@ -196,34 +196,35 @@ interface DialogueSystem {
 ### Sprint 1: 基础框架搭建（12-15小时）
 
 #### 1.1 项目配置与初始化（2小时）
-- [ ] Next.js 14+ 多语言配置
-- [ ] TypeScript严格模式配置
-- [ ] Tailwind CSS暗黑主题配置
-- [ ] ESLint/Prettier代码规范配置
-- [ ] Vitest单元测试框架搭建
-- [ ] Playwright E2E测试框架搭建
+- [x] Next.js 14+ 多语言配置
+- [x] TypeScript严格模式配置
+- [x] Tailwind CSS暗黑主题配置
+- [x] ESLint/Prettier代码规范配置
+- [x] Vitest单元测试框架搭建
+- [x] Playwright E2E测试框架搭建
 
 #### 1.2 状态管理架构（3小时）
-- [ ] `src/stores/playerStore.ts` - 玩家数据
-- [ ] `src/stores/inventoryStore.ts` - 背包管理
-- [ ] `src/stores/equipmentStore.ts` - 装备管理
-- [ ] `src/stores/skillStore.ts` - 技能状态
-- [ ] `src/stores/zoneStore.ts` - 地图进度
-- [ ] `src/stores/combatStore.ts` - 战斗状态
-- [ ] `src/stores/settingsStore.ts` - 设置选项
-- [ ] Store持久化方案
+- [x] `src/stores/playerStore.ts` - 玩家数据
+- [x] `src/stores/inventoryStore.ts` - 背包管理
+- [x] `src/stores/equipmentStore.ts` - 装备管理
+- [x] `src/stores/skillStore.ts` - 技能状态
+- [x] `src/stores/zoneStore.ts` - 地图进度
+- [x] `src/stores/combatStore.ts` - 战斗状态
+- [x] `src/stores/settingsStore.ts` - 设置选项
+- [x] Store持久化方案
 
 #### 1.3 数据层架构（3小时）
-- [ ] SQL.js数据库初始化与迁移系统
-- [ ] 数据库Schema设计
-- [ ] 数据导出/导入
+- [x] SQL.js数据库初始化与迁移系统
+- [x] 数据库Schema设计
+- [x] 数据导出/导入
 - [ ] 自动备份机制
 
 #### 1.4 基础UI组件库（4小时）
-- [ ] `src/components/ui/` - Button, Input, Select, Modal, Tabs, Tooltip, Badge, ProgressBar
+- [x] `src/components/ui/` - Button, Input, Select, Modal, Tabs, Tooltip, Badge, ProgressBar
 
 #### 1.5 暗黑主题系统（2小时）
-- [ ] CSS变量配置
+- [x] CSS变量配置
+- [x] 动画效果库
 - [ ] 暗色/亮色模式切换
 - [ ] 主题定制API
 
