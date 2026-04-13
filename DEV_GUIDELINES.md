@@ -16,6 +16,8 @@
 - 游戏组件放在 `src/components/game/`
 - 每个组件独立一个文件，不做多组件合并
 - 组件必须有 JSDoc 注释
+- **优先使用 shadcn/ui 组件**
+- 自定义组件需在 JSDoc 中说明为何不用 shadcn
 
 ### 1.3 状态管理与Store
 - Zustand Store 负责状态管理
@@ -58,6 +60,10 @@
 - 动画使用 CSS class（`animate-*`）配合 `globals.css` 中的 keyframes
 - 禁止使用 `!important`，用 Tailwind 优先级规则解决
 - 响应式：`sm:` / `md:` / `lg:` / `xl:` 前缀
+- **优先使用 shadcn/ui 组件库**
+- 样式复用使用 `cn()` + `tailwind-merge`
+- 复杂样式用 `variants()` 模式
+- 样式工具统一使用 `@/lib/utils` 中的 `cn()` 函数
 
 ---
 
