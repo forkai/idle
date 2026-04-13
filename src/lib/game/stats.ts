@@ -10,15 +10,39 @@ import type { PlayerSkill, Skill } from '@/types/skills'
 import { SkillType } from '@/types/skills'
 import { getSkillById } from '@/constants/skills'
 import { getSetById } from '@/constants/sets'
+import { curry, cond, condAny, isArray, isObject } from '@/lib/fn'
 
 // 需要百分比的属性
 const PERCENT_STATS = new Set(['attackSpeed', 'critChance', 'critDamage'])
 
+// 判断key是否为有效属性键
+const isValidStatKey = (validKeys: string[], key: string): boolean => validKeys.includes(key)
+
 // 应用套装奖励到属性
-function applySetBonus(stats: CharacterStats, key: string, value: number) {
+function applySetBonus(stats: CharacterStats, key: string, value: number): CharacterStats {
   const isPercent = PERCENT_STATS.has(key)
   const actualValue = isPercent ? value / 100 : value
   ;(stats as any)[key] = ((stats as any)[key] || 0) + actualValue
+  return stats
+}
+
+// 处理套装奖励的每种效果（使用condAny条件匹配）
+function processSetEffect(
+  effects: Record<string, number>,
+  excludedKeys: string[],
+  stats: CharacterStats
+): CharacterStats {
+  const entries = Object.entries(effects)
+  const validStatKeys = Object.keys(stats)
+
+  return entries.reduce((acc, [key, value]) => {
+    return condAny<[string, number], CharacterStats>([
+      [() => excludedKeys.includes(key), () => acc],
+      [() => !isValidStatKey(validStatKeys, key), () => acc],
+      [() => typeof value !== 'number', () => acc],
+      [() => true, () => applySetBonus(acc, key, value as number)]
+    ])([key, value])
+  }, stats)
 }
 
 /**
@@ -204,7 +228,7 @@ function getClassFromStats(baseStats: BaseStats): CharacterClass {
  * @returns 更新后的属性
  */
 function applyEquipmentBonuses(stats: CharacterStats, equipment: EquipmentState): CharacterStats {
-  const newStats = { ...stats }
+  let newStats = { ...stats }
 
   // 统计套装装备数量
   const setCounts: Record<string, number> = {}
@@ -245,7 +269,12 @@ function applyEquipmentBonuses(stats: CharacterStats, equipment: EquipmentState)
     if (item.stats.defense) newStats.defense += item.stats.defense
   }
 
-  // 应用套装奖励
+  // 应用套装奖励（使用函数式工具）
+  const EXCLUDED_SET_KEYS = [
+    'damagePercent', 'healthRegenPercent', 'allElementDamage',
+    'damageToDragon', 'dodge', 'deathResist', 'onDeathRevive', 'freezeChance'
+  ]
+
   for (const [setId, count] of Object.entries(setCounts)) {
     const set = getSetById(setId)
     if (!set) continue
@@ -253,15 +282,16 @@ function applyEquipmentBonuses(stats: CharacterStats, equipment: EquipmentState)
     for (const bonus of set.bonuses) {
       if (bonus.threshold <= count) {
         const eff = bonus.effects
-        for (const [key, value] of Object.entries(eff)) {
-          if (key !== 'damagePercent' && key !== 'healthRegenPercent' && key !== 'allElementDamage' && key !== 'damageToDragon' && key !== 'dodge' && key !== 'deathResist' && key !== 'onDeathRevive' && key !== 'freezeChance') {
-            const numValue = typeof value === 'number' ? value : 0
-            const statKey = key as keyof CharacterStats
-            if (statKey in newStats) {
-              applySetBonus(newStats, statKey, numValue)
-            }
-          }
-        }
+        const validStatKeys = Object.keys(newStats)
+        // 使用管道组合：过滤 -> 映射 -> 归约
+        newStats = Object.entries(eff)
+          .filter(([key]) => !EXCLUDED_SET_KEYS.includes(key))
+          .filter(([key]) => validStatKeys.includes(key))
+          .filter(([, value]) => typeof value === 'number')
+          .reduce(
+            (acc, [key, value]) => applySetBonus(acc, key, value as number),
+            newStats
+          )
       }
     }
   }
