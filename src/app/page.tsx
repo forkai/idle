@@ -7,7 +7,7 @@
 
 import { useEffect, useState } from 'react'
 import { useGameStore } from '@/stores/gameStore'
-import { CharacterCreate, StatusBar, CombatArea, ZoneSelection, InventoryPanel } from '@/components/game'
+import { CharacterCreate, StatusBar, CombatArea, ZoneSelection, InventoryPanel, SkillsPanel } from '@/components/game'
 
 /**
  * 游戏主页面组件
@@ -98,12 +98,7 @@ export default function GamePage() {
           <section className="col-span-12 lg:col-span-6 xl:col-span-8">
             {activeTab === 'zone' && <CombatArea />}
             {activeTab === 'inventory' && <InventoryPanel />}
-            {activeTab === 'skills' && (
-              <div className="bg-gray-900/95 border border-gray-700 rounded-lg p-4">
-                <h2 className="text-lg font-bold text-gray-200 mb-4">⚡ 技能</h2>
-                <p className="text-gray-400 text-center py-8">技能系统开发中...</p>
-              </div>
-            )}
+            {activeTab === 'skills' && <SkillsPanel />}
           </section>
 
           {/* 右侧边栏 - 区域选择（桌面端） */}
