@@ -7,6 +7,7 @@ import type { Item, Affix } from '@/types/items'
 import { ItemType, EquipmentSlot, ItemRarity } from '@/types/items'
 import type { Element } from '@/types/combat'
 import { v4 as uuidv4 } from 'uuid'
+import { getPrefixesByLevel, getSuffixesByLevel } from './affixes'
 
 /**
  * 物品前缀词缀列表
@@ -537,9 +538,8 @@ function generateAffixes(rarity: ItemRarity, level: number, template: Partial<It
  * @returns 词缀
  */
 function rollAffix(level: number, type: 'prefix' | 'suffix'): Affix {
-  const pool = type === 'prefix' ? PREFIXES : SUFFIXES
-  const validAffixes = pool.filter(a => a.minLevel <= level)
-  if (validAffixes.length === 0) return pool[0]
+  const validAffixes = type === 'prefix' ? getPrefixesByLevel(level) : getSuffixesByLevel(level)
+  if (validAffixes.length === 0) return type === 'prefix' ? PREFIXES[0] : SUFFIXES[0]
   return validAffixes[Math.floor(Math.random() * validAffixes.length)]
 }
 

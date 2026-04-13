@@ -1,0 +1,136 @@
+{
+  "uniques": [
+    {
+      "id": "unique_horizon",
+      "name": "末日",
+      "icon": "⚔️",
+      "type": "WEAPON",
+      "slot": "WEAPON",
+      "stats": { "damage": 50, "attackSpeed": 0.2 },
+      "effects": { "damage": 30, "critChance": 0.1, "allStats": 5 },
+      "description": "传说中能够毁灭一切的神兵利器",
+      "sellPrice": 5000
+    },
+    {
+      "id": "unique_shadow",
+      "name": "暗影",
+      "icon": "🌑",
+      "type": "WEAPON",
+      "slot": "WEAPON",
+      "stats": { "damage": 30, "critChance": 0.15, "critDamage": 0.5 },
+      "effects": { "damage": 20, "attackSpeed": 0.15, "dodge": 0.1 },
+      "description": "由暗影中淬炼出的匕首",
+      "sellPrice": 3000
+    },
+    {
+      "id": "unique_dragon_slayer",
+      "name": "屠龙者",
+      "icon": "🐉",
+      "type": "WEAPON",
+      "slot": "WEAPON",
+      "stats": { "damage": 45, "damageToDragon": 0.5 },
+      "effects": { "damage": 25, "strength": 10, "damageToDragon": 0.3 },
+      "description": "专为猎杀巨龙而打造的圣剑",
+      "sellPrice": 8000
+    },
+    {
+      "id": "unique_frostbite",
+      "name": "霜噬",
+      "icon": "❄️",
+      "type": "WEAPON",
+      "slot": "WEAPON",
+      "stats": { "damage": 25, "coldDamage": 30 },
+      "effects": { "coldDamage": 20, "freezeChance": 0.15, "coldResist": 20 },
+      "description": "蕴含极寒之力的魔法剑",
+      "sellPrice": 4500
+    },
+    {
+      "id": "unique_inferno",
+      "name": "狱火",
+      "icon": "🔥",
+      "type": "WEAPON",
+      "slot": "WEAPON",
+      "stats": { "damage": 35, "fireDamage": 35 },
+      "effects": { "fireDamage": 25, "fireResist": 25, "damagePercent": 0.15 },
+      "description": "燃烧着永不熄灭的地狱火焰",
+      "sellPrice": 5500
+    },
+    {
+      "id": "unique_thunder",
+      "name": "雷霆",
+      "icon": "⚡",
+      "type": "WEAPON",
+      "slot": "WEAPON",
+      "stats": { "damage": 28, "lightningDamage": 25 },
+      "effects": { "lightningDamage": 20, "attackSpeed": 0.2, "mana": 50 },
+      "description": "掌握天空之力的闪电之剑",
+      "sellPrice": 4800
+    },
+    {
+      "id": "unique_iron_wall",
+      "name": "铁壁",
+      "icon": "🛡️",
+      "type": "SHIELD",
+      "slot": "SHIELD",
+      "stats": { "defense": 40 },
+      "effects": { "defense": 30, "vitality": 15, "deathResist": 0.15 },
+      "description": "坚不可摧的传奇盾牌",
+      "sellPrice": 6000
+    },
+    {
+      "id": "unique_phoenix",
+      "name": "凤凰",
+      "icon": "🦅",
+      "type": "ARMOR",
+      "slot": "CHEST",
+      "stats": { "defense": 35, "health": 100 },
+      "effects": { "health": 150, "fireResist": 30, "onDeathRevive": 1, "healthRegenPercent": 0.05 },
+      "description": "浴火重生的凤凰铠甲",
+      "sellPrice": 12000
+    },
+    {
+      "id": "unique_ serpent",
+      "name": "毒蛇",
+      "icon": "🐍",
+      "type": "ARMOR",
+      "slot": "CHEST",
+      "stats": { "defense": 20, "poisonDamage": 20 },
+      "effects": { "poisonDamage": 30, "attackSpeed": 0.2, "dodge": 0.1 },
+      "description": "如毒蛇般迅捷而致命",
+      "sellPrice": 4200
+    },
+    {
+      "id": "unique_titan",
+      "name": "泰坦",
+      "icon": "🏔️",
+      "type": "ARMOR",
+      "slot": "CHEST",
+      "stats": { "defense": 50, "health": 200 },
+      "effects": { "defense": 40, "strength": 20, "vitality": 20 },
+      "description": "上古泰坦的遗物",
+      "sellPrice": 15000
+    },
+    {
+      "id": "unique_void",
+      "name": "虚空",
+      "icon": "🌌",
+      "type": "RING",
+      "slot": "RING1",
+      "stats": { "damage": 15, "mana": 50 },
+      "effects": { "allElementDamage": 0.2, "allStats": 8, "critDamage": 0.3 },
+      "description": "来自虚空深处的神秘戒指",
+      "sellPrice": 9000
+    },
+    {
+      "id": "unique_life",
+      "name": "生命",
+      "icon": "❤️",
+      "type": "AMULET",
+      "slot": "AMULET",
+      "stats": { "health": 100, "healthRegenPercent": 0.1 },
+      "effects": { "health": 200, "vitality": 15, "healthRegenPercent": 0.1 },
+      "description": "永恒的生命源泉",
+      "sellPrice": 7500
+    }
+  ]
+}

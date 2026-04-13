@@ -1,0 +1,24 @@
+{
+  "suffixes": [
+    { "id": "suffix_strength", "name": "力量", "type": "suffix", "effects": { "strength": 3 }, "minLevel": 1 },
+    { "id": "suffix_dexterity", "name": "敏捷", "type": "suffix", "effects": { "dexterity": 3 }, "minLevel": 1 },
+    { "id": "suffix_vitality", "name": "体力", "type": "suffix", "effects": { "vitality": 3 }, "minLevel": 1 },
+    { "id": "suffix_energy", "name": "能量", "type": "suffix", "effects": { "energy": 3 }, "minLevel": 1 },
+    { "id": "suffix_might", "name": "威能", "type": "suffix", "effects": { "damage": 8 }, "minLevel": 3 },
+    { "id": "suffix_guardian", "name": "守护", "type": "suffix", "effects": { "defense": 8 }, "minLevel": 3 },
+    { "id": "suffix_life", "name": "生命", "type": "suffix", "effects": { "health": 30 }, "minLevel": 5 },
+    { "id": "suffix_mana", "name": "法力", "type": "suffix", "effects": { "mana": 20 }, "minLevel": 5 },
+    { "id": "suffix_precision", "name": "精准", "type": "suffix", "effects": { "critChance": 0.03, "critDamage": 0.1 }, "minLevel": 7 },
+    { "id": "suffix_swiftness", "name": "速度", "type": "suffix", "effects": { "attackSpeed": 0.15 }, "minLevel": 10 },
+    { "id": "suffix_resistance", "name": "抗性", "type": "suffix", "effects": { "fireResist": 10, "coldResist": 10, "lightningResist": 10, "poisonResist": 10 }, "minLevel": 12 },
+    { "id": "suffix_balance", "name": "平衡", "type": "suffix", "effects": { "strength": 2, "dexterity": 2, "vitality": 2, "energy": 2 }, "minLevel": 15 },
+    { "id": "suffix_wrath", "name": "愤怒", "type": "suffix", "effects": { "damage": 15, "critChance": 0.05 }, "minLevel": 12 },
+    { "id": "suffix_sanctuary", "name": "圣地", "type": "suffix", "effects": { "defense": 15, "deathResist": 0.1 }, "minLevel": 18 },
+    { "id": "suffix_immolation", "name": "焚灭", "type": "suffix", "effects": { "fireDamage": 10, "fireResist": 20 }, "minLevel": 20 },
+    { "id": "suffix_hibernation", "name": "凛冬", "type": "suffix", "effects": { "coldDamage": 10, "coldResist": 20 }, "minLevel": 20 },
+    { "id": "suffix_ozone", "name": "臭氧", "type": "suffix", "effects": { "lightningDamage": 10, "lightningResist": 20 }, "minLevel": 20 },
+    { "id": "suffix_virulence", "name": "剧毒", "type": "suffix", "effects": { "poisonDamage": 10, "poisonResist": 20 }, "minLevel": 20 },
+    { "id": "suffix_ascension", "name": "升华", "type": "suffix", "effects": { "allStats": 5, "damagePercent": 0.1 }, "minLevel": 25 },
+    { "id": "suffix_nirvana", "name": "涅槃", "type": "suffix", "effects": { "onDeathRevive": 1, "health": 100 }, "minLevel": 30 }
+  ]
+}

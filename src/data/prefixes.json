@@ -1,0 +1,19 @@
+{
+  "prefixes": [
+    { "id": "prefix_fierce", "name": "凶猛的", "type": "prefix", "effects": { "damage": 10, "strength": 2 }, "minLevel": 1 },
+    { "id": "prefix_quick", "name": "迅捷的", "type": "prefix", "effects": { "attackSpeed": 0.1, "dexterity": 2 }, "minLevel": 1 },
+    { "id": "prefix_vigorous", "name": "活力的", "type": "prefix", "effects": { "health": 20, "vitality": 2 }, "minLevel": 1 },
+    { "id": "prefix_arcane", "name": "奥术的", "type": "prefix", "effects": { "mana": 15, "energy": 2 }, "minLevel": 1 },
+    { "id": "prefix_iron", "name": "铁制的", "type": "prefix", "effects": { "defense": 5, "vitality": 1 }, "minLevel": 3 },
+    { "id": "prefix_burning", "name": "燃烧的", "type": "prefix", "effects": { "fireDamage": 5, "damage": 3 }, "minLevel": 5 },
+    { "id": "prefix_frozen", "name": "冰冻的", "type": "prefix", "effects": { "coldDamage": 5, "attackSpeed": 0.05 }, "minLevel": 5 },
+    { "id": "prefix_shocking", "name": "电击的", "type": "prefix", "effects": { "lightningDamage": 5, "critChance": 0.02 }, "minLevel": 5 },
+    { "id": "prefix_venomous", "name": "毒液的", "type": "prefix", "effects": { "poisonDamage": 5, "damage": 2 }, "minLevel": 5 },
+    { "id": "prefix_elite", "name": "精英的", "type": "prefix", "effects": { "damage": 15, "defense": 5, "allStats": 3 }, "minLevel": 15 },
+    { "id": "prefix_dragon", "name": "巨龙的", "type": "prefix", "effects": { "damage": 25, "damageToDragon": 0.2 }, "minLevel": 20 },
+    { "id": "prefix_eternal", "name": "永恒的", "type": "prefix", "effects": { "health": 50, "healthRegenPercent": 0.1 }, "minLevel": 18 },
+    { "id": "prefix_storm", "name": "风暴的", "type": "prefix", "effects": { "lightningDamage": 15, "allElementDamage": 0.1 }, "minLevel": 15 },
+    { "id": "prefix_frost", "name": "寒霜的", "type": "prefix", "effects": { "coldDamage": 15, "freezeChance": 0.05 }, "minLevel": 15 },
+    { "id": "prefix_infernal", "name": "地狱的", "type": "prefix", "effects": { "fireDamage": 20, "fireResist": 15 }, "minLevel": 22 }
+  ]
+}
