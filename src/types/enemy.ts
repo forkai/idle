@@ -96,8 +96,10 @@ export interface MonsterAbility {
  * 怪物接口
  */
 export interface Monster {
-  /** 怪物ID */
+  /** 怪物ID（运行时生成） */
   id: string
+  /** 模板ID（用于图鉴追踪） */
+  templateId?: string
   /** 怪物名称 */
   name: string
   /** 怪物类型 */

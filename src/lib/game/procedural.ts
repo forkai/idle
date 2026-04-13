@@ -176,6 +176,7 @@ export function generateItem(templateId?: string, level?: number): Item {
 
   return {
     id: uuidv4(),
+    templateId: template.id,
     name: template.name,
     type: template.type as ItemType,
     rarity,
@@ -220,6 +221,7 @@ export function generateMonster(templateId?: string, levelOverride?: number): Mo
 
   return {
     id: uuidv4(),
+    templateId: template.id,
     name: template.name,
     type: template.type as MonsterType,
     level,

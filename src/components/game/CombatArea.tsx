@@ -323,9 +323,9 @@ export function CombatArea() {
       loot.forEach(item => addToInventory(item))
 
       // 记录怪物已遭遇
-      discoverMonster(currentEnemy.monster.id)
+      discoverMonster(currentEnemy.monster.templateId ?? currentEnemy.monster.id)
       // 记录掉落装备已发现
-      loot.forEach(item => discoverEquipment(item.id))
+      loot.forEach(item => discoverEquipment(item.templateId ?? item.id))
 
       // 保存奖励用于显示（避免victory界面重新随机计算）
       setLastRewards({ exp: expReward, gold: goldReward, items: loot.length })

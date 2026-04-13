@@ -233,8 +233,10 @@ export interface ItemStats {
  * 物品接口
  */
 export interface Item {
-  /** 物品唯一ID */
+  /** 物品唯一ID（运行时生成） */
   id: string
+  /** 模板ID（用于图鉴追踪，如"wp_001"） */
+  templateId?: string
   /** 物品名称 */
   name: string
   /** 物品类型 */

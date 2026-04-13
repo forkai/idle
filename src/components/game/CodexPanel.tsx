@@ -255,7 +255,7 @@ export function CodexPanel() {
   // 背包中已有装备的ID（用于判断是否发现）
   const discoveredEquipmentIds = new Set<string>()
   inventory.slots.forEach(item => {
-    if (item) discoveredEquipmentIds.add(item.id)
+    if (item) discoveredEquipmentIds.add(item.templateId ?? item.id)
   })
   // 也标记直接发现的
   discoveredEquipment.forEach(id => discoveredEquipmentIds.add(id))
