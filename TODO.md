@@ -104,6 +104,16 @@
 
 ---
 
+### 🟢 低优先级 - 未来功能
+
+#### 3.8 SQL.js用户系统
+- [ ] schema.ts添加codex表（discovered_equipment, discovered_monsters, unlocked_skills）
+- [ ] 实现codexStore与sql.js的数据同步
+- [ ] 支持多用户数据独立存储
+- [ ] 用户登录/注册（可选）
+
+---
+
 ## 已完成文件清单
 
 ### 核心类型（不可修改）
