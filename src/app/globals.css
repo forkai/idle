@@ -1,26 +1,472 @@
+/**
+ * @fileoverview 暗黑破坏神风格全局样式
+ * @description 定义游戏的暗黑哥特式主题样式
+ */
+
 @import "tailwindcss";
 
+/* 暗黑破坏神风格配色 */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* 主要颜色 */
+  --background: #0a0a0f;
+  --foreground: #e8e8e8;
+
+  /* 卡片和面板背景 */
+  --card: #1a1a24;
+  --card-foreground: #e8e8e8;
+
+  /* 暗黑破坏神配色 */
+  --diablo-red: #8B0000;
+  --diablo-gold: #B8860B;
+  --diablo-dark-red: #2E1A47;
+  --diablo-blood: #DC143C;
+  --diablo-gold-light: #FFD700;
+
+  /* 稀有度颜色 */
+  --rarity-normal: #ffffff;
+  --rarity-magic: #6b8aff;
+  --rarity-rare: #ffff00;
+  --rarity-unique: #ff8000;
+  --rarity-set: #00ff00;
+
+  /* UI元素 */
+  --border: #3a3a4a;
+  --input: #2a2a3a;
+  --primary: #8B0000;
+  --primary-foreground: #ffffff;
+  --secondary: #2a2a3a;
+  --secondary-foreground: #e8e8e8;
+  --muted: #3a3a4a;
+  --muted-foreground: #888888;
+  --accent: #B8860B;
+  --accent-foreground: #000000;
+  --destructive: #DC143C;
+  --destructive-foreground: #ffffff;
+
+  /* HP/MP条颜色 */
+  --health-red: #8B0000;
+  --health-red-light: #DC143C;
+  --mana-blue: #0066cc;
+  --mana-blue-light: #3399ff;
+  --exp-gold: #B8860B;
+
+  /* 状态栏 */
+  --success: #00aa00;
+  --warning: #ffaa00;
+  --info: #0088ff;
+
+  /* 抗性颜色 */
+  --fire: #ff4400;
+  --cold: #00ccff;
+  --lightning: #ffff00;
+  --poison: #00ff00;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--primary);
+  --color-accent: var(--accent);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-health: var(--health-red);
+  --color-mana: var(--mana-blue);
+  --color-exp: var(--exp-gold);
+  --color-fire: var(--fire);
+  --color-cold: var(--cold);
+  --color-lightning: var(--lightning);
+  --color-poison: var(--poison);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* 全局样式 */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--diablo-red);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--diablo-blood);
+}
+
+/* 游戏容器 */
+.game-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0a0a0f 0%, #1a1a24 100%);
+}
+
+/* 卡片样式 */
+.game-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* 按钮样式 - 暗黑风格 */
+.btn-diablo {
+  background: linear-gradient(180deg, #8B0000 0%, #5a0000 100%);
+  border: 2px solid #B8860B;
+  color: var(--diablo-gold-light);
+  font-weight: bold;
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 2px 8px rgba(139, 0, 0, 0.5);
+}
+
+.btn-diablo:hover {
+  background: linear-gradient(180deg, #DC143C 0%, #8B0000 100%);
+  border-color: var(--diablo-gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(220, 20, 60, 0.5);
+}
+
+.btn-diablo:active {
+  transform: translateY(0);
+}
+
+.btn-diablo:disabled {
+  background: #3a3a4a;
+  border-color: #5a5a6a;
+  color: #666;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* 生命条/法力条样式 */
+.bar-container {
+  background: #1a1a24;
+  border: 1px solid #3a3a4a;
+  border-radius: 2px;
+  height: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.bar-fill {
+  height: 100%;
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+.bar-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 100%);
+}
+
+.bar-health {
+  background: linear-gradient(180deg, #DC143C 0%, #8B0000 100%);
+}
+
+.bar-mana {
+  background: linear-gradient(180deg, #3399ff 0%, #0066cc 100%);
+}
+
+.bar-exp {
+  background: linear-gradient(180deg, #FFD700 0%, #B8860B 100%);
+}
+
+/* 状态栏样式 */
+.stat-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.stat-icon {
+  font-size: 1rem;
+}
+
+.stat-value {
+  font-weight: bold;
+  font-size: 0.875rem;
+}
+
+/* 装备槽位样式 */
+.equipment-slot {
+  width: 48px;
+  height: 48px;
+  background: #1a1a24;
+  border: 2px solid #3a3a4a;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.equipment-slot:hover {
+  border-color: var(--diablo-gold);
+  background: #2a2a3a;
+}
+
+.equipment-slot.equipped {
+  border-color: var(--diablo-gold);
+  box-shadow: 0 0 8px rgba(184, 134, 11, 0.3);
+}
+
+/* 背包格子样式 */
+.inventory-slot {
+  width: 40px;
+  height: 40px;
+  background: #1a1a24;
+  border: 1px solid #3a3a4a;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.inventory-slot:hover {
+  border-color: var(--diablo-gold);
+}
+
+.inventory-slot.empty {
+  cursor: default;
+}
+
+.inventory-slot .quantity {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  font-size: 0.625rem;
+  color: #fff;
+  text-shadow: 1px 1px 1px #000;
+}
+
+/* 稀有度文字颜色 */
+.rarity-normal { color: var(--rarity-normal); }
+.rarity-magic { color: var(--rarity-magic); }
+.rarity-rare { color: var(--rarity-rare); }
+.rarity-unique { color: var(--rarity-unique); }
+.rarity-set { color: var(--rarity-set); }
+
+/* 元素颜色 */
+.element-fire { color: var(--fire); }
+.element-cold { color: var(--cold); }
+.element-lightning { color: var(--lightning); }
+.element-poison { color: var(--poison); }
+
+/* 技能图标样式 */
+.skill-icon {
+  width: 40px;
+  height: 40px;
+  background: #1a1a24;
+  border: 2px solid #3a3a4a;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.skill-icon:hover {
+  border-color: var(--diablo-gold);
+  transform: scale(1.1);
+}
+
+.skill-icon.unlocked {
+  border-color: var(--diablo-gold);
+}
+
+.skill-icon.locked {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.skill-icon.on-cooldown {
+  opacity: 0.6;
+}
+
+.skill-icon.on-cooldown::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 4px;
+}
+
+/* 怪物/敌人样式 */
+.monster-card {
+  background: linear-gradient(180deg, #2E1A47 0%, #1a1a24 100%);
+  border: 2px solid #4a2a6a;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.monster-icon {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+/* 区域选择样式 */
+.zone-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.zone-card:hover {
+  border-color: var(--diablo-gold);
+  transform: translateY(-2px);
+}
+
+.zone-card.locked {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 伤害数字样式 */
+.damage-number {
+  position: absolute;
+  font-weight: bold;
+  font-size: 1.25rem;
+  text-shadow: 2px 2px 2px #000;
+  animation: damage-float 1s ease-out forwards;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.damage-number.crit {
+  color: var(--diablo-gold-light);
+  font-size: 1.5rem;
+}
+
+.damage-number.normal {
+  color: #fff;
+}
+
+@keyframes damage-float {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-20px) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-40px) scale(0.8);
+  }
+}
+
+/* 动画效果 */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px var(--diablo-red);
+  }
+  50% {
+    box-shadow: 0 0 20px var(--diablo-red), 0 0 30px var(--diablo-blood);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s infinite;
+}
+
+/* 战斗日志样式 */
+.combat-log {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.5rem;
+  max-height: 200px;
+  overflow-y: auto;
+  font-size: 0.75rem;
+  font-family: monospace;
+}
+
+.combat-log-entry {
+  padding: 0.125rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.combat-log-entry:last-child {
+  border-bottom: none;
+}
+
+.combat-log-entry.damage {
+  color: #ff6666;
+}
+
+.combat-log-entry.heal {
+  color: #66ff66;
+}
+
+.combat-log-entry.crit {
+  color: var(--diablo-gold-light);
+  font-weight: bold;
+}
+
+.combat-log-entry.loot {
+  color: var(--diablo-gold);
+}
+
+/* 响应式布局 */
+@media (max-width: 768px) {
+  .game-container {
+    padding: 0.5rem;
+  }
+
+  .equipment-slot {
+    width: 40px;
+    height: 40px;
+  }
+
+  .inventory-slot {
+    width: 36px;
+    height: 36px;
+  }
+
+  .skill-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
 }

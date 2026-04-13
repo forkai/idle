@@ -1,65 +1,136 @@
-import Image from "next/image";
+/**
+ * @fileoverview 游戏主页
+ * @description 游戏主入口页面，根据状态显示角色创建或游戏主界面
+ */
 
-export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+'use client'
+
+import { useEffect, useState } from 'react'
+import { useGameStore } from '@/stores/gameStore'
+import { CharacterCreate, StatusBar, CombatArea, ZoneSelection } from '@/components/game'
+
+/**
+ * 游戏主页面组件
+ */
+export default function GamePage() {
+  const { player } = useGameStore()
+  const [isLoading, setIsLoading] = useState(true)
+  const [activeTab, setActiveTab] = useState<'zone' | 'inventory' | 'skills'>('zone')
+
+  // 检查是否有存档
+  useEffect(() => {
+    // 延迟检查以确保store已恢复
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 100)
+    return () => clearTimeout(timer)
+  }, [])
+
+  // 加载中状态
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-950 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-4xl mb-4">⚔️</p>
+          <p className="text-amber-500 font-bold">加载中...</p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </div>
+    )
+  }
+
+  // 没有角色，显示创建界面
+  if (!player.id) {
+    return <CharacterCreate />
+  }
+
+  // 游戏主界面
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-gray-950 to-gray-900">
+      {/* 顶部状态栏 */}
+      <header className="bg-gray-900/95 border-b border-gray-800 sticky top-0 z-50">
+        <div className="max-w-6xl mx-auto px-4 py-3">
+          <div className="flex items-center justify-between">
+            {/* 标题 */}
+            <h1 className="text-xl font-bold text-amber-500 tracking-wider">
+              DIABLO IDLE
+            </h1>
+
+            {/* 导航标签 */}
+            <nav className="flex gap-1">
+              {[
+                { id: 'zone', label: '🗺️ 探索' },
+                { id: 'inventory', label: '🎒 背包' },
+                { id: 'skills', label: '⚡ 技能' },
+              ].map(tab => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id as typeof activeTab)}
+                  className={`
+                    px-4 py-2 rounded-lg font-medium transition-all
+                    ${activeTab === tab.id
+                      ? 'bg-amber-600 text-white'
+                      : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'
+                    }
+                  `}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </nav>
+
+            {/* 设置按钮 */}
+            <button className="text-gray-400 hover:text-gray-200 transition-colors">
+              ⚙️
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* 主内容区 */}
+      <main className="max-w-6xl mx-auto px-4 py-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          {/* 左侧边栏 - 状态栏 */}
+          <aside className="lg:col-span-3">
+            <StatusBar />
+          </aside>
+
+          {/* 中间主区域 */}
+          <section className="lg:col-span-6">
+            {activeTab === 'zone' && <CombatArea />}
+            {activeTab === 'inventory' && (
+              <div className="bg-gray-900/95 border border-gray-700 rounded-lg p-4">
+                <h2 className="text-lg font-bold text-gray-200 mb-4">🎒 背包</h2>
+                <p className="text-gray-400 text-center py-8">
+                  背包功能开发中...
+                </p>
+              </div>
+            )}
+            {activeTab === 'skills' && (
+              <div className="bg-gray-900/95 border border-gray-700 rounded-lg p-4">
+                <h2 className="text-lg font-bold text-gray-200 mb-4">⚡ 技能</h2>
+                <p className="text-gray-400 text-center py-8">
+                  技能系统开发中...
+                </p>
+              </div>
+            )}
+          </section>
+
+          {/* 右侧边栏 - 区域选择 */}
+          <aside className="lg:col-span-3">
+            {activeTab === 'zone' && <ZoneSelection />}
+          </aside>
         </div>
       </main>
+
+      {/* 底部信息栏 */}
+      <footer className="bg-gray-900/95 border-t border-gray-800 mt-6">
+        <div className="max-w-6xl mx-auto px-4 py-3">
+          <div className="flex items-center justify-between text-xs text-gray-500">
+            <span>暗黑破坏神风格放置游戏 v0.1.0</span>
+            <span>自动保存已开启</span>
+          </div>
+        </div>
+      </footer>
     </div>
-  );
+  )
 }

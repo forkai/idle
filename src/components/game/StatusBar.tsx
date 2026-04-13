@@ -1,0 +1,170 @@
+/**
+ * @fileoverview 角色状态栏组件
+ * @description 显示角色头顶的状态信息（HP、MP、等级、金币等）
+ */
+
+'use client'
+
+import { useGameStore } from '@/stores/gameStore'
+import { CharacterClassNames } from '@/types/game'
+import { getExpForLevel } from '@/types/game'
+
+/**
+ * 状态条组件属性
+ */
+interface StatBarProps {
+  current: number
+  max: number
+  color: 'health' | 'mana' | 'exp'
+  label?: string
+}
+
+/**
+ * 状态条组件
+ */
+function StatBar({ current, max, color, label }: StatBarProps) {
+  const percentage = Math.min(100, (current / max) * 100)
+
+  const colors = {
+    health: 'bg-gradient-to-r from-red-700 to-red-900',
+    mana: 'bg-gradient-to-r from-blue-600 to-blue-800',
+    exp: 'bg-gradient-to-r from-amber-500 to-amber-700',
+  }
+
+  return (
+    <div className="flex flex-col gap-1">
+      {label && (
+        <div className="flex justify-between text-xs">
+          <span className="text-gray-400">{label}</span>
+          <span className="text-gray-300">{current.toLocaleString()} / {max.toLocaleString()}</span>
+        </div>
+      )}
+      <div className="h-2 bg-gray-800 rounded-full overflow-hidden border border-gray-700">
+        <div
+          className={`h-full ${colors[color]} transition-all duration-300`}
+          style={{ width: `${percentage}%` }}
+        />
+      </div>
+    </div>
+  )
+}
+
+/**
+ * 角色图标组件
+ */
+function CharacterIcon({ classId }: { classId: string }) {
+  const icons: Record<string, string> = {
+    warrior: '⚔️',
+    sorcerer: '🔥',
+    rogue: '🏹',
+  }
+  return <span className="text-3xl">{icons[classId] || '❓'}</span>
+}
+
+/**
+ * 角色状态栏组件
+ */
+export function StatusBar() {
+  const { player, computedStats } = useGameStore()
+
+  // 计算升级进度
+  const currentLevelExp = getExpForLevel(player.level)
+  const nextLevelExp = getExpForLevel(player.level + 1)
+  const expProgress = nextLevelExp > currentLevelExp
+    ? ((player.experience - currentLevelExp) / (nextLevelExp - currentLevelExp)) * 100
+    : 100
+
+  return (
+    <div className="bg-gray-900/95 border border-gray-700 rounded-lg p-4 shadow-lg">
+      {/* 顶部：角色信息 */}
+      <div className="flex items-center gap-4 mb-4">
+        {/* 角色头像 */}
+        <div className="relative">
+          <div className="w-16 h-16 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg border-2 border-amber-600 flex items-center justify-center">
+            <CharacterIcon classId={player.classId} />
+          </div>
+          {/* 等级标识 */}
+          <div className="absolute -bottom-2 -right-2 w-7 h-7 bg-red-800 border-2 border-amber-500 rounded-full flex items-center justify-center">
+            <span className="text-xs font-bold text-amber-400">{player.level}</span>
+          </div>
+        </div>
+
+        {/* 角色信息 */}
+        <div className="flex-1">
+          <h2 className="text-lg font-bold text-gray-200">{player.name}</h2>
+          <p className="text-sm text-gray-500">{CharacterClassNames[player.classId]}</p>
+        </div>
+
+        {/* 金币 */}
+        <div className="flex items-center gap-2 bg-gray-800/50 px-3 py-2 rounded-lg">
+          <span className="text-xl">💰</span>
+          <span className="text-amber-400 font-bold">{player.gold.toLocaleString()}</span>
+        </div>
+      </div>
+
+      {/* 状态条 */}
+      <div className="space-y-3">
+        {/* 生命值 */}
+        <div>
+          <StatBar
+            current={computedStats.health}
+            max={computedStats.maxHealth}
+            color="health"
+            label="❤️ 生命"
+          />
+        </div>
+
+        {/* 法力值 */}
+        <div>
+          <StatBar
+            current={computedStats.mana}
+            max={computedStats.maxMana}
+            color="mana"
+            label="💧 法力"
+          />
+        </div>
+
+        {/* 经验条 */}
+        <div>
+          <div className="flex justify-between text-xs mb-1">
+            <span className="text-gray-400">⬆️ 经验</span>
+            <span className="text-gray-400">
+              {player.level < 99
+                ? `${(player.experience - getExpForLevel(player.level)).toLocaleString()} / ${(getExpForLevel(player.level + 1) - getExpForLevel(player.level)).toLocaleString()}`
+                : '已满级'
+              }
+            </span>
+          </div>
+          <div className="h-1.5 bg-gray-800 rounded-full overflow-hidden border border-gray-700">
+            <div
+              className="h-full bg-gradient-to-r from-amber-500 to-amber-700 transition-all duration-300"
+              style={{ width: `${expProgress}%` }}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* 战斗属性预览 */}
+      <div className="mt-4 pt-4 border-t border-gray-700">
+        <div className="grid grid-cols-4 gap-2 text-center text-xs">
+          <div className="bg-gray-800/50 p-2 rounded">
+            <p className="text-red-400">⚔️ {computedStats.damage}</p>
+            <p className="text-gray-500">伤害</p>
+          </div>
+          <div className="bg-gray-800/50 p-2 rounded">
+            <p className="text-blue-400">🛡️ {computedStats.defense}</p>
+            <p className="text-gray-500">防御</p>
+          </div>
+          <div className="bg-gray-800/50 p-2 rounded">
+            <p className="text-yellow-400">💥 {(computedStats.critChance * 100).toFixed(0)}%</p>
+            <p className="text-gray-500">暴击</p>
+          </div>
+          <div className="bg-gray-800/50 p-2 rounded">
+            <p className="text-green-400">⚡ {computedStats.attackSpeed.toFixed(2)}</p>
+            <p className="text-gray-500">攻速</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
