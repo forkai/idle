@@ -7,7 +7,7 @@
 
 import { useEffect, useState } from 'react'
 import { useGameStore } from '@/stores/gameStore'
-import { CharacterCreate, StatusBar, CombatArea, ZoneSelection, InventoryPanel, SkillsPanel, EquipmentPanel, CodexPanel, CombatLogPanel, CharacterPanel, SettingsPanel, EnhancementPanel } from '@/components/game'
+import { CharacterCreate, StatusBar, CombatArea, ZoneSelection, InventoryPanel, SkillsPanel, EquipmentPanel, CodexPanel, CombatLogPanel, CharacterPanel, SettingsPanel, EnhancementPanel, AchievementPanel, SetPanel } from '@/components/game'
 
 /**
  * 游戏主页面组件
@@ -15,7 +15,7 @@ import { CharacterCreate, StatusBar, CombatArea, ZoneSelection, InventoryPanel, 
 export default function GamePage() {
   const { player } = useGameStore()
   const [isLoading, setIsLoading] = useState(true)
-  const [activeTab, setActiveTab] = useState<'zone' | 'inventory' | 'equipment' | 'skills' | 'codex' | 'log' | 'character' | 'enhance'>('zone')
+  const [activeTab, setActiveTab] = useState<'zone' | 'inventory' | 'equipment' | 'skills' | 'codex' | 'log' | 'character' | 'enhance' | 'sets' | 'achievements'>('zone')
 
   // 检查是否有存档
   useEffect(() => {
@@ -54,8 +54,10 @@ export default function GamePage() {
                 { id: 'zone', label: '🗺️', labelFull: '探索' },
                 { id: 'equipment', label: '⚔️', labelFull: '装备' },
                 { id: 'enhance', label: '🔨', labelFull: '强化' },
+                { id: 'sets', label: '🛡️', labelFull: '套装' },
                 { id: 'inventory', label: '🎒', labelFull: '背包' },
                 { id: 'skills', label: '⚡', labelFull: '技能' },
+                { id: 'achievements', label: '🏆', labelFull: '成就' },
                 { id: 'codex', label: '📖', labelFull: '图鉴' },
                 { id: 'log', label: '📜', labelFull: '战斗日志' },
                 { id: 'character', label: '👤', labelFull: '属性' },
@@ -103,7 +105,9 @@ export default function GamePage() {
             {activeTab === 'inventory' && <InventoryPanel />}
             {activeTab === 'equipment' && <EquipmentPanel />}
             {activeTab === 'enhance' && <EnhancementPanel />}
+            {activeTab === 'sets' && <SetPanel />}
             {activeTab === 'skills' && <SkillsPanel />}
+            {activeTab === 'achievements' && <AchievementPanel />}
             {activeTab === 'codex' && <CodexPanel />}
             {activeTab === 'log' && <CombatLogPanel />}
             {activeTab === 'character' && <CharacterPanel />}
