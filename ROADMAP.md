@@ -217,7 +217,7 @@ interface DialogueSystem {
 - [x] SQL.js数据库初始化与迁移系统
 - [x] 数据库Schema设计
 - [x] 数据导出/导入
-- [ ] 自动备份机制
+- [x] 自动备份机制
 
 #### 1.4 基础UI组件库（4小时）
 - [x] `src/components/ui/` - Button, Input, Select, Modal, Tabs, Tooltip, Badge, ProgressBar
