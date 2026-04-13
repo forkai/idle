@@ -57,7 +57,7 @@ function ClassCard({ classId, name, description, icon, selected, onClick }: Clas
 export function CharacterCreate() {
   const [name, setName] = useState('')
   const [selectedClass, setSelectedClass] = useState<CharacterClassType>(CharacterClass.WARRIOR)
-  const createCharacter = useGameStore(state => state.createCharacter)
+  const { createCharacter } = useGameStore()
 
   // 职业数据
   const classes = [

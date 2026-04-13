@@ -8,6 +8,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useGameStore } from '@/stores/gameStore'
 import { useCombatStore } from '@/stores/combatStore'
+import { useZoneStore } from '@/stores/zoneStore'
 import { calculateDamage, calculateMonsterDamage, calculateAttackInterval } from '@/lib/game/combat'
 import { getZoneBoss } from '@/constants/enemies'
 import type { Monster } from '@/types/enemy'
@@ -252,7 +253,7 @@ export function CombatArea() {
 
   // 开始战斗
   const handleStartCombat = (isBoss: boolean = false) => {
-    const zoneId = useGameStore.getState().currentZoneId
+    const zoneId = useZoneStore.getState().currentZoneId
     startCombat(zoneId, isBoss)
   }
 
