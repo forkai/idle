@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Diablo Idle - 暗黑破坏神风格放置游戏
 
-## Getting Started
+一款融合暗黑破坏神经典元素的放置类挂机游戏。
 
-First, run the development server:
+## 快速开始
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+访问 http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 项目结构
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/                  # Next.js App Router
+├── components/game/       # 游戏UI组件
+├── constants/           # 游戏数据常量
+├── data/                # JSON模板数据
+├── lib/                 # 业务逻辑
+├── stores/             # Zustand状态管理
+└── types/              # TypeScript类型
+```
 
-## Learn More
+## 开发文档
 
-To learn more about Next.js, take a look at the following resources:
+- **开发任务**: [TODO.md](TODO.md) - 唯一的开发计划文档
+- **开发准则**: [DEV_GUIDELINES.md](DEV_GUIDELINES.md) - 代码规范
+- **Bug追踪**: [BUGS.md](BUGS.md) - Bug记录
+- **更新日志**: [CHANGELOG.md](CHANGELOG.md) - 版本历史
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 技术栈
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **框架**: Next.js 14+ (App Router)
+- **语言**: TypeScript (严格模式)
+- **样式**: Tailwind CSS (暗黑主题)
+- **状态**: Zustand (持久化)
+- **数据库**: SQL.js (浏览器内运行)
+- **测试**: Vitest + Playwright
