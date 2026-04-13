@@ -21,9 +21,9 @@ function ZoneCard({ zone, current, onSelect }: { zone: Zone; current: boolean; o
       onClick={onSelect}
       disabled={!canEnter}
       className={`
-        relative p-4 rounded-lg border-2 text-left transition-all duration-200
+        relative w-full p-2.5 rounded-md border text-left transition-all duration-150 cursor-pointer
         ${current
-          ? 'border-amber-500 bg-amber-950/30'
+          ? 'border-amber-500 bg-amber-950/40'
           : canEnter
             ? 'border-gray-700 bg-gray-900/50 hover:border-gray-500 hover:bg-gray-800/50'
             : 'border-gray-800 bg-gray-900/30 opacity-50 cursor-not-allowed'
@@ -32,37 +32,24 @@ function ZoneCard({ zone, current, onSelect }: { zone: Zone; current: boolean; o
     >
       {/* 锁定标识 */}
       {isLocked && (
-        <div className="absolute top-2 right-2 text-gray-500">🔒</div>
+        <span className="absolute top-1 right-1.5 text-gray-500 text-xs">🔒</span>
       )}
 
-      {/* 区域名称 */}
-      <h3 className={`font-bold mb-1 ${current ? 'text-amber-400' : 'text-gray-200'}`}>
-        {zone.name}
-      </h3>
-
-      {/* 等级要求 */}
-      <p className="text-xs text-gray-500 mb-2">
-        推荐等级: Lv.{zone.requiredLevel}
-      </p>
-
-      {/* 描述 */}
-      <p className="text-sm text-gray-400 line-clamp-2 mb-2">
-        {zone.description}
-      </p>
-
-      {/* 奖励信息 */}
-      <div className="flex gap-2 text-xs">
-        <span className="text-amber-500">💰 {zone.rewards.goldBonus}x</span>
-        <span className="text-blue-400">⭐ {zone.rewards.expBonus}x</span>
-        <span className="text-green-400">📦 {zone.rewards.lootBonus}x</span>
+      {/* 区域名称 + 等级 */}
+      <div className="flex items-center justify-between gap-1 mb-0.5">
+        <span className={`font-semibold text-xs truncate ${current ? 'text-amber-400' : 'text-gray-200'}`}>
+          {zone.name}
+        </span>
+        <span className="text-[10px] text-gray-500 flex-shrink-0">Lv.{zone.requiredLevel}</span>
       </div>
 
-      {/* 当前区域标识 */}
-      {current && (
-        <div className="absolute -top-2 -right-2 px-2 py-1 bg-amber-600 text-xs font-bold text-white rounded-full">
-          当前
-        </div>
-      )}
+      {/* 奖励行 */}
+      <div className="flex gap-1.5 text-[10px]">
+        <span className="text-amber-500">💰{zone.rewards.goldBonus}</span>
+        <span className="text-blue-400">⭐{zone.rewards.expBonus}</span>
+        <span className="text-green-400">📦{zone.rewards.lootBonus}</span>
+        {current && <span className="text-amber-400 ml-auto font-bold">●</span>}
+      </div>
     </button>
   )
 }
@@ -106,8 +93,8 @@ export function ZoneSelection() {
               第一章：堕落者的洞穴
             </h3>
 
-            {/* 区域网格 */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            {/* 区域网格 - 侧边栏单列布局 */}
+            <div className="flex flex-col gap-2">
               {zones.map(zone => (
                 <ZoneCard
                   key={zone.id}
