@@ -448,6 +448,145 @@ body {
   color: var(--diablo-gold);
 }
 
+/* ========== 游戏专用动画 ========== */
+
+/* 伤害飘字（已有，补充） */
+@keyframes damage-float {
+  0%   { opacity: 1; transform: translateY(0) scale(1); }
+  20%  { transform: translateY(-10px) scale(1.15); }
+  50%  { opacity: 1; transform: translateY(-25px) scale(1.1); }
+  100% { opacity: 0; transform: translateY(-50px) scale(0.7); }
+}
+
+@keyframes crit-shake {
+  0%, 100% { transform: translateX(0); }
+  20%  { transform: translateX(-4px) rotate(-1deg); }
+  40%  { transform: translateX(4px) rotate(1deg); }
+  60%  { transform: translateX(-3px) rotate(-0.5deg); }
+  80%  { transform: translateX(3px) rotate(0.5deg); }
+}
+
+/* 怪物死亡动画 */
+@keyframes monster-death {
+  0%   { opacity: 1; transform: scale(1); filter: brightness(1); }
+  30%  { transform: scale(1.1); filter: brightness(2); }
+  60%  { transform: scale(0.9); filter: brightness(0.5); }
+  100% { opacity: 0; transform: scale(0.5) rotate(15deg); filter: brightness(0); }
+}
+
+/* Boss登场动画 */
+@keyframes boss-appear {
+  0%   { opacity: 0; transform: scale(0.3) translateY(20px); filter: brightness(3) blur(10px); }
+  50%  { opacity: 1; transform: scale(1.2) translateY(-5px); filter: brightness(1.5) blur(0); }
+  70%  { transform: scale(0.95) translateY(0); }
+  85%  { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* 胜利动画 */
+@keyframes victory-bounce {
+  0%   { transform: scale(0.5); opacity: 0; }
+  50%  { transform: scale(1.2); opacity: 1; }
+  70%  { transform: scale(0.9); }
+  85%  { transform: scale(1.05); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* 失败动画 */
+@keyframes defeat-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.6; transform: scale(0.95); }
+}
+
+/* 血条危险闪烁（HP < 30%） */
+@keyframes health-critical {
+  0%, 100% { filter: brightness(1); }
+  50%       { filter: brightness(1.5) saturate(1.5); }
+}
+
+/* 进度条渐变流动（经验/加载中） */
+@keyframes bar-shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* 战利品掉落弹跳 */
+@keyframes loot-drop {
+  0%   { transform: translateY(-30px) scale(0.5); opacity: 0; }
+  60%  { transform: translateY(5px) scale(1.1); opacity: 1; }
+  80%  { transform: translateY(-3px) scale(0.95); }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* 按钮按下反馈 */
+@keyframes btn-press {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(0.92); }
+  100% { transform: scale(1); }
+}
+
+/* 攻击闪烁（攻击时角色闪白） */
+@keyframes atk-flash {
+  0%, 100% { filter: brightness(1); }
+  30%       { filter: brightness(2.5) saturate(0); }
+}
+
+/* 获得奖励时的金色光晕 */
+@keyframes reward-glow {
+  0%   { box-shadow: 0 0 0 rgba(255, 215, 0, 0); }
+  50%  { box-shadow: 0 0 30px rgba(255, 215, 0, 0.6); }
+  100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
+}
+
+/* 区域选中呼吸光效 */
+@keyframes zone-pulse {
+  0%, 100% { border-color: rgba(184, 134, 11, 0.5); }
+  50%       { border-color: rgba(184, 134, 11, 1); box-shadow: 0 0 8px rgba(184, 134, 11, 0.3); }
+}
+
+/* 屏幕震动（大型暴击时） */
+@keyframes screen-shake {
+  0%, 100% { transform: translate(0, 0); }
+  10%  { transform: translate(-3px, -2px); }
+  20%  { transform: translate(3px, 2px); }
+  30%  { transform: translate(-2px, 1px); }
+  40%  { transform: translate(2px, -1px); }
+  50%  { transform: translate(-1px, 2px); }
+  60%  { transform: translate(1px, -2px); }
+  70%  { transform: translate(-2px, -1px); }
+  80%  { transform: translate(2px, 1px); }
+  90%  { transform: translate(-1px, -1px); }
+}
+
+/* 应用动画类 */
+.animate-damage { animation: damage-float 0.8s ease-out forwards; }
+.animate-crit-shake { animation: crit-shake 0.4s ease-out; }
+.animate-monster-death { animation: monster-death 0.8s ease-out forwards; }
+.animate-boss-appear { animation: boss-appear 0.6s ease-out forwards; }
+.animate-victory { animation: victory-bounce 0.5s ease-out forwards; }
+.animate-defeat { animation: defeat-pulse 1s ease-in-out infinite; }
+.animate-health-critical { animation: health-critical 0.8s ease-in-out infinite; }
+.animate-loot-drop { animation: loot-drop 0.6s ease-out forwards; }
+.animate-btn-press { animation: btn-press 0.15s ease-out; }
+.animate-atk-flash { animation: atk-flash 0.2s ease-out; }
+.animate-reward-glow { animation: reward-glow 1s ease-out; }
+.animate-zone-pulse { animation: zone-pulse 2s ease-in-out infinite; }
+.animate-screen-shake { animation: screen-shake 0.3s ease-out; }
+
+/* 经验条渐变流动 */
+.bar-exp-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--exp-gold) 0%,
+    var(--diablo-gold-light) 25%,
+    var(--exp-gold) 50%,
+    var(--diablo-gold-light) 75%,
+    var(--exp-gold) 100%
+  );
+  background-size: 200% 100%;
+  animation: bar-shimmer 2s linear infinite;
+}
+
 /* 响应式布局 */
 @media (max-width: 768px) {
   .game-container {
