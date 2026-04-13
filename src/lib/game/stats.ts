@@ -313,12 +313,36 @@ function applySkillBonuses(stats: CharacterStats, skills: PlayerSkill[]): Charac
 
     // 被动技能效果
     if (skill.type === SkillType.PASSIVE) {
-      for (const effect of skill.effects) {
-        if (effect.type === 'buff') {
-          // 被动技能增加伤害/防御等百分比
-          newStats.damage = Math.floor(newStats.damage * (1 + effect.value * playerSkill.level))
-          newStats.attackSpeed = Math.min(5, newStats.attackSpeed * (1 + effect.value * playerSkill.level * 0.5))
-        }
+      // 根据技能ID应用特定加成（因为effect数据不够详细）
+      const level = playerSkill.level
+
+      switch (skill.id) {
+        case 'warrior_weapon_mastery':
+        case 'sorcerer_fire_mastery':
+        case 'sorcerer_cold_mastery':
+        case 'rogue_markmanship':
+          // 武器/元素精通类：增加伤害
+          newStats.damage = Math.floor(newStats.damage * (1 + skill.effects[0]?.value * level))
+          break
+
+        case 'warrior_increased_endurance':
+          // 增强耐力：增加最大生命值
+          newStats.maxHealth = Math.floor(newStats.maxHealth * (1 + skill.effects[0]?.value * level))
+          break
+
+        case 'rogue_evade':
+          // 闪避：增加闪避率（攻击速度略微提升）
+          newStats.attackSpeed = Math.min(5, newStats.attackSpeed * (1 + skill.effects[0]?.value * level * 0.3))
+          break
+
+        default:
+          // 默认：应用伤害和攻速加成
+          for (const effect of skill.effects) {
+            if (effect.type === 'buff') {
+              newStats.damage = Math.floor(newStats.damage * (1 + effect.value * level))
+              newStats.attackSpeed = Math.min(5, newStats.attackSpeed * (1 + effect.value * level * 0.5))
+            }
+          }
       }
     }
   }

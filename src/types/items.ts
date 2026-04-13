@@ -261,6 +261,14 @@ export interface Item {
   description: string
   /** 售价 */
   sellPrice: number
+  /** 强化等级（0-15） */
+  enhancementLevel?: number
+  /** 当前耐久度 */
+  durability?: number
+  /** 最大耐久度 */
+  maxDurability?: number
+  /** 是否锁定（锁定后不可交易/强化） */
+  locked?: boolean
 }
 
 /**

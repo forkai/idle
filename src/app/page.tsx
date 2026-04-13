@@ -7,7 +7,7 @@
 
 import { useEffect, useState } from 'react'
 import { useGameStore } from '@/stores/gameStore'
-import { CharacterCreate, StatusBar, CombatArea, ZoneSelection, InventoryPanel, SkillsPanel, EquipmentPanel, CodexPanel, CombatLogPanel, CharacterPanel, SettingsPanel } from '@/components/game'
+import { CharacterCreate, StatusBar, CombatArea, ZoneSelection, InventoryPanel, SkillsPanel, EquipmentPanel, CodexPanel, CombatLogPanel, CharacterPanel, SettingsPanel, EnhancementPanel } from '@/components/game'
 
 /**
  * 游戏主页面组件
@@ -15,7 +15,7 @@ import { CharacterCreate, StatusBar, CombatArea, ZoneSelection, InventoryPanel, 
 export default function GamePage() {
   const { player } = useGameStore()
   const [isLoading, setIsLoading] = useState(true)
-  const [activeTab, setActiveTab] = useState<'zone' | 'inventory' | 'equipment' | 'skills' | 'codex' | 'log' | 'character'>('zone')
+  const [activeTab, setActiveTab] = useState<'zone' | 'inventory' | 'equipment' | 'skills' | 'codex' | 'log' | 'character' | 'enhance'>('zone')
 
   // 检查是否有存档
   useEffect(() => {
@@ -53,6 +53,7 @@ export default function GamePage() {
               {[
                 { id: 'zone', label: '🗺️', labelFull: '探索' },
                 { id: 'equipment', label: '⚔️', labelFull: '装备' },
+                { id: 'enhance', label: '🔨', labelFull: '强化' },
                 { id: 'inventory', label: '🎒', labelFull: '背包' },
                 { id: 'skills', label: '⚡', labelFull: '技能' },
                 { id: 'codex', label: '📖', labelFull: '图鉴' },
@@ -101,6 +102,7 @@ export default function GamePage() {
             {activeTab === 'zone' && <CombatArea />}
             {activeTab === 'inventory' && <InventoryPanel />}
             {activeTab === 'equipment' && <EquipmentPanel />}
+            {activeTab === 'enhance' && <EnhancementPanel />}
             {activeTab === 'skills' && <SkillsPanel />}
             {activeTab === 'codex' && <CodexPanel />}
             {activeTab === 'log' && <CombatLogPanel />}

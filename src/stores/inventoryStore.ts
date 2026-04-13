@@ -37,6 +37,8 @@ interface InventoryActions {
   resetInventory: () => void
   /** 直接设置slots（装备/卸装时同步调用） */
   setSlots: (slots: (Item | null)[]) => void
+  /** 更新背包中的物品（如强化后的物品） */
+  updateItem: (item: Item) => void
 }
 
 /**
@@ -234,6 +236,18 @@ export const useInventoryStore = create<InventoryStoreState & InventoryActions>(
         set(state => {
           state.inventory.slots = slots
           state.inventory.usedSlots = slots.filter(Boolean).length
+        })
+      },
+
+      /**
+       * 更新背包中的物品（如强化后的物品）
+       */
+      updateItem: (item: Item) => {
+        set(state => {
+          const idx = state.inventory.slots.findIndex(slot => slot && slot.id === item.id)
+          if (idx !== -1) {
+            state.inventory.slots[idx] = item
+          }
         })
       },
     })),

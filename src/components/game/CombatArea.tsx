@@ -215,6 +215,136 @@ function CombatButtons({
 }
 
 /**
+ * 玩家状态显示组件
+ */
+function PlayerStatusDisplay({ health, maxHealth, mana, maxMana, healthRegen, manaRegen }: {
+  health: number
+  maxHealth: number
+  mana: number
+  maxMana: number
+  healthRegen: number
+  manaRegen: number
+}) {
+  const healthPercent = (health / maxHealth) * 100
+  const manaPercent = (mana / maxMana) * 100
+
+  return (
+    <div className="grid grid-cols-2 gap-3 p-3 bg-gray-900/80 rounded-lg border border-gray-700">
+      {/* 生命值 */}
+      <div>
+        <div className="flex justify-between text-xs mb-1">
+          <span className="text-red-400">❤️ 生命</span>
+          <span className="text-gray-400">{Math.floor(health)} / {maxHealth}</span>
+        </div>
+        <div className="h-2 bg-gray-800 rounded-full overflow-hidden border border-gray-700">
+          <div
+            className="h-full bg-gradient-to-r from-red-700 to-red-600 transition-all duration-300"
+            style={{ width: `${healthPercent}%` }}
+          />
+        </div>
+        <p className="text-[10px] text-gray-500 mt-0.5">+{healthRegen.toFixed(1)}/秒</p>
+      </div>
+
+      {/* 法力值 */}
+      <div>
+        <div className="flex justify-between text-xs mb-1">
+          <span className="text-blue-400">💧 法力</span>
+          <span className="text-gray-400">{Math.floor(mana)} / {maxMana}</span>
+        </div>
+        <div className="h-2 bg-gray-800 rounded-full overflow-hidden border border-gray-700">
+          <div
+            className="h-full bg-gradient-to-r from-blue-700 to-blue-600 transition-all duration-300"
+            style={{ width: `${manaPercent}%` }}
+          />
+        </div>
+        <p className="text-[10px] text-gray-500 mt-0.5">+{manaRegen.toFixed(1)}/秒</p>
+      </div>
+    </div>
+  )
+}
+
+/**
+ * 技能热键栏组件
+ */
+function SkillHotbar({
+  unlockedSkills,
+  skillLevels,
+  getSkillCooldownRemaining,
+  onSkillClick,
+  canUseSkill,
+  combatState,
+  computedStats,
+}: {
+  unlockedSkills: string[]
+  skillLevels: Record<string, number>
+  getSkillCooldownRemaining: (skillId: string) => number
+  onSkillClick: (skillId: string) => void
+  canUseSkill: (skillId: string) => boolean
+  combatState: CombatState
+  computedStats: { mana: number; maxMana: number }
+}) {
+  const isFighting = combatState === CombatState.FIGHTING
+
+  // 只显示前4个技能
+  const displaySkills = unlockedSkills.slice(0, 4)
+
+  return (
+    <div className="flex justify-center gap-2 mt-3">
+      {displaySkills.map((skillId, index) => {
+        const skill = getSkillById(skillId)
+        if (!skill) return null
+
+        const level = skillLevels[skillId] ?? 1
+        const cooldownRemaining = getSkillCooldownRemaining(skillId)
+        const cooldownTotal = skill.cooldown
+        const cooldownPercent = cooldownTotal > 0 ? ((cooldownTotal - cooldownRemaining) / cooldownTotal) * 100 : 100
+        const manaCost = skill.cost.mana * (1 + (level - 1) * 0.1)
+        const hasEnoughMana = computedStats.mana >= manaCost
+        const isReady = cooldownRemaining === 0 && hasEnoughMana
+
+        return (
+          <button
+            key={skillId}
+            onClick={() => onSkillClick(skillId)}
+            disabled={!isFighting || !isReady}
+            className={`
+              relative w-12 h-12 rounded-lg border-2 flex flex-col items-center justify-center
+              transition-all duration-150 cursor-pointer
+              ${isReady
+                ? 'bg-gray-800 border-amber-500 hover:border-amber-400 hover:scale-110'
+                : 'bg-gray-900 border-gray-700 opacity-60'
+              }
+              disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100
+            `}
+            title={`${skill.name} (${index + 1})`}
+          >
+            {/* 冷却进度条背景 */}
+            {cooldownPercent < 100 && (
+              <div
+                className="absolute inset-0 bg-black/60 rounded-md transition-all duration-100"
+                style={{ width: `${cooldownPercent}%` }}
+              />
+            )}
+
+            <span className={`text-xl ${cooldownPercent < 100 ? 'grayscale' : ''}`}>{skill.icon}</span>
+
+            {/* 法力不足指示 */}
+            {!hasEnoughMana && cooldownRemaining === 0 && (
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-blue-600 rounded-full flex items-center justify-center">
+                <span className="text-[8px]">💧</span>
+              </div>
+            )}
+
+            {/* 热键提示 */}
+            <span className="absolute -bottom-1 text-[8px] text-gray-500">{index + 1}</span>
+          </button>
+        )
+      })}
+    </div>
+  )
+}
+
+/**
  * 战斗区域组件
  */
 export function CombatArea() {
@@ -252,7 +382,32 @@ export function CombatArea() {
     return () => clearInterval(interval)
   }, [combatState])
 
-  // 战斗循环（玩家自动攻击）
+  // 生命/法力恢复定时器（每100ms增加一次）
+  useEffect(() => {
+    if (combatState !== CombatState.FIGHTING) return
+
+    const regenInterval = setInterval(() => {
+      const playerState = usePlayerStore.getState()
+      const stats = playerState.computedStats
+      const regenTick = 0.1 // 每100ms为1/10秒
+
+      // 恢复生命（如果有生命偷取或其他恢复效果）
+      let newHealth = stats.health
+      let newMana = stats.mana
+
+      // 基础恢复
+      newHealth = Math.min(stats.maxHealth, newHealth + stats.healthRegen * regenTick)
+      newMana = Math.min(stats.maxMana, newMana + stats.manaRegen * regenTick)
+
+      if (newHealth !== stats.health || newMana !== stats.mana) {
+        playerState.updateCombatStats(newHealth, newMana)
+      }
+    }, 100)
+
+    return () => clearInterval(regenInterval)
+  }, [combatState])
+
+  // 战斗循环（玩家自动攻击+技能自动释放）
   useEffect(() => {
     if (combatState !== CombatState.FIGHTING || !currentEnemy) return
 
@@ -266,21 +421,78 @@ export function CombatArea() {
       if (player.computedStats.health <= 0) return // 玩家已死亡
 
       const enemy = combat.currentEnemy
+      const currentMana = player.computedStats.mana
+      const skills = useSkillStore.getState()
 
-      // 玩家攻击
-      const result = calculateDamage(player.computedStats, enemy.monster.stats)
-      damageEnemy(result.finalDamage, result.isCrit, result.element)
+      // 查找第一个可用技能（冷却好+法力够）
+      let skillUsed = false
+      let manaCostTotal = 0
 
-      // 添加伤害数字
-      setDamageNumbers(prev => [
-        ...prev,
-        {
-          id: Date.now(),
-          damage: result.finalDamage,
-          isCrit: result.isCrit,
-          pos: { x: 150 + Math.random() * 100, y: 50 + Math.random() * 50 },
-        },
-      ])
+      for (const skillId of skills.unlockedSkills) {
+        const skill = getSkillById(skillId)
+        if (!skill) continue
+        if (skill.type !== 'active' && skill.type !== 'aura') continue // 只用主动技能
+
+        const skillLevel = skills.skillLevels[skillId] ?? 1
+        const cooldownRemaining = skills.getSkillCooldownRemaining(skillId)
+        const manaCost = skill.cost.mana * (1 + (skillLevel - 1) * 0.1)
+
+        if (cooldownRemaining === 0 && currentMana >= manaCost) {
+          // 使用技能
+          const synergyBonus = skill.synergies
+            ? skill.synergies.reduce((bonus, syn) => {
+                if (skills.unlockedSkills.includes(syn.skillId)) {
+                  return bonus + syn.bonus * skillLevel
+                }
+                return bonus
+              }, 0)
+            : 0
+
+          const result = calculateDamage(player.computedStats, enemy.monster.stats, skill, skillLevel, synergyBonus)
+
+          // 扣除法力
+          const newMana = currentMana - manaCost
+          player.updateCombatStats(undefined, newMana)
+
+          // 造成伤害
+          damageEnemy(result.finalDamage, result.isCrit, result.element)
+
+          // 添加伤害数字
+          setDamageNumbers(prev => [
+            ...prev,
+            {
+              id: Date.now(),
+              damage: result.finalDamage,
+              isCrit: result.isCrit,
+              pos: { x: 150 + Math.random() * 100, y: 50 + Math.random() * 50 },
+            },
+          ])
+
+          // 设置冷却
+          skills.useSkill(skillId)
+
+          manaCostTotal = manaCost
+          skillUsed = true
+          break
+        }
+      }
+
+      // 如果没有使用技能，使用普通攻击
+      if (!skillUsed) {
+        const result = calculateDamage(player.computedStats, enemy.monster.stats)
+        damageEnemy(result.finalDamage, result.isCrit, result.element)
+
+        // 添加伤害数字
+        setDamageNumbers(prev => [
+          ...prev,
+          {
+            id: Date.now(),
+            damage: result.finalDamage,
+            isCrit: result.isCrit,
+            pos: { x: 150 + Math.random() * 100, y: 50 + Math.random() * 50 },
+          },
+        ])
+      }
 
       // 敌人反击（仅在玩家还活着时）
       const healthAfterHit = usePlayerStore.getState().computedStats.health
@@ -292,6 +504,64 @@ export function CombatArea() {
 
     return () => clearInterval(timer)
   }, [combatState, currentEnemy, computedStats])
+
+  // 技能热键栏点击处理
+  const handleSkillHotbarClick = (skillId: string) => {
+    if (!currentEnemy) return
+
+    const skill = getSkillById(skillId)
+    if (!skill) return
+
+    const skillLevel = skillLevels[skillId] ?? 1
+    const cooldownRemaining = getSkillCooldownRemaining(skillId)
+    const manaCost = skill.cost.mana * (1 + (skillLevel - 1) * 0.1)
+
+    if (cooldownRemaining > 0) return
+    if (computedStats.mana < manaCost) return
+
+    // 计算协同加成
+    const synergyBonus = skill.synergies
+      ? skill.synergies.reduce((bonus, syn) => {
+          if (unlockedSkills.includes(syn.skillId)) {
+            return bonus + syn.bonus * skillLevel
+          }
+          return bonus
+        }, 0)
+      : 0
+
+    // 计算技能伤害
+    const result = calculateDamage(computedStats, currentEnemy.monster.stats, skill, skillLevel, synergyBonus)
+
+    // 扣除法力
+    usePlayerStore.getState().updateCombatStats(undefined, computedStats.mana - manaCost)
+
+    // 造成伤害
+    damageEnemy(result.finalDamage, result.isCrit, result.element)
+
+    // 添加伤害数字
+    setDamageNumbers(prev => [
+      ...prev,
+      {
+        id: Date.now(),
+        damage: result.finalDamage,
+        isCrit: result.isCrit,
+        pos: { x: 150 + Math.random() * 100, y: 50 + Math.random() * 50 },
+      },
+    ])
+
+    // 设置冷却
+    useSkill(skillId)
+  }
+
+  // 检查技能是否可用
+  const canUseSkillCheck = (skillId: string) => {
+    const skill = getSkillById(skillId)
+    if (!skill) return false
+    const level = skillLevels[skillId] ?? 1
+    const cooldownRemaining = getSkillCooldownRemaining(skillId)
+    const manaCost = skill.cost.mana * (1 + (level - 1) * 0.1)
+    return cooldownRemaining === 0 && computedStats.mana >= manaCost
+  }
 
   // 清理伤害数字
   const removeDamageNumber = useCallback((id: number) => {
@@ -497,6 +767,16 @@ export function CombatArea() {
       ) : (
         /* 战斗中 */
         <div className="relative">
+          {/* 玩家状态显示 */}
+          <PlayerStatusDisplay
+            health={computedStats.health}
+            maxHealth={computedStats.maxHealth}
+            mana={computedStats.mana}
+            maxMana={computedStats.maxMana}
+            healthRegen={computedStats.healthRegen}
+            manaRegen={computedStats.manaRegen}
+          />
+
           {/* 伤害数字 */}
           {damageNumbers.map(dmg => (
             <DamageNumber
@@ -518,8 +798,21 @@ export function CombatArea() {
             />
           )}
 
+          {/* 技能热键栏 */}
+          {unlockedSkills.length > 0 && (
+            <SkillHotbar
+              unlockedSkills={unlockedSkills}
+              skillLevels={skillLevels}
+              getSkillCooldownRemaining={getSkillCooldownRemaining}
+              onSkillClick={handleSkillHotbarClick}
+              canUseSkill={canUseSkillCheck}
+              combatState={combatState}
+              computedStats={computedStats}
+            />
+          )}
+
           {/* 操作按钮 */}
-          <div className="mt-6">
+          <div className="mt-4">
             <CombatButtons
               combatState={combatState}
               onAttack={handleAttack}
