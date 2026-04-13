@@ -9,6 +9,8 @@ import { useEffect, useState, useCallback } from 'react'
 import { useGameStore } from '@/stores/gameStore'
 import { useCombatStore } from '@/stores/combatStore'
 import { useZoneStore } from '@/stores/zoneStore'
+import { useInventoryStore } from '@/stores/inventoryStore'
+import { usePlayerStore } from '@/stores/playerStore'
 import { calculateDamage, calculateMonsterDamage, calculateAttackInterval } from '@/lib/game/combat'
 import { getZoneBoss } from '@/constants/enemies'
 import type { Monster } from '@/types/enemy'
@@ -195,31 +197,32 @@ function CombatButtons({
  * 战斗区域组件
  */
 export function CombatArea() {
-  const { computedStats, updateCombatStats, addGold, addExperience, addToInventory, player } = useGameStore()
-  const {
-    combatState,
-    currentEnemy,
-    startCombat,
-    damageEnemy,
-    enemyAttack,
-    resetCombat,
-    attemptFlee,
-    getLoot,
-    combatLog,
-  } = useCombatStore()
+  const { computedStats, updateCombatStats, addGold, addExperience, addToInventory, player, useItem } = useGameStore()
+  const { combatState, currentEnemy, startCombat, damageEnemy, resetCombat, attemptFlee, getLoot, combatLog } = useCombatStore()
+  const inventoryStore = useInventoryStore()
 
   const [damageNumbers, setDamageNumbers] = useState<{ id: number; damage: number; isCrit: boolean; pos: { x: number; y: number } }[]>([])
   const [lastSkillTime, setLastSkillTime] = useState(0)
-  const [potionCount, setPotionCount] = useState(5) // 简化：默认5瓶药水
+  const [lastRewards, setLastRewards] = useState<{ exp: number; gold: number; items: number } | null>(null)
+  const [defeatCountdown, setDefeatCountdown] = useState(3)
 
-  // 战斗循环
+  // 战斗循环（玩家自动攻击）
   useEffect(() => {
     if (combatState !== CombatState.FIGHTING || !currentEnemy) return
 
     const interval = calculateAttackInterval(computedStats.attackSpeed)
     const timer = setInterval(() => {
+      // 每次tick都从store读取最新状态，避免闭包陈旧问题
+      const combat = useCombatStore.getState()
+      const player = usePlayerStore.getState()
+      if (combat.combatState !== CombatState.FIGHTING) return
+      if (!combat.currentEnemy) return
+      if (player.computedStats.health <= 0) return // 玩家已死亡
+
+      const enemy = combat.currentEnemy
+
       // 玩家攻击
-      const result = calculateDamage(computedStats, currentEnemy.monster.stats)
+      const result = calculateDamage(player.computedStats, enemy.monster.stats)
       damageEnemy(result.finalDamage, result.isCrit, result.element)
 
       // 添加伤害数字
@@ -233,13 +236,11 @@ export function CombatArea() {
         },
       ])
 
-      // 敌人反击
-      if (combatState === CombatState.FIGHTING) {
-        const enemyDamage = calculateMonsterDamage(currentEnemy.monster.stats, computedStats)
-        updateCombatStats(
-          computedStats.health - enemyDamage.finalDamage,
-          computedStats.mana
-        )
+      // 敌人反击（仅在玩家还活着时）
+      const healthAfterHit = usePlayerStore.getState().computedStats.health
+      if (healthAfterHit > 0) {
+        const enemyDamage = calculateMonsterDamage(enemy.monster.stats, usePlayerStore.getState().computedStats)
+        updateCombatStats(healthAfterHit - enemyDamage.finalDamage, undefined)
       }
     }, interval)
 
@@ -273,14 +274,20 @@ export function CombatArea() {
     setLastSkillTime(Date.now())
   }
 
-  // 使用药水
+  // 统计背包中生命药水的数量
+  const potionItems = inventoryStore.inventory.slots.filter(
+    slot => slot && slot.type === 'potion' && slot.name.includes('生命')
+  )
+  const potionCount = potionItems.reduce((sum, item) => sum + (item?.quantity ?? 0), 0)
+
+  // 使用药水（从背包消耗）
   const handleUsePotion = () => {
-    if (potionCount <= 0) return
-    setPotionCount(prev => prev - 1)
-    updateCombatStats(
-      Math.min(computedStats.health + 50, computedStats.maxHealth),
-      computedStats.mana
-    )
+    // 找到第一个生命药水使用
+    const potionItem = potionItems[0]
+    if (!potionItem) return
+
+    // 使用背包中的药水（会自动加血）
+    useItem(potionItem.id)
   }
 
   // 逃跑
@@ -293,7 +300,7 @@ export function CombatArea() {
   // 战斗胜利处理
   useEffect(() => {
     if (combatState === CombatState.VICTORY && currentEnemy) {
-      // 发放奖励
+      // 计算并发放奖励
       const expReward = currentEnemy.monster.stats.expReward
       const goldReward = Math.floor(
         Math.random() * (currentEnemy.monster.stats.goldReward.max - currentEnemy.monster.stats.goldReward.min)
@@ -306,9 +313,13 @@ export function CombatArea() {
       const loot = getLoot()
       loot.forEach(item => addToInventory(item))
 
+      // 保存奖励用于显示（避免victory界面重新随机计算）
+      setLastRewards({ exp: expReward, gold: goldReward, items: loot.length })
+
       // 3秒后重置战斗
       setTimeout(() => {
         resetCombat()
+        setLastRewards(null)
       }, 3000)
     }
   }, [combatState, currentEnemy])
@@ -316,8 +327,20 @@ export function CombatArea() {
   // 战斗失败处理
   useEffect(() => {
     if (combatState === CombatState.DEFEAT) {
-      // 重置到区域入口
+      // 启动3秒恢复倒计时
+      setDefeatCountdown(3)
+      const tick = setInterval(() => {
+        setDefeatCountdown(prev => {
+          if (prev <= 1) {
+            clearInterval(tick)
+            return 0
+          }
+          return prev - 1
+        })
+      }, 1000)
+
       setTimeout(() => {
+        clearInterval(tick)
         updateCombatStats(computedStats.maxHealth, computedStats.maxMana)
         resetCombat()
       }, 3000)
@@ -365,21 +388,32 @@ export function CombatArea() {
         <div className="text-center py-8">
           <p className="text-3xl mb-2">🎉</p>
           <p className="text-2xl font-bold text-amber-400 mb-2">胜利!</p>
-          {currentEnemy && (
-            <div className="text-gray-400">
-              <p>+{currentEnemy.monster.stats.expReward} 经验</p>
-              <p>+{Math.floor(
-                Math.random() * (currentEnemy.monster.stats.goldReward.max - currentEnemy.monster.stats.goldReward.min)
-              ) + currentEnemy.monster.stats.goldReward.min} 金币</p>
+          {lastRewards && (
+            <div className="space-y-1 text-gray-300">
+              <p>+{lastRewards.exp} 经验</p>
+              <p>+{lastRewards.gold} 金币</p>
+              {lastRewards.items > 0 && (
+                <p className="text-green-400">📦 获得 {lastRewards.items} 件战利品（已放入背包）</p>
+              )}
             </div>
           )}
         </div>
       ) : combatState === CombatState.DEFEAT ? (
-        /* 失败状态 */
-        <div className="text-center py-8">
-          <p className="text-3xl mb-2">💀</p>
-          <p className="text-2xl font-bold text-red-400 mb-2">失败...</p>
-          <p className="text-gray-400">正在恢复...</p>
+        /* 失败状态 - 带倒计时动画 */
+        <div className="text-center py-8 animate-pulse">
+          <p className="text-4xl mb-2">💀</p>
+          <p className="text-2xl font-bold text-red-400 mb-2">体力耗尽...</p>
+          <div className="flex items-center justify-center gap-2 text-gray-400">
+            <span className="text-sm">恢复中</span>
+            <span className="text-xl font-bold text-amber-400">{defeatCountdown}</span>
+            <span className="text-sm">秒</span>
+          </div>
+          <div className="mt-4 w-48 mx-auto h-1 bg-gray-800 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-gradient-to-r from-red-700 to-red-500 transition-all duration-1000"
+              style={{ width: `${((3 - defeatCountdown) / 3) * 100}%` }}
+            />
+          </div>
         </div>
       ) : (
         /* 战斗中 */
