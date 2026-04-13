@@ -13,6 +13,7 @@ import { CombatEventType, CombatState as CombatStateEnum, Element } from '@/type
 import type { Item } from '@/types/items'
 import { generateRandomItem } from '@/constants/items'
 import { v4 as uuidv4 } from 'uuid'
+import { makeAIDecision, applyBossAbility, checkElementalReaction } from '@/lib/game/combat-ai'
 
 /**
  * 战斗中怪物状态
@@ -213,7 +214,7 @@ export const useCombatStore = create<CombatStoreState & CombatActions>()(
     },
 
     /**
-     * 敌人攻击（返回伤害值）
+     * 敌人攻击（使用AI决策）
      */
     enemyAttack: () => {
       const state = get()
@@ -221,14 +222,32 @@ export const useCombatStore = create<CombatStoreState & CombatActions>()(
 
       if (!enemy || state.combatState !== CombatStateEnum.FIGHTING) return 0
 
-      // 基础伤害
-      let damage = enemy.monster.stats.damage
+      // 使用AI决策
+      const healthPercent = enemy.currentHealth / enemy.maxHealth
+      const decision = makeAIDecision(enemy.monster, healthPercent, 1.0)
 
-      // 暴击
-      const isCrit = Math.random() < 0.1
-      if (isCrit) {
-        damage = Math.floor(damage * 1.5)
+      let damage = enemy.monster.stats.damage
+      let isCrit = false
+      let actionDesc = ''
+
+      // 根据AI决策执行动作
+      if (decision.action === 'ability' && decision.ability) {
+        const result = applyBossAbility(enemy.monster, decision.ability, { health: enemy.currentHealth, maxHealth: enemy.maxHealth })
+        damage += result.damage
+        actionDesc = decision.reasoning
+      } else if (decision.action === 'attack') {
+        isCrit = Math.random() < 0.1
+        if (isCrit) {
+          damage = Math.floor(damage * 1.5)
+        }
+        actionDesc = decision.reasoning
+      } else if (decision.action === 'flee') {
+        actionDesc = decision.reasoning
       }
+
+      // 元素反应检查
+      const reactionResult = checkElementalReaction(null, enemy.monster.stats.resists, [])
+      damage = Math.floor(damage * reactionResult.bonusDamage)
 
       set(state => {
         state.combatLog.push({
