@@ -82,20 +82,20 @@ export default function GamePage() {
       </header>
 
       {/* 主内容区 */}
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-4">
+      <main className="flex-1 w-full px-3 sm:px-4 py-3 sm:py-4">
         {/* 移动端：状态栏折叠为紧凑行 */}
         <div className="lg:hidden mb-3">
           <StatusBar />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-4">
           {/* 左侧边栏 - 状态栏（桌面端） */}
-          <aside className="hidden lg:block lg:col-span-3">
+          <aside className="hidden lg:block lg:col-span-3 xl:col-span-2">
             <StatusBar />
           </aside>
 
           {/* 中间主区域 */}
-          <section className="col-span-12 lg:col-span-6">
+          <section className="col-span-12 lg:col-span-6 xl:col-span-8">
             {activeTab === 'zone' && <CombatArea />}
             {activeTab === 'inventory' && (
               <div className="bg-gray-900/95 border border-gray-700 rounded-lg p-4">
@@ -112,7 +112,7 @@ export default function GamePage() {
           </section>
 
           {/* 右侧边栏 - 区域选择（桌面端） */}
-          <aside className="hidden lg:block lg:col-span-3">
+          <aside className="hidden lg:block lg:col-span-3 xl:col-span-2">
             {activeTab === 'zone' && <ZoneSelection />}
           </aside>
         </div>
