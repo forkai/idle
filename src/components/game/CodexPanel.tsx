@@ -11,9 +11,8 @@ import { useInventoryStore } from '@/stores/inventoryStore'
 import { usePlayerStore } from '@/stores/playerStore'
 import { EquipmentSlot, SlotNames, RarityInfo, ItemType } from '@/types/items'
 import type { Item } from '@/types/items'
-import { MONSTERS } from '@/constants/enemies'
 import { getSkillsByClass } from '@/constants/skills'
-import { BASE_WEAPONS, BASE_ARMORS, BASE_SHIELDS, BASE_JEWELRY } from '@/constants/items'
+import { getAllEquipmentTemplates, getMonsterTemplates } from '@/lib/game/procedural'
 
 type CodexTab = 'equipment' | 'monsters' | 'skills'
 
@@ -250,13 +249,8 @@ export function CodexPanel() {
   const { inventory } = useInventoryStore()
   const { player } = usePlayerStore()
 
-  // 收集背包中所有已知的装备实例（用模板生成）
-  const allEquipmentTemplates = [
-    ...BASE_WEAPONS.map(w => ({ ...w, id: w.name })),
-    ...BASE_ARMORS.map(a => ({ ...a, id: a.name })),
-    ...BASE_SHIELDS.map(s => ({ ...s, id: s.name })),
-    ...BASE_JEWELRY.map(j => ({ ...j, id: j.name })),
-  ].filter(Boolean)
+  // 从程序化生成系统获取所有装备模板
+  const allEquipmentTemplates = getAllEquipmentTemplates()
 
   // 背包中已有装备的ID（用于判断是否发现）
   const discoveredEquipmentIds = new Set<string>()
@@ -266,7 +260,8 @@ export function CodexPanel() {
   // 也标记直接发现的
   discoveredEquipment.forEach(id => discoveredEquipmentIds.add(id))
 
-  const monsterList = Object.values(MONSTERS)
+  // 从程序化生成系统获取所有怪物模板
+  const monsterList = getMonsterTemplates()
   const skillList = getSkillsByClass(player.classId)
 
   const tabs: { id: CodexTab; label: string; icon: string }[] = [
@@ -334,7 +329,7 @@ export function CodexPanel() {
               已遭遇 {discoveredMonsters.size} / {monsterList.length}
             </p>
             <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-1">
-              {monsterList.map(monster => (
+              {monsterList.map((monster: any) => (
                 <MonsterCodexItem
                   key={monster.id}
                   monster={monster}

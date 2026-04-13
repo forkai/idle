@@ -11,6 +11,7 @@ import { useCombatStore } from '@/stores/combatStore'
 import { useZoneStore } from '@/stores/zoneStore'
 import { useInventoryStore } from '@/stores/inventoryStore'
 import { usePlayerStore } from '@/stores/playerStore'
+import { useCodexStore } from '@/stores/codexStore'
 import { calculateDamage, calculateMonsterDamage, calculateAttackInterval } from '@/lib/game/combat'
 import { getZoneBoss } from '@/constants/enemies'
 import type { Monster } from '@/types/enemy'
@@ -205,6 +206,7 @@ export function CombatArea() {
   const { computedStats, updateCombatStats, addGold, addExperience, addToInventory, player, useItem } = useGameStore()
   const { combatState, currentEnemy, startCombat, damageEnemy, resetCombat, attemptFlee, getLoot, combatLog } = useCombatStore()
   const inventoryStore = useInventoryStore()
+  const { discoverMonster, discoverEquipment } = useCodexStore()
 
   const [damageNumbers, setDamageNumbers] = useState<{ id: number; damage: number; isCrit: boolean; pos: { x: number; y: number } }[]>([])
   const [lastSkillTime, setLastSkillTime] = useState(0)
@@ -319,6 +321,11 @@ export function CombatArea() {
       // 获取掉落
       const loot = getLoot()
       loot.forEach(item => addToInventory(item))
+
+      // 记录怪物已遭遇
+      discoverMonster(currentEnemy.monster.id)
+      // 记录掉落装备已发现
+      loot.forEach(item => discoverEquipment(item.id))
 
       // 保存奖励用于显示（避免victory界面重新随机计算）
       setLastRewards({ exp: expReward, gold: goldReward, items: loot.length })
