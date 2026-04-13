@@ -423,45 +423,25 @@ export const UNIQUE_ITEMS: Partial<Item>[] = [
 ]
 
 /**
- * 根据等级范围生成随机物品
+ * 根据等级范围生成随机物品（使用程序化生成系统）
  * @param level - 玩家等级
- * @param type - 物品类型（可选）
+ * @param type - 物品类型（可选，暂未使用）
  * @returns 生成的物品
  */
 export function generateRandomItem(level: number, type?: ItemType): Item {
-  // 根据类型选择可用模板
-  const templates: Partial<Item>[] = []
-
-  if (type) {
-    switch (type) {
-      case ItemType.WEAPON:
-        templates.push(...BASE_WEAPONS)
-        break
-      case ItemType.ARMOR:
-        templates.push(...BASE_ARMORS)
-        break
-      case ItemType.SHIELD:
-        templates.push(...BASE_SHIELDS)
-        break
-      case ItemType.RING:
-      case ItemType.AMULET:
-        templates.push(...BASE_JEWELRY)
-        break
-      case ItemType.POTION:
-        templates.push(...CONSUMABLES)
-        break
-    }
-  } else {
-    // 随机类型
-    const allTemplates = [...BASE_WEAPONS, ...BASE_ARMORS, ...BASE_SHIELDS, ...BASE_JEWELRY, ...CONSUMABLES]
-    templates.push(...allTemplates)
-  }
+  // 使用程序化生成系统（从JSON数据读取模板）
+  // type参数暂未实现筛选，后续可扩展
+  const templates = [
+    ...BASE_WEAPONS,
+    ...BASE_ARMORS,
+    ...BASE_SHIELDS,
+    ...BASE_JEWELRY,
+  ]
 
   // 过滤符合等级要求的模板
   const validTemplates = templates.filter(t => !t.stats?.requiredLevel || t.stats.requiredLevel <= level)
 
   if (validTemplates.length === 0) {
-    // 返回默认物品
     return createBasicItem('短剑', ItemType.WEAPON, EquipmentSlot.WEAPON, level)
   }
 

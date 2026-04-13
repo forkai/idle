@@ -28,6 +28,10 @@ const WARRIOR_SKILLS: Skill[] = [
     requiredLevel: 1,
     prerequisites: [],
     maxLevel: 10,
+    synergies: [
+      { skillId: 'warrior_cleave', name: '顺劈协同', icon: '🪓', description: '顺劈提高重砍伤害', bonus: 0.05 },
+      { skillId: 'warrior_heavy_strike', name: '重击协同', icon: '💥', description: '重击提高重砍伤害', bonus: 0.05 },
+    ],
   },
   {
     id: 'warrior_block',
@@ -61,6 +65,10 @@ const WARRIOR_SKILLS: Skill[] = [
     requiredLevel: 6,
     prerequisites: ['warrior_slash'],
     maxLevel: 10,
+    synergies: [
+      { skillId: 'warrior_slash', name: '重砍协同', icon: '⚔️', description: '重砍提高顺劈伤害', bonus: 0.05 },
+      { skillId: 'warrior_whirlwind', name: '旋风斩协同', icon: '🌀', description: '旋风斩提高顺劈伤害', bonus: 0.08 },
+    ],
   },
   {
     id: 'warrior_battle_orders',
@@ -94,6 +102,10 @@ const WARRIOR_SKILLS: Skill[] = [
     requiredLevel: 12,
     prerequisites: ['warrior_slash', 'warrior_cleave'],
     maxLevel: 10,
+    synergies: [
+      { skillId: 'warrior_slash', name: '重砍协同', icon: '⚔️', description: '重砍增加重击伤害', bonus: 0.05 },
+      { skillId: 'warrior_berserk', name: '狂暴协同', icon: '😤', description: '狂暴增加重击伤害', bonus: 0.1 },
+    ],
   },
   {
     id: 'warrior_find_item',
@@ -127,6 +139,10 @@ const WARRIOR_SKILLS: Skill[] = [
     requiredLevel: 18,
     prerequisites: ['warrior_cleave', 'warrior_heavy_strike'],
     maxLevel: 10,
+    synergies: [
+      { skillId: 'warrior_cleave', name: '顺劈协同', icon: '🪓', description: '顺劈增加旋风斩伤害', bonus: 0.08 },
+      { skillId: 'warrior_berserk', name: '狂暴协同', icon: '😤', description: '狂暴增加旋风斩伤害', bonus: 0.1 },
+    ],
   },
   {
     id: 'warrior_increased_endurance',
@@ -160,6 +176,10 @@ const WARRIOR_SKILLS: Skill[] = [
     requiredLevel: 24,
     prerequisites: ['warrior_whirlwind', 'warrior_increased_endurance'],
     maxLevel: 5,
+    synergies: [
+      { skillId: 'warrior_heavy_strike', name: '重击协同', icon: '💥', description: '重击增强狂暴效果', bonus: 0.1 },
+      { skillId: 'warrior_whirlwind', name: '旋风斩协同', icon: '🌀', description: '旋风斩增强狂暴效果', bonus: 0.08 },
+    ],
   },
   {
     id: 'warrior_weapon_mastery',
@@ -176,6 +196,11 @@ const WARRIOR_SKILLS: Skill[] = [
     requiredLevel: 24,
     prerequisites: ['warrior_heavy_strike'],
     maxLevel: 5,
+    synergies: [
+      { skillId: 'warrior_slash', name: '重砍协同', icon: '⚔️', description: '重砍增加武器大师收益', bonus: 0.05 },
+      { skillId: 'warrior_cleave', name: '顺劈协同', icon: '🪓', description: '顺劈增加武器大师收益', bonus: 0.05 },
+      { skillId: 'warrior_heavy_strike', name: '重击协同', icon: '💥', description: '重击增加武器大师收益', bonus: 0.08 },
+    ],
   },
 ]
 
@@ -199,6 +224,10 @@ const SORCERER_SKILLS: Skill[] = [
     requiredLevel: 1,
     prerequisites: [],
     maxLevel: 10,
+    synergies: [
+      { skillId: 'sorcerer_lightning', name: '闪电协同', icon: '⚡', description: '闪电链提高火球伤害', bonus: 0.05 },
+      { skillId: 'sorcerer_meteor', name: '陨石协同', icon: '☄️', description: '陨石术提高火球伤害', bonus: 0.08 },
+    ],
   },
   {
     id: 'sorcerer_chill',
@@ -215,6 +244,10 @@ const SORCERER_SKILLS: Skill[] = [
     requiredLevel: 1,
     prerequisites: [],
     maxLevel: 10,
+    synergies: [
+      { skillId: 'sorcerer_frost_nova', name: '冰霜协同', icon: '🌨️', description: '冰霜新星提高寒冰弹伤害', bonus: 0.05 },
+      { skillId: 'sorcerer_blizzard', name: '暴风雪协同', icon: '❄️', description: '暴风雪提高寒冰弹伤害', bonus: 0.08 },
+    ],
   },
   // 第二层技能 (Lv.6)
   {
@@ -232,6 +265,9 @@ const SORCERER_SKILLS: Skill[] = [
     requiredLevel: 6,
     prerequisites: ['sorcerer_fireball'],
     maxLevel: 10,
+    synergies: [
+      { skillId: 'sorcerer_fireball', name: '火球协同', icon: '🔥', description: '火球术提高闪电链伤害', bonus: 0.05 },
+    ],
   },
   {
     id: 'sorcerer_frost_nova',
@@ -265,6 +301,9 @@ const SORCERER_SKILLS: Skill[] = [
     requiredLevel: 12,
     prerequisites: ['sorcerer_lightning'],
     maxLevel: 10,
+    synergies: [
+      { skillId: 'sorcerer_lightning', name: '闪电协同', icon: '⚡', description: '闪电链提高毒素伤害', bonus: 0.05 },
+    ],
   },
   {
     id: 'sorcerer_teleport',
@@ -298,6 +337,10 @@ const SORCERER_SKILLS: Skill[] = [
     requiredLevel: 18,
     prerequisites: ['sorcerer_fireball', 'sorcerer_lightning'],
     maxLevel: 5,
+    synergies: [
+      { skillId: 'sorcerer_fireball', name: '火球协同', icon: '🔥', description: '火球术增强火焰精通效果', bonus: 0.05 },
+      { skillId: 'sorcerer_meteor', name: '陨石协同', icon: '☄️', description: '陨石术增强火焰精通效果', bonus: 0.1 },
+    ],
   },
   {
     id: 'sorcerer_cold_mastery',
@@ -314,6 +357,10 @@ const SORCERER_SKILLS: Skill[] = [
     requiredLevel: 18,
     prerequisites: ['sorcerer_chill', 'sorcerer_frost_nova'],
     maxLevel: 5,
+    synergies: [
+      { skillId: 'sorcerer_chill', name: '寒冰弹协同', icon: '❄️', description: '寒冰弹增强寒冰精通效果', bonus: 0.05 },
+      { skillId: 'sorcerer_blizzard', name: '暴风雪协同', icon: '🌨️', description: '暴风雪增强寒冰精通效果', bonus: 0.1 },
+    ],
   },
   // 第五层技能 (Lv.24)
   {
@@ -331,6 +378,9 @@ const SORCERER_SKILLS: Skill[] = [
     requiredLevel: 24,
     prerequisites: ['sorcerer_fire_mastery'],
     maxLevel: 10,
+    synergies: [
+      { skillId: 'sorcerer_fireball', name: '火球协同', icon: '🔥', description: '火球术增强陨石伤害', bonus: 0.05 },
+    ],
   },
   {
     id: 'sorcerer_blizzard',
@@ -347,6 +397,10 @@ const SORCERER_SKILLS: Skill[] = [
     requiredLevel: 24,
     prerequisites: ['sorcerer_cold_mastery'],
     maxLevel: 10,
+    synergies: [
+      { skillId: 'sorcerer_chill', name: '寒冰弹协同', icon: '❄️', description: '寒冰弹增强暴风雪伤害', bonus: 0.05 },
+      { skillId: 'sorcerer_frost_nova', name: '冰霜协同', icon: '🌨️', description: '冰霜新星增强暴风雪伤害', bonus: 0.08 },
+    ],
   },
 ]
 
@@ -370,6 +424,10 @@ const ROGUE_SKILLS: Skill[] = [
     requiredLevel: 1,
     prerequisites: [],
     maxLevel: 10,
+    synergies: [
+      { skillId: 'rogue_multiple_shot', name: '多重射击协同', icon: '🎯', description: '多重射击增强箭矢伤害', bonus: 0.05 },
+      { skillId: 'rogue_critical_shot', name: '致命射击协同', icon: '💀', description: '致命射击增强箭矢伤害', bonus: 0.08 },
+    ],
   },
   {
     id: 'rogue_dagger',
@@ -386,6 +444,9 @@ const ROGUE_SKILLS: Skill[] = [
     requiredLevel: 1,
     prerequisites: [],
     maxLevel: 10,
+    synergies: [
+      { skillId: 'rogue_evade', name: '闪避协同', icon: '💨', description: '闪避增强飞刀伤害', bonus: 0.05 },
+    ],
   },
   // 第二层技能 (Lv.6)
   {
@@ -403,6 +464,10 @@ const ROGUE_SKILLS: Skill[] = [
     requiredLevel: 6,
     prerequisites: ['rogue_arrow'],
     maxLevel: 10,
+    synergies: [
+      { skillId: 'rogue_arrow', name: '箭矢协同', icon: '🏹', description: '箭矢增强多重射击伤害', bonus: 0.05 },
+      { skillId: 'rogue_critical_shot', name: '致命射击协同', icon: '💀', description: '致命射击增强多重射击伤害', bonus: 0.08 },
+    ],
   },
   {
     id: 'rogue_trap',
@@ -419,6 +484,9 @@ const ROGUE_SKILLS: Skill[] = [
     requiredLevel: 6,
     prerequisites: [],
     maxLevel: 5,
+    synergies: [
+      { skillId: 'rogue_poison_arrow', name: '毒箭协同', icon: '🏹', description: '毒箭增强陷阱伤害', bonus: 0.05 },
+    ],
   },
   // 第三层技能 (Lv.12)
   {
@@ -436,6 +504,9 @@ const ROGUE_SKILLS: Skill[] = [
     requiredLevel: 12,
     prerequisites: ['rogue_arrow', 'rogue_trap'],
     maxLevel: 10,
+    synergies: [
+      { skillId: 'rogue_trap', name: '陷阱协同', icon: '⚙️', description: '陷阱增强毒箭伤害', bonus: 0.05 },
+    ],
   },
   {
     id: 'rogue_evade',
@@ -452,6 +523,10 @@ const ROGUE_SKILLS: Skill[] = [
     requiredLevel: 12,
     prerequisites: [],
     maxLevel: 5,
+    synergies: [
+      { skillId: 'rogue_dagger', name: '飞刀协同', icon: '🗡️', description: '飞刀增强闪避效果', bonus: 0.05 },
+      { skillId: 'rogue_stealth', name: '隐身协同', icon: '👻', description: '隐身增强闪避效果', bonus: 0.08 },
+    ],
   },
   // 第四层技能 (Lv.18)
   {
@@ -469,6 +544,10 @@ const ROGUE_SKILLS: Skill[] = [
     requiredLevel: 18,
     prerequisites: ['rogue_multiple_shot', 'rogue_poison_arrow'],
     maxLevel: 10,
+    synergies: [
+      { skillId: 'rogue_arrow', name: '箭矢协同', icon: '🏹', description: '箭矢增强致命射击伤害', bonus: 0.05 },
+      { skillId: 'rogue_exploding_arrow', name: '爆炸箭协同', icon: '💥', description: '爆炸箭增强致命射击伤害', bonus: 0.08 },
+    ],
   },
   {
     id: 'rogue_stealth',
@@ -485,6 +564,9 @@ const ROGUE_SKILLS: Skill[] = [
     requiredLevel: 18,
     prerequisites: ['rogue_evade'],
     maxLevel: 5,
+    synergies: [
+      { skillId: 'rogue_evade', name: '闪避协同', icon: '💨', description: '闪避增强隐身效果', bonus: 0.05 },
+    ],
   },
   // 第五层技能 (Lv.24)
   {
@@ -502,6 +584,10 @@ const ROGUE_SKILLS: Skill[] = [
     requiredLevel: 24,
     prerequisites: ['rogue_critical_shot', 'rogue_stealth'],
     maxLevel: 10,
+    synergies: [
+      { skillId: 'rogue_arrow', name: '箭矢协同', icon: '🏹', description: '箭矢增强爆炸箭伤害', bonus: 0.05 },
+      { skillId: 'rogue_multiple_shot', name: '多重射击协同', icon: '🎯', description: '多重射击增强爆炸箭伤害', bonus: 0.08 },
+    ],
   },
   {
     id: 'rogue_markmanship',
@@ -518,6 +604,11 @@ const ROGUE_SKILLS: Skill[] = [
     requiredLevel: 24,
     prerequisites: ['rogue_multiple_shot', 'rogue_critical_shot'],
     maxLevel: 5,
+    synergies: [
+      { skillId: 'rogue_arrow', name: '箭矢协同', icon: '🏹', description: '箭矢增强箭术精通效果', bonus: 0.05 },
+      { skillId: 'rogue_critical_shot', name: '致命射击协同', icon: '💀', description: '致命射击增强箭术精通效果', bonus: 0.08 },
+      { skillId: 'rogue_exploding_arrow', name: '爆炸箭协同', icon: '💥', description: '爆炸箭增强箭术精通效果', bonus: 0.1 },
+    ],
   },
 ]
 

@@ -1,60 +1,363 @@
-[18:55:24.950] [INFO] Running addon-a11y-addon-test automigration
-[18:55:24.950] [DEBUG] Extracting storybook data...
-[18:55:24.950] [DEBUG] Getting Storybook info...
-[18:55:25.080] [DEBUG] Loading main config...
-[18:55:25.080] [DEBUG] Getting stories paths...
-[18:55:25.098] [DEBUG] Getting package manager...
-[18:55:25.103] [DEBUG] Getting package.json info for C:/文档/Code/idle/package.json...
-[18:55:25.103] [DEBUG] Getting Storybook version...
-[18:55:25.104] [DEBUG] Detecting CSF factory usage...
-[18:55:25.137] [INFO] Checking possible migrations..
-[18:55:25.137] [DEBUG] Running [36maddon-a11y-addon-test[39m migration checks
-[18:55:25.140] [DEBUG] End of [36maddon-a11y-addon-test[39m migration checks
-[18:55:25.140] [INFO] 🔎 found a '[36maddon-a11y-addon-test[39m' migration:
-[18:55:25.141] [INFO] ✅ ran [36maddon-a11y-addon-test[39m migration
-[18:55:25.141] [INFO] [32mMigration check ran successfully[39m
-[18:55:25.141] [INFO] [1mSuccessful migrations:[22m
+[18:53:57.211] [INFO] [36mInitializing Storybook[39m
+[18:53:58.025] [DEBUG] Getting package.json info for C:/文档/Code/idle/package.json...
+[18:53:58.026] [DEBUG] Getting CLI versions from NPM for storybook...
+[18:53:58.026] [DEBUG] Executing command: npm info storybook version
+[18:53:59.400] [INFO] Adding Storybook version 10.3.5 to your project
+[18:53:59.402] [DEBUG] Project type detected: nextjs
+[18:53:59.402] [DEBUG] Using cached package.json for C:\文档\Code\idle\package.json...
+[18:53:59.407] [INFO] Framework detected: nextjs-vite
+[18:53:59.407] [DEBUG] Getting installed version for vitest...
+[18:53:59.407] [DEBUG] Executing command: npm ls --json --depth=99 2>NUL
+[18:54:00.366] [DEBUG] Executing command: npm ls --json --depth=0 2>NUL
+[18:54:01.247] [DEBUG] Error finding installations for vitest: ExecaError: Command failed with exit code 1: npm.cmd ls --json "--depth=0" "2>NUL"
 
-[32maddon-a11y-addon-test[39m
+npm error code EINVALIDTAGNAME
+npm error Invalid tag name "2>NUL" of package "2>NUL": Tags may not have any characters that encodeURIComponent encodes.
+npm error A complete log of this run can be found in: C:\Users\abcuc\AppData\Local\npm-cache\_logs\2026-04-13T10_54_00_675Z-debug-0.log
 
-─────────────────────────────────────────────────
+{
+  "error": {
+    "code": "EINVALIDTAGNAME",
+    "summary": "Invalid tag name \"2>NUL\" of package \"2>NUL\": Tags may not have any characters that encodeURIComponent encodes.",
+    "detail": ""
+  }
+}
+[18:54:01.247] [DEBUG] No installations found for vitest
+[18:54:01.247] [DEBUG] Getting installed version for msw...
+[18:54:01.247] [DEBUG] Executing command: npm ls --json --depth=99 2>NUL
+[18:54:02.144] [DEBUG] Executing command: npm ls --json --depth=0 2>NUL
+[18:54:03.078] [DEBUG] Error finding installations for msw: ExecaError: Command failed with exit code 1: npm.cmd ls --json "--depth=0" "2>NUL"
 
-If you'd like to run the migrations again, you can do so by running 
-[36mnpx storybook automigrate[39m
+npm error code EINVALIDTAGNAME
+npm error Invalid tag name "2>NUL" of package "2>NUL": Tags may not have any characters that encodeURIComponent encodes.
+npm error A complete log of this run can be found in: C:\Users\abcuc\AppData\Local\npm-cache\_logs\2026-04-13T10_54_02_451Z-debug-0.log
 
-The automigrations try to migrate common patterns in your project, but might not contain everything needed to migrate to the latest version of Storybook.
+{
+  "error": {
+    "code": "EINVALIDTAGNAME",
+    "summary": "Invalid tag name \"2>NUL\" of package \"2>NUL\": Tags may not have any characters that encodeURIComponent encodes.",
+    "detail": ""
+  }
+}
+[18:54:03.078] [DEBUG] No installations found for msw
+[18:54:03.097] [DEBUG] Using cached package.json for C:\文档\Code\idle\package.json...
+[18:54:03.097] [DEBUG] Using cached package.json for C:\文档\Code\idle\package.json...
+[18:54:03.097] [DEBUG] Using cached package.json for C:\文档\Code\idle\package.json...
+[18:54:03.097] [INFO] - Configuring ESLint plugin
+[18:54:03.098] [DEBUG] Detected flat config at C:\文档\Code\idle\eslint.config.mjs
+[18:54:03.113] [DEBUG] Using cached version for storybook...
+[18:54:03.113] [DEBUG] Getting CLI versions from NPM for @storybook/nextjs-vite...
+[18:54:03.113] [DEBUG] Executing command: npm info @storybook/nextjs-vite version
+[18:54:03.136] [DEBUG] Getting CLI versions from NPM for @chromatic-com/storybook...
+[18:54:03.136] [DEBUG] Executing command: npm info @chromatic-com/storybook version
+[18:54:03.165] [DEBUG] Getting CLI versions from NPM for @storybook/addon-vitest...
+[18:54:03.165] [DEBUG] Executing command: npm info @storybook/addon-vitest version
+[18:54:03.195] [DEBUG] Getting CLI versions from NPM for @storybook/addon-a11y...
+[18:54:03.195] [DEBUG] Executing command: npm info @storybook/addon-a11y version
+[18:54:03.231] [DEBUG] Getting CLI versions from NPM for @storybook/addon-docs...
+[18:54:03.231] [DEBUG] Executing command: npm info @storybook/addon-docs version
+[18:54:03.265] [DEBUG] Getting CLI versions from NPM for @storybook/addon-onboarding...
+[18:54:03.265] [DEBUG] Executing command: npm info @storybook/addon-onboarding version
+[18:54:03.301] [DEBUG] Getting CLI versions from NPM for vite...
+[18:54:03.301] [DEBUG] Executing command: npm info vite version
+[18:54:03.349] [DEBUG] Getting CLI versions from NPM for eslint-plugin-storybook...
+[18:54:03.349] [DEBUG] Executing command: npm info eslint-plugin-storybook version
+[18:54:06.424] [INFO] - Configuring main.ts
+[18:54:06.427] [INFO] - Configuring preview.ts
+[18:54:06.429] [INFO] - Adding Storybook command to package.json
+[18:54:06.430] [DEBUG] Getting package.json info for C:/文档/Code/idle/package.json...
+[18:54:06.430] [DEBUG] Using cached package.json for C:\文档\Code\idle\package.json...
+[18:54:06.430] [DEBUG] Using cached package.json for C:\文档\Code\idle\package.json...
+[18:54:06.433] [INFO] - Copying framework templates
+[18:54:06.476] [DEBUG] Executing command: npm config get registry -ws=false -iwr
+[18:54:07.804] [INFO] Storybook configuration generated
+[18:54:07.804] [DEBUG] Using cached package.json for C:\文档\Code\idle\package.json...
+[18:54:07.804] [DEBUG] Using cached installed version for vitest...
+[18:54:07.805] [DEBUG] Getting installed version for @vitest/coverage-v8...
+[18:54:07.805] [DEBUG] Executing command: npm ls --json --depth=99 2>NUL
+[18:54:08.938] [DEBUG] Executing command: npm ls --json --depth=0 2>NUL
+[18:54:09.993] [DEBUG] Error finding installations for @vitest/coverage-v8: ExecaError: Command failed with exit code 1: npm.cmd ls --json "--depth=0" "2>NUL"
 
-Please check the changelog and migration guide for manual migrations and more information: 
-https://storybook.js.org/docs/releases/migration-guide?ref=upgrade
-And reach out on Discord if you need help: https://discord.gg/storybook
-[18:55:25.141] [INFO] Installing dependencies...
-[18:55:25.141] [DEBUG] Executing command: npm install
-[18:55:30.687] [ERROR] Installation of dependencies failed! {"error":"ExecaError: Command failed with exit code 4294963214: npm.cmd install\n\nnpm error code EBUSY\nnpm error syscall rename\nnpm error path C:\\文档\\Code\\idle\\node_modules\\puppeteer\nnpm error dest C:\\文档\\Code\\idle\\node_modules\\.puppeteer-RbkHl024\nnpm error errno -4082\nnpm error EBUSY: resource busy or locked, rename 'C:\\文档\\Code\\idle\\node_modules\\puppeteer' -> 'C:\\文档\\Code\\idle\\node_modules\\.puppeteer-RbkHl024'\nnpm error A complete log of this run can be found in: C:\\Users\\abcuc\\AppData\\Local\\npm-cache\\_logs\\2026-04-13T10_55_25_479Z-debug-0.log\n    at getFinalError (file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/b22fc93b1d305722/node_modules/storybook/dist/_node-chunks/chunk-GOY6UMCB.js:13112:10)\n    at makeError (file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/b22fc93b1d305722/node_modules/storybook/dist/_node-chunks/chunk-GOY6UMCB.js:14648:15)\n    at getAsyncResult (file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/b22fc93b1d305722/node_modules/storybook/dist/_node-chunks/chunk-GOY6UMCB.js:17294:158)\n    at handlePromise (file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/b22fc93b1d305722/node_modules/storybook/dist/_node-chunks/chunk-GOY6UMCB.js:17280:162)\n    at async Object.executeTaskWithSpinner (file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/b22fc93b1d305722/node_modules/storybook/dist/_node-chunks/chunk-CHOXZXZB.js:3683:11)\n    at async NPMProxy.installDependencies (file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/b22fc93b1d305722/node_modules/storybook/dist/_node-chunks/chunk-GOY6UMCB.js:11261:5)\n    at async doAutomigrate (file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/b22fc93b1d305722/node_modules/@storybook/cli/dist/_node-chunks/run-UE2YPBJ7.js:7784:32)\n    at async file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/b22fc93b1d305722/node_modules/@storybook/cli/dist/_node-chunks/run-UE2YPBJ7.js:9727:90\n    at async withTelemetry (file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/b22fc93b1d305722/node_modules/storybook/dist/_node-chunks/chunk-FIR43JGQ.js:225:12)"}
-[18:55:30.688] [ERROR] [38;2;241;97;97mExecaError: Command failed with exit code 4294963214: npm.cmd install
+npm error code EINVALIDTAGNAME
+npm error Invalid tag name "2>NUL" of package "2>NUL": Tags may not have any characters that encodeURIComponent encodes.
+npm error A complete log of this run can be found in: C:\Users\abcuc\AppData\Local\npm-cache\_logs\2026-04-13T10_54_09_293Z-debug-0.log
 
-npm error code EBUSY
-npm error syscall rename
-npm error path .\node_modules\puppeteer
-npm error dest .\node_modules\.puppeteer-RbkHl024
-npm error errno -4082
-npm error EBUSY: resource busy or locked, rename '.\node_modules\puppeteer' -> '.\node_modules\.puppeteer-RbkHl024'
-npm error A complete log of this run can be found in: C:\Users\abcuc\AppData\Local\npm-cache\_logs\2026-04-13T10_55_25_479Z-debug-0.log[39m
-    at getFinalError (file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/b22fc93b1d305722/node_modules/storybook/dist/_node-chunks/chunk-GOY6UMCB.js:13112:10)
-    at makeError (file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/b22fc93b1d305722/node_modules/storybook/dist/_node-chunks/chunk-GOY6UMCB.js:14648:15)
-    at getAsyncResult (file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/b22fc93b1d305722/node_modules/storybook/dist/_node-chunks/chunk-GOY6UMCB.js:17294:158)
-    at handlePromise (file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/b22fc93b1d305722/node_modules/storybook/dist/_node-chunks/chunk-GOY6UMCB.js:17280:162)
-    at async Object.executeTaskWithSpinner (file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/b22fc93b1d305722/node_modules/storybook/dist/_node-chunks/chunk-CHOXZXZB.js:3683:11)
-    at async NPMProxy.installDependencies (file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/b22fc93b1d305722/node_modules/storybook/dist/_node-chunks/chunk-GOY6UMCB.js:11261:5)
-    at async doAutomigrate (file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/b22fc93b1d305722/node_modules/@storybook/cli/dist/_node-chunks/run-UE2YPBJ7.js:7784:32)
-    at async file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/b22fc93b1d305722/node_modules/@storybook/cli/dist/_node-chunks/run-UE2YPBJ7.js:9727:90
-    at async withTelemetry (file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/b22fc93b1d305722/node_modules/storybook/dist/_node-chunks/chunk-FIR43JGQ.js:225:12)
-[18:55:30.689] [INFO] Storybook collects completely anonymous usage telemetry. We use it to shape Storybook's roadmap and prioritize features. You can learn more, including how to opt out, at https://storybook.js.org/telemetry
-[18:55:31.624] [ERROR] ExecaError: Command failed with exit code 4294963214: npm.cmd install
+{
+  "error": {
+    "code": "EINVALIDTAGNAME",
+    "summary": "Invalid tag name \"2>NUL\" of package \"2>NUL\": Tags may not have any characters that encodeURIComponent encodes.",
+    "detail": ""
+  }
+}
+[18:54:09.993] [DEBUG] No installations found for @vitest/coverage-v8
+[18:54:09.993] [DEBUG] Getting installed version for @vitest/coverage-istanbul...
+[18:54:09.993] [DEBUG] Executing command: npm ls --json --depth=99 2>NUL
+[18:54:10.896] [DEBUG] Executing command: npm ls --json --depth=0 2>NUL
+[18:54:11.843] [DEBUG] Error finding installations for @vitest/coverage-istanbul: ExecaError: Command failed with exit code 1: npm.cmd ls --json "--depth=0" "2>NUL"
 
-npm error code EBUSY
-npm error syscall rename
-npm error path .\node_modules\puppeteer
-npm error dest .\node_modules\.puppeteer-RbkHl024
-npm error errno -4082
-npm error EBUSY: resource busy or locked, rename '.\node_modules\puppeteer' -> '.\node_modules\.puppeteer-RbkHl024'
-npm error A complete log of this run can be found in: C:\Users\abcuc\AppData\Local\npm-cache\_logs\2026-04-13T10_55_25_479Z-debug-0.log
+npm error code EINVALIDTAGNAME
+npm error Invalid tag name "2>NUL" of package "2>NUL": Tags may not have any characters that encodeURIComponent encodes.
+npm error A complete log of this run can be found in: C:\Users\abcuc\AppData\Local\npm-cache\_logs\2026-04-13T10_54_11_189Z-debug-0.log
+
+{
+  "error": {
+    "code": "EINVALIDTAGNAME",
+    "summary": "Invalid tag name \"2>NUL\" of package \"2>NUL\": Tags may not have any characters that encodeURIComponent encodes.",
+    "detail": ""
+  }
+}
+[18:54:11.843] [DEBUG] No installations found for @vitest/coverage-istanbul
+[18:54:11.843] [INFO] Adding devDependencies:
+- storybook@^10.3.5
+- @storybook/nextjs-vite@^10.3.5
+- @chromatic-com/storybook@^5.1.1
+- @storybook/addon-vitest@^10.3.5
+- @storybook/addon-a11y@^10.3.5
+- @storybook/addon-docs@^10.3.5
+- @storybook/addon-onboarding@^10.3.5
+- vite@^8.0.8
+- eslint-plugin-storybook@^10.3.5
+- playwright
+- @vitest/browser-playwright@^4.1.4
+- @vitest/coverage-v8@^4.1.4
+[18:54:11.843] [DEBUG] Using cached package.json for C:\文档\Code\idle\package.json...
+[18:54:11.844] [DEBUG] Using cached version for storybook...
+[18:54:11.844] [DEBUG] Using cached version for @storybook/nextjs-vite...
+[18:54:11.844] [DEBUG] Using cached version for @chromatic-com/storybook...
+[18:54:11.844] [DEBUG] Using cached version for @storybook/addon-vitest...
+[18:54:11.844] [DEBUG] Using cached version for @storybook/addon-a11y...
+[18:54:11.844] [DEBUG] Using cached version for @storybook/addon-docs...
+[18:54:11.844] [DEBUG] Using cached version for @storybook/addon-onboarding...
+[18:54:11.844] [DEBUG] Using cached version for vite...
+[18:54:11.844] [DEBUG] Using cached version for eslint-plugin-storybook...
+[18:54:11.844] [DEBUG] Getting CLI versions from NPM for playwright...
+[18:54:11.844] [DEBUG] Executing command: npm info playwright version
+[18:54:13.244] [DEBUG] Getting CLI versions from NPM for @vitest/browser-playwright...
+[18:54:13.245] [DEBUG] Executing command: npm info @vitest/browser-playwright version
+[18:54:14.141] [DEBUG] Getting CLI versions from NPM for @vitest/coverage-v8...
+[18:54:14.142] [DEBUG] Executing command: npm info @vitest/coverage-v8 version
+[18:54:15.085] [DEBUG] Using cached package.json for C:\文档\Code\idle\package.json...
+[18:54:15.087] [INFO] Dependencies added to package.json
+[18:54:15.087] [INFO] Installing dependencies...
+[18:54:15.088] [INFO] Installing dependencies...
+[18:54:15.088] [DEBUG] Executing command: npm install
+[18:54:43.018] [ERROR] Installation of dependencies failed! {"error":"ExecaError: Command failed with exit code 4294963214: npm.cmd install\n\nnpm error code EBUSY\nnpm error syscall rename\nnpm error path C:\\文档\\Code\\idle\\node_modules\\puppeteer\nnpm error dest C:\\文档\\Code\\idle\\node_modules\\.puppeteer-RbkHl024\nnpm error errno -4082\nnpm error EBUSY: resource busy or locked, rename 'C:\\文档\\Code\\idle\\node_modules\\puppeteer' -> 'C:\\文档\\Code\\idle\\node_modules\\.puppeteer-RbkHl024'\nnpm error A complete log of this run can be found in: C:\\Users\\abcuc\\AppData\\Local\\npm-cache\\_logs\\2026-04-13T10_54_15_425Z-debug-0.log\n    at getFinalError (file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/ac6065c87c5c24ee/node_modules/storybook/dist/_node-chunks/chunk-GOY6UMCB.js:13112:10)\n    at makeError (file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/ac6065c87c5c24ee/node_modules/storybook/dist/_node-chunks/chunk-GOY6UMCB.js:14648:15)\n    at getAsyncResult (file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/ac6065c87c5c24ee/node_modules/storybook/dist/_node-chunks/chunk-GOY6UMCB.js:17294:158)\n    at handlePromise (file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/ac6065c87c5c24ee/node_modules/storybook/dist/_node-chunks/chunk-GOY6UMCB.js:17280:162)\n    at async Object.executeTaskWithSpinner (file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/ac6065c87c5c24ee/node_modules/storybook/dist/_node-chunks/chunk-CHOXZXZB.js:3683:11)\n    at async NPMProxy.installDependencies (file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/ac6065c87c5c24ee/node_modules/storybook/dist/_node-chunks/chunk-GOY6UMCB.js:11261:5)\n    at async DependencyInstallationCommand.execute (file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/ac6065c87c5c24ee/node_modules/create-storybook/dist/_node-chunks/chunk-5VDIKOHD.js:2118:9)\n    at async doInitiate (file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/ac6065c87c5c24ee/node_modules/create-storybook/dist/_node-chunks/chunk-5VDIKOHD.js:2894:38)\n    at async file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/ac6065c87c5c24ee/node_modules/create-storybook/dist/_node-chunks/chunk-5VDIKOHD.js:2928:20\n    at async withTelemetry (file:///C:/Users/abcuc/AppData/Local/npm-cache/_npx/ac6065c87c5c24ee/node_modules/storybook/dist/_node-chunks/chunk-FIR43JGQ.js:225:12)"}
+[18:54:43.018] [ERROR] [31mInstallation of dependencies failed![39m
+[18:54:43.021] [INFO] Configuring @chromatic-com/storybook...
+[18:54:43.023] [INFO] @chromatic-com/storybook configured
+
+[18:54:43.023] [INFO] Configuring @storybook/addon-vitest...
+[18:54:43.025] [DEBUG] Getting package.json info for C:/文档/Code/idle/package.json...
+[18:54:43.025] [DEBUG] Using cached package.json for C:\文档\Code\idle\package.json...
+[18:54:43.025] [DEBUG] Using cached installed version for vitest...
+[18:54:43.025] [DEBUG] Vitest version specifier: 4.1.4
+[18:54:43.156] [DEBUG] Using cached installed version for vitest...
+[18:54:43.156] [DEBUG] Using cached installed version for msw...
+[18:54:43.170] [INFO] Updating your Vitest config file:
+[18:54:43.170] [INFO]   C:\文档\Code\idle\vitest.config.ts
+[18:54:43.180] [INFO] Setting up a11y addon for @storybook/addon-vitest
+[18:54:43.180] [INFO] Setting up a11y addon for @storybook/addon-vitest
+[18:54:43.181] [DEBUG] Executing command: npx storybook@10.3.5 automigrate addon-a11y-addon-test --loglevel silent --yes --skip-doctor --package-manager npm --skip-install
+[18:55:16.507] [INFO] a11y addon setup successfully
+[18:55:16.507] [INFO] [32ma11y addon setup successfully[39m
+[18:55:16.507] [INFO] [32m@storybook/addon-vitest setup completed successfully[39m
+[18:55:16.508] [INFO] @storybook/addon-vitest is now configured and you're ready to run your tests!
+Here are a couple of tips to get you started:
+
+• You can run tests with "[36mnpx vitest --project=storybook[39m"
+• Vitest IDE extension shows all stories as tests in your editor!
+
+Check the documentation for more information about its features and options at:
+https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
+[18:55:16.510] [INFO] @storybook/addon-vitest configured
+
+[18:55:16.510] [INFO] Configuring @storybook/addon-a11y...
+[18:55:16.510] [DEBUG] Executing command: npx storybook@10.3.5 automigrate addon-a11y-addon-test --loglevel silent --skip-doctor --yes --package-manager npm --config-dir .storybook
+[18:55:31.736] [DEBUG] {
+  "shortMessage": "Command failed with exit code 1: npx.cmd \"storybook@10.3.5\" automigrate addon-a11y-addon-test --loglevel silent --skip-doctor --yes --package-manager npm --config-dir .storybook",
+  "command": "npx.cmd storybook@10.3.5 automigrate addon-a11y-addon-test --loglevel silent --skip-doctor --yes --package-manager npm --config-dir .storybook",
+  "escapedCommand": "npx.cmd \"storybook@10.3.5\" automigrate addon-a11y-addon-test --loglevel silent --skip-doctor --yes --package-manager npm --config-dir .storybook",
+  "cwd": "C:\\文档\\Code\\idle",
+  "durationMs": 15226.1019,
+  "failed": true,
+  "timedOut": false,
+  "isCanceled": false,
+  "isGracefullyCanceled": false,
+  "isTerminated": false,
+  "isMaxBuffer": false,
+  "isForcefullyTerminated": false,
+  "exitCode": 1,
+  "stdout": "",
+  "stderr": "",
+  "stdio": [
+    null,
+    "",
+    ""
+  ],
+  "ipcOutput": [],
+  "pipedFrom": []
+}
+[18:55:31.736] [INFO] Configuring @storybook/addon-docs...
+[18:55:31.738] [INFO] @storybook/addon-docs configured
+
+[18:55:31.739] [INFO] Configuring @storybook/addon-onboarding...
+[18:55:31.740] [INFO] @storybook/addon-onboarding configured
+
+[18:55:31.740] [INFO] Failed to configure addons
+[18:55:31.741] [INFO] [2m✅ @chromatic-com/storybook[22m
+[18:55:31.741] [INFO] [2m✅ @storybook/addon-vitest[22m
+[18:55:31.741] [INFO] [2m❌ @storybook/addon-a11y[22m
+[18:55:31.741] [INFO] [2m✅ @storybook/addon-docs[22m
+[18:55:31.741] [INFO] [2m✅ @storybook/addon-onboarding[22m
+[18:55:31.741] [INFO] Installing Playwright browser binaries (press "c" to abort)
+[18:55:31.741] [INFO] Installing Playwright browser binaries (press "c" to abort)
+[18:55:31.741] [DEBUG] Executing command: npx playwright install chromium --with-deps
+[18:55:39.009] [INFO] Installing Playwright browser binaries (press "c" to abort): Downloading Chrome for Testing 147.0.7727.15 (playwright chromium v1217)[2m from https://cdn.playwright.dev/builds/cft/147.0.7727.15/win64/chrome-win64.zip[22m
+
+[18:55:39.009] [INFO] Installing Playwright browser binaries (press "c" to abort): Downloading Chrome for Te
+[18:55:40.484] [INFO] Installing Playwright browser binaries (press "c" to abort): |                                                                                |   0% of 179.4 MiB
+
+[18:55:40.484] [INFO] Installing Playwright browser binaries (press "c" to abort): |                        
+[18:57:01.508] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■                                                                        |  10% of 179.4 MiB
+
+[18:57:01.508] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■                
+[19:06:53.010] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■                                                                |  20% of 179.4 MiB
+
+[19:06:53.010] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■        
+[19:16:27.131] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 179.4 MiB
+
+[19:16:27.131] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[19:28:05.683] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 179.4 MiB
+
+[19:28:05.685] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[19:40:35.219] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 179.4 MiB
+
+[19:40:35.219] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[19:53:42.906] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 179.4 MiB
+
+[19:53:42.906] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[20:06:03.291] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 179.4 MiB
+
+[20:06:03.293] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[20:22:58.880] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 179.4 MiB
+
+[20:22:58.881] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[20:40:50.241] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 179.4 MiB
+
+[20:40:50.243] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[20:58:14.102] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 179.4 MiB
+
+[20:58:14.102] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[20:58:17.070] [INFO] Installing Playwright browser binaries (press "c" to abort): Chrome for Testing 147.0.7727.15 (playwright chromium v1217) downloaded to C:\Users\abcuc\AppData\Local\ms-playwright\chromium-1217
+
+[20:58:17.070] [INFO] Installing Playwright browser binaries (press "c" to abort): Chrome for Testing 147.0.
+[20:58:17.080] [INFO] Installing Playwright browser binaries (press "c" to abort): Downloading FFmpeg (playwright ffmpeg v1011)[2m from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-win64.zip[22m
+
+[20:58:17.080] [INFO] Installing Playwright browser binaries (press "c" to abort): Downloading FFmpeg (playw
+[20:58:17.873] [INFO] Installing Playwright browser binaries (press "c" to abort): |                                                                                |   1% of 1.3 MiB
+
+[20:58:17.873] [INFO] Installing Playwright browser binaries (press "c" to abort): |                        
+[20:58:17.902] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■                                                                        |  10% of 1.3 MiB
+
+[20:58:17.902] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■                
+[20:58:17.923] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■                                                                |  20% of 1.3 MiB
+
+[20:58:17.923] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■        
+[20:58:17.933] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 1.3 MiB
+
+[20:58:17.933] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[20:58:17.954] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 1.3 MiB
+
+[20:58:17.954] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[20:58:17.963] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  51% of 1.3 MiB
+
+[20:58:17.963] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[20:58:17.971] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 1.3 MiB
+
+[20:58:17.971] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[20:58:17.982] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 1.3 MiB
+
+[20:58:17.982] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[20:58:17.995] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 1.3 MiB
+
+[20:58:17.995] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[20:58:18.005] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 1.3 MiB
+
+[20:58:18.005] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[20:58:18.017] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 1.3 MiB
+
+[20:58:18.017] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[20:58:18.059] [INFO] Installing Playwright browser binaries (press "c" to abort): FFmpeg (playwright ffmpeg v1011) downloaded to C:\Users\abcuc\AppData\Local\ms-playwright\ffmpeg-1011
+
+[20:58:18.059] [INFO] Installing Playwright browser binaries (press "c" to abort): FFmpeg (playwright ffmpeg
+[20:58:18.061] [INFO] Installing Playwright browser binaries (press "c" to abort): Downloading Chrome Headless Shell 147.0.7727.15 (playwright chromium-headless-shell v1217)[2m from https://cdn.playwright.dev/builds/cft/147.0.7727.15/win64/chrome-headless-shell-win64.zip[22m
+
+[20:58:18.061] [INFO] Installing Playwright browser binaries (press "c" to abort): Downloading Chrome Headle
+[20:58:19.578] [INFO] Installing Playwright browser binaries (press "c" to abort): |                                                                                |   0% of 111.5 MiB
+
+[20:58:19.578] [INFO] Installing Playwright browser binaries (press "c" to abort): |                        
+[21:04:51.605] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■                                                                        |  10% of 111.5 MiB
+
+[21:04:51.605] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■                
+[21:13:02.553] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■                                                                |  20% of 111.5 MiB
+
+[21:13:02.554] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■        
+[21:19:59.821] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 111.5 MiB
+
+[21:19:59.821] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[21:27:59.421] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 111.5 MiB
+
+[21:27:59.422] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[21:36:15.570] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 111.5 MiB
+
+[21:36:15.570] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[21:44:02.186] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 111.5 MiB
+
+[21:44:02.186] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[21:52:13.353] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 111.5 MiB
+
+[21:52:13.353] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[21:58:49.764] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 111.5 MiB
+
+[21:58:49.764] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[22:06:04.929] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 111.5 MiB
+
+[22:06:04.929] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[22:13:48.606] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 111.5 MiB
+
+[22:13:48.606] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[22:13:50.680] [INFO] Installing Playwright browser binaries (press "c" to abort): Chrome Headless Shell 147.0.7727.15 (playwright chromium-headless-shell v1217) downloaded to C:\Users\abcuc\AppData\Local\ms-playwright\chromium_headless_shell-1217
+
+[22:13:50.680] [INFO] Installing Playwright browser binaries (press "c" to abort): Chrome Headless Shell 147
+[22:13:50.685] [INFO] Installing Playwright browser binaries (press "c" to abort): Downloading Winldd (playwright winldd v1007)[2m from https://cdn.playwright.dev/dbazure/download/playwright/builds/winldd/1007/winldd-win64.zip[22m
+
+[22:13:50.685] [INFO] Installing Playwright browser binaries (press "c" to abort): Downloading Winldd (playw
+[22:13:51.444] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■                                                                        |  12% of 0.1 MiB
+
+[22:13:51.444] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■                
+[22:13:51.446] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■                                                                |  24% of 0.1 MiB
+|■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  37% of 0.1 MiB
+
+[22:13:51.446] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■        
+[22:13:51.454] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 0.1 MiB
+
+[22:13:51.454] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[22:13:51.456] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  63% of 0.1 MiB
+
+[22:13:51.456] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[22:13:51.459] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  75% of 0.1 MiB
+
+[22:13:51.459] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[22:13:51.461] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  88% of 0.1 MiB
+|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 0.1 MiB
+
+[22:13:51.461] [INFO] Installing Playwright browser binaries (press "c" to abort): |■■■■■■■■■■■■■■■■■■■■■■■■
+[22:13:51.483] [INFO] Installing Playwright browser binaries (press "c" to abort): Winldd (playwright winldd v1007) downloaded to C:\Users\abcuc\AppData\Local\ms-playwright\winldd-1007
+
+[22:13:51.483] [INFO] Installing Playwright browser binaries (press "c" to abort): Winldd (playwright winldd
+[22:13:51.888] [INFO] Playwright browser binaries installed successfully
+[22:13:51.894] [INFO] Playwright browser binaries installed successfully
+[22:13:53.103] [WARN] Storybook setup completed, but some non-blocking errors occurred. Please check the log file below for details.
+[22:13:53.105] [INFO] To run Storybook manually, run [36mnpm run storybook[39m. CTRL+C to stop.
+[22:13:53.106] [INFO] Want to learn more about Storybook? [36mhttps://storybook.js.org/[39m
+Having trouble or want to chat? [36mhttps://discord.gg/storybook/[39m

@@ -357,7 +357,7 @@ export function CombatArea() {
   }, [combatState])
 
   return (
-    <div className="bg-gray-900/95 border border-gray-700 rounded-lg p-4 shadow-lg">
+    <div className="panel-game p-4">
       <h2 className="text-lg font-bold text-gray-200 mb-4">⚔️ 战斗区域</h2>
 
       {/* 战斗状态 */}

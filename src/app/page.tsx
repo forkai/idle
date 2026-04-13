@@ -7,7 +7,7 @@
 
 import { useEffect, useState } from 'react'
 import { useGameStore } from '@/stores/gameStore'
-import { CharacterCreate, StatusBar, CombatArea, ZoneSelection, InventoryPanel, SkillsPanel, EquipmentPanel } from '@/components/game'
+import { CharacterCreate, StatusBar, CombatArea, ZoneSelection, InventoryPanel, SkillsPanel, EquipmentPanel, CodexPanel, CombatLogPanel, CharacterPanel, SettingsPanel } from '@/components/game'
 
 /**
  * 游戏主页面组件
@@ -15,7 +15,7 @@ import { CharacterCreate, StatusBar, CombatArea, ZoneSelection, InventoryPanel, 
 export default function GamePage() {
   const { player } = useGameStore()
   const [isLoading, setIsLoading] = useState(true)
-  const [activeTab, setActiveTab] = useState<'zone' | 'inventory' | 'equipment' | 'skills'>('zone')
+  const [activeTab, setActiveTab] = useState<'zone' | 'inventory' | 'equipment' | 'skills' | 'codex' | 'log' | 'character'>('zone')
 
   // 检查是否有存档
   useEffect(() => {
@@ -55,6 +55,9 @@ export default function GamePage() {
                 { id: 'equipment', label: '⚔️', labelFull: '装备' },
                 { id: 'inventory', label: '🎒', labelFull: '背包' },
                 { id: 'skills', label: '⚡', labelFull: '技能' },
+                { id: 'codex', label: '📖', labelFull: '图鉴' },
+                { id: 'log', label: '📜', labelFull: '战斗日志' },
+                { id: 'character', label: '👤', labelFull: '属性' },
               ].map(tab => (
                 <button
                   key={tab.id}
@@ -75,9 +78,7 @@ export default function GamePage() {
               ))}
             </nav>
 
-            <button className="text-gray-400 hover:text-gray-200 transition-colors text-lg cursor-pointer">
-              ⚙️
-            </button>
+            <SettingsPanel />
           </div>
         </div>
       </header>
@@ -101,6 +102,9 @@ export default function GamePage() {
             {activeTab === 'inventory' && <InventoryPanel />}
             {activeTab === 'equipment' && <EquipmentPanel />}
             {activeTab === 'skills' && <SkillsPanel />}
+            {activeTab === 'codex' && <CodexPanel />}
+            {activeTab === 'log' && <CombatLogPanel />}
+            {activeTab === 'character' && <CharacterPanel />}
           </section>
 
           {/* 右侧边栏 - 区域选择（桌面端） */}

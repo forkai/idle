@@ -63,6 +63,40 @@ export interface SkillEffect {
 }
 
 /**
+ * 技能协同效果（synergy）接口
+ */
+export interface SkillSynergy {
+  /** 协同技能ID */
+  skillId: string
+  /** 协同名称 */
+  name: string
+  /** 协同图标 */
+  icon: string
+  /** 协同描述 */
+  description: string
+  /** 协同加成值 */
+  bonus: number
+}
+
+/**
+ * 技能进阶/专精信息
+ */
+export interface SkillSpecialization {
+  /** 专精ID */
+  id: string
+  /** 专精名称 */
+  name: string
+  /** 专精图标 */
+  icon: string
+  /** 专精描述 */
+  description: string
+  /** 所需等级 */
+  requiredLevel: number
+  /** 关联技能ID列表 */
+  linkedSkills: string[]
+}
+
+/**
  * 技能消耗接口
  */
 export interface SkillCost {
@@ -104,6 +138,10 @@ export interface Skill {
   prerequisites: string[]
   /** 技能等级上限 */
   maxLevel: number
+  /** 协同技能（解锁后可增强其他技能） */
+  synergies?: SkillSynergy[]
+  /** 专精分支（影响此技能进阶方向） */
+  specialization?: string
 }
 
 /**
@@ -116,6 +154,20 @@ export interface PlayerSkill {
   level: number
   /** 是否已解锁 */
   unlocked: boolean
+}
+
+/**
+ * 技能专精选项
+ */
+export interface SkillSpecializationOption {
+  /** 专精名称 */
+  name: string
+  /** 专精图标 */
+  icon: string
+  /** 专精描述 */
+  description: string
+  /** 专精加成 */
+  bonuses: SkillEffect[]
 }
 
 /**
@@ -179,4 +231,41 @@ export function getSkillCost(skill: Skill, skillLevel: number): SkillCost {
       ? Math.floor(skill.cost.health * (1 + (skillLevel - 1) * 0.1))
       : undefined,
   }
+}
+
+/**
+ * 获取协同技能的总加成
+ * @param skill - 技能
+ * @param skillLevel - 技能等级
+ * @param unlockedSkillIds - 已解锁技能ID列表
+ * @returns 协同加成百分比
+ */
+export function getSkillSynergyBonus(skill: Skill, skillLevel: number, unlockedSkillIds: string[]): number {
+  if (!skill.synergies) return 0
+
+  let totalBonus = 0
+  for (const synergy of skill.synergies) {
+    if (unlockedSkillIds.includes(synergy.skillId)) {
+      totalBonus += synergy.bonus * skillLevel
+    }
+  }
+  return totalBonus
+}
+
+/**
+ * 计算技能最终效果（包含协同加成）
+ * @param skill - 技能
+ * @param skillLevel - 技能等级
+ * @param unlockedSkillIds - 已解锁技能ID列表
+ * @returns 最终效果值
+ */
+export function calculateSkillFinalEffect(
+  skill: Skill,
+  skillLevel: number,
+  unlockedSkillIds: string[]
+): number {
+  const baseEffect = skill.effects[0]?.value ?? 0
+  const synergyBonus = getSkillSynergyBonus(skill, skillLevel, unlockedSkillIds)
+  const perLevelBonus = 1 + (skillLevel - 1) * 0.1
+  return baseEffect * perLevelBonus * (1 + synergyBonus)
 }

@@ -30,7 +30,7 @@ function ItemTooltip({ item, position }: { item: Item; position: { x: number; y:
       style={tooltipStyle}
     >
       {/* 顶部装饰线 */}
-      <div className="absolute top-0 left-3 right-3 h-px bg-gradient-to-r from-transparent via-amber-500 to-transparent" />
+      <div className="absolute top-0 left-3 right-3 h-px bg-linear-to-r from-transparent via-amber-500 to-transparent" />
 
       {/* 物品名称 */}
       <p className="font-bold text-sm mb-1" style={{ color: rarityColor }}>
@@ -89,7 +89,7 @@ function ItemTooltip({ item, position }: { item: Item; position: { x: number; y:
       )}
 
       {/* 底部装饰线 */}
-      <div className="absolute bottom-0 left-3 right-3 h-px bg-gradient-to-r from-transparent via-amber-500 to-transparent" />
+      <div className="absolute bottom-0 left-3 right-3 h-px bg-linear-to-r from-transparent via-amber-500 to-transparent" />
 
       {/* 售价 */}
       <div className="mt-2 border-t border-gray-700 pt-2">
@@ -134,7 +134,7 @@ function InventorySlot({
         onDragOver={(e) => { e.preventDefault(); onDragOver(index) }}
         onDrop={() => onDrop(index)}
         className={`
-          w-16 h-16 rounded border-2 border-dashed
+          aspect-square rounded border-2 border-dashed
           transition-all duration-150 cursor-pointer
           ${isDragOver
             ? 'border-amber-500 bg-amber-950/40 scale-105'
@@ -157,9 +157,9 @@ function InventorySlot({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       className={`
-        w-16 h-16 rounded border-2 flex items-center justify-center relative
+        aspect-square rounded border-2 flex items-center justify-center relative
         transition-all duration-150 cursor-grab active:cursor-grabbing
-        hover:scale-110 hover:z-10
+        hover:scale-105 hover:z-10
         ${isDragOver ? 'scale-110 border-amber-400 shadow-lg shadow-amber-500/40 z-10' : ''}
         bg-gray-900
       `}
@@ -167,7 +167,7 @@ function InventorySlot({
       title={item.name}
     >
       {/* 物品图标 */}
-      <span className="text-4xl select-none" style={{ filter: 'drop-shadow(0 0 3px black)' }}>
+      <span className="text-3xl sm:text-4xl select-none" style={{ filter: 'drop-shadow(0 0 3px black)' }}>
         {item.icon}
       </span>
 
@@ -263,12 +263,9 @@ export function InventoryPanel() {
   const selectedItem = selectedSlot !== null ? inventory.slots[selectedSlot] : null
 
   return (
-    <div className="bg-gray-900/95 border border-gray-700 rounded-lg shadow-lg overflow-hidden">
+    <div className="panel-game overflow-hidden">
       {/* 标题区 */}
       <div className="relative px-4 pt-4 pb-3">
-        {/* 顶部装饰线 */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-600 to-transparent" />
-
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-bold text-amber-400 tracking-wider">🎒 背包</h2>
           <div className="flex items-center gap-3">

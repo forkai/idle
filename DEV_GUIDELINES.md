@@ -33,14 +33,14 @@
 ## 二、代码风格
 
 ### 2.1 命名规范
-| 类型 | 规范 | 示例 |
-|------|------|------|
-| 组件 | PascalCase | `CombatArea.tsx` |
-| Store | camelCase + Store | `playerStore.ts` |
-| 类型/接口 | PascalCase | `interface PlayerSave` |
-| 常量 | camelCase 或 UPPER_SNAKE | `MAX_LEVEL` / `DEFAULT_INVENTORY_SIZE` |
-| 函数 | camelCase | `calculateDamage` |
-| 文件 | camelCase / kebab-case | `gameStore.ts` / `combat-log.ts` |
+| 类型      | 规范                     | 示例                                   |
+| --------- | ------------------------ | -------------------------------------- |
+| 组件      | PascalCase               | `CombatArea.tsx`                       |
+| Store     | camelCase + Store        | `playerStore.ts`                       |
+| 类型/接口 | PascalCase               | `interface PlayerSave`                 |
+| 常量      | camelCase 或 UPPER_SNAKE | `MAX_LEVEL` / `DEFAULT_INVENTORY_SIZE` |
+| 函数      | camelCase                | `calculateDamage`                      |
+| 文件      | camelCase / kebab-case   | `gameStore.ts` / `combat-log.ts`       |
 
 ### 2.2 注释规范
 - 文件顶部：JSDoc `@fileoverview` + `@description`
@@ -67,18 +67,18 @@
 - **伤害/奖励等事件必须飘字动画**
 
 #### 动画类型（按场景使用）
-| 场景 | 动画 |
-|------|------|
-| 伤害飘字 | `animate-damage`（上升渐隐） |
-| 暴击 | `animate-crit-shake` + 屏幕微震 |
-| 怪物死亡 | `animate-monster-death` |
-| Boss登场 | `animate-boss-appear` |
-| 低血量(<30%) | `animate-health-critical`（闪烁） |
-| 胜利 | `animate-victory` + `animate-reward-glow` |
-| 失败 | `animate-defeat` |
-| 战利品获得 | `animate-loot-drop` |
-| 按钮按下 | `animate-btn-press` |
-| 经验条 | `bar-exp-shimmer` 渐变流动 |
+| 场景         | 动画                                      |
+| ------------ | ----------------------------------------- |
+| 伤害飘字     | `animate-damage`（上升渐隐）              |
+| 暴击         | `animate-crit-shake` + 屏幕微震           |
+| 怪物死亡     | `animate-monster-death`                   |
+| Boss登场     | `animate-boss-appear`                     |
+| 低血量(<30%) | `animate-health-critical`（闪烁）         |
+| 胜利         | `animate-victory` + `animate-reward-glow` |
+| 失败         | `animate-defeat`                          |
+| 战利品获得   | `animate-loot-drop`                       |
+| 按钮按下     | `animate-btn-press`                       |
+| 经验条       | `bar-exp-shimmer` 渐变流动                |
 
 ### 3.2 响应式设计
 - **移动端优先**，桌面端增强
@@ -135,15 +135,15 @@ describe('模块名', () => {
 ```
 
 **Type 类型**：
-| Type | 用途 |
-|------|------|
-| `feat` | 新功能 |
-| `fix` | Bug 修复（含 BUG-XXX ID） |
-| `refactor` | 重构（不影响功能） |
-| `docs` | 文档更新 |
-| `test` | 测试相关 |
-| `style` | 格式/样式（不影响逻辑） |
-| `perf` | 性能优化 |
+| Type       | 用途                      |
+| ---------- | ------------------------- |
+| `feat`     | 新功能                    |
+| `fix`      | Bug 修复（含 BUG-XXX ID） |
+| `refactor` | 重构（不影响功能）        |
+| `docs`     | 文档更新                  |
+| `test`     | 测试相关                  |
+| `style`    | 格式/样式（不影响逻辑）   |
+| `perf`     | 性能优化                  |
 
 **示例**：
 ```
@@ -170,14 +170,14 @@ docs: 更新 CHANGELOG.md，记录 0.2.0 版本所有变更
 ## 七、音效系统准则
 
 ### 7.1 必做音效场景
-| 场景 | 音效类型 |
-|------|------|
-| 按钮点击 | `click` |
-| 攻击命中 | `attack` |
+| 场景     | 音效类型  |
+| -------- | --------- |
+| 按钮点击 | `click`   |
+| 攻击命中 | `attack`  |
 | 战斗胜利 | `victory` |
-| 战斗失败 | `defeat` |
-| 拾取物品 | `pickup` |
-| 升级 | `levelup` |
+| 战斗失败 | `defeat`  |
+| 拾取物品 | `pickup`  |
+| 升级     | `levelup` |
 
 ### 7.2 实现方式
 - 使用 Web Audio API 程序化合成（`src/lib/game/sound.ts`）
@@ -186,7 +186,11 @@ docs: 更新 CHANGELOG.md，记录 0.2.0 版本所有变更
 
 ---
 
-## 八、持续更新日志
+## 八 检查TODO.md的待办事项
+
+1. 已经完成的做标记，没完成的继续开发
+
+## 九、持续更新日志
 
 > 每次开发新增要求，在此追加。
 

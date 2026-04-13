@@ -75,7 +75,7 @@ export function StatusBar() {
     : 100
 
   return (
-    <div className="bg-gray-900/95 border border-gray-700 rounded-lg p-4 shadow-lg">
+    <div className="panel-game p-4">
       {/* 顶部：角色信息 */}
       <div className="flex items-center gap-4 mb-4">
         {/* 角色头像 */}
@@ -146,7 +146,8 @@ export function StatusBar() {
 
       {/* 战斗属性预览 */}
       <div className="mt-4 pt-4 border-t border-gray-700">
-        <div className="grid grid-cols-4 gap-2 text-center text-xs">
+        {/* 基础属性行 */}
+        <div className="grid grid-cols-4 gap-2 text-center text-xs mb-2">
           <div className="bg-gray-800/50 p-2 rounded">
             <p className="text-red-400">⚔️ {computedStats.damage}</p>
             <p className="text-gray-500">伤害</p>
@@ -162,6 +163,38 @@ export function StatusBar() {
           <div className="bg-gray-800/50 p-2 rounded">
             <p className="text-green-400">⚡ {computedStats.attackSpeed.toFixed(2)}</p>
             <p className="text-gray-500">攻速</p>
+          </div>
+        </div>
+
+        {/* 元素抗性行 */}
+        <div className="grid grid-cols-4 gap-2 text-center text-xs">
+          <div className="bg-gray-800/30 p-1.5 rounded">
+            <p className="text-orange-400">🔥 {computedStats.fireResist || 0}%</p>
+            <p className="text-gray-600 text-[10px]">火抗</p>
+          </div>
+          <div className="bg-gray-800/30 p-1.5 rounded">
+            <p className="text-cyan-400">❄️ {computedStats.coldResist || 0}%</p>
+            <p className="text-gray-600 text-[10px]">冰抗</p>
+          </div>
+          <div className="bg-gray-800/30 p-1.5 rounded">
+            <p className="text-yellow-300">⚡ {computedStats.lightningResist || 0}%</p>
+            <p className="text-gray-600 text-[10px]">雷抗</p>
+          </div>
+          <div className="bg-gray-800/30 p-1.5 rounded">
+            <p className="text-green-500">☠️ {computedStats.poisonResist || 0}%</p>
+            <p className="text-gray-600 text-[10px]">毒抗</p>
+          </div>
+        </div>
+
+        {/* 恢复属性 */}
+        <div className="grid grid-cols-2 gap-2 text-center text-xs mt-2">
+          <div className="bg-gray-800/30 p-1.5 rounded flex items-center justify-center gap-1">
+            <span className="text-red-400">❤️</span>
+            <span className="text-gray-400">+{computedStats.healthRegen || 0}/秒</span>
+          </div>
+          <div className="bg-gray-800/30 p-1.5 rounded flex items-center justify-center gap-1">
+            <span className="text-blue-400">💧</span>
+            <span className="text-gray-400">+{computedStats.manaRegen || 0}/秒</span>
           </div>
         </div>
       </div>

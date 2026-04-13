@@ -158,6 +158,22 @@ function SkillTooltip({
           </p>
         ))}
       </div>
+
+      {/* 协同技能 */}
+      {skill.synergies && skill.synergies.length > 0 && (
+        <div className="border-t border-gray-700 pt-2 mt-2">
+          <p className="text-xs text-amber-400 mb-1">⚡ 协同加成：</p>
+          <div className="space-y-1">
+            {skill.synergies.map((syn, i) => (
+              <div key={i} className="flex items-center gap-2 text-xs">
+                <span>{syn.icon}</span>
+                <span className="text-gray-300">{syn.name}</span>
+                <span className="text-green-400 ml-auto">+{(syn.bonus * 100).toFixed(0)}%</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
@@ -260,10 +276,10 @@ export function SkillsPanel() {
   }
 
   return (
-    <div className="bg-gray-900/95 border border-gray-700 rounded-lg p-4 shadow-lg">
+    <div className="panel-game p-4">
       {/* 标题 */}
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-bold text-gray-200">⚡ 技能</h2>
+        <h2 className="text-lg font-bold text-amber-400">⚡ 技能</h2>
         <span className="text-xs text-amber-400">已解锁 {unlockedSkills.length} / {classSkills.length}</span>
       </div>
 
@@ -346,6 +362,22 @@ export function SkillsPanel() {
               关闭
             </button>
           </div>
+
+          {/* 协同技能信息 */}
+          {selectedSkill.synergies && selectedSkill.synergies.length > 0 && (
+            <div className="mt-3 pt-3 border-t border-gray-700">
+              <p className="text-xs text-amber-400 mb-2">⚡ 协同加成：</p>
+              <div className="grid grid-cols-2 gap-1">
+                {selectedSkill.synergies.map((syn, i) => (
+                  <div key={i} className="flex items-center gap-1.5 text-xs bg-gray-900/50 p-1.5 rounded">
+                    <span>{syn.icon}</span>
+                    <span className="text-gray-300 truncate">{syn.name}</span>
+                    <span className="text-green-400 ml-auto">+{(syn.bonus * 100).toFixed(0)}%</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
 

@@ -49,7 +49,7 @@ test.describe('角色创建流程', () => {
     await mageCard.click()
 
     // 法师卡片应变为选中状态（点击后触发选中）
-    await expect mageCard).toBeVisible() // 基础可见性检查
+    await expect(mageCard).toBeVisible() // 基础可见性检查
   })
 
   test('4. 输入角色名称', async ({ page }) => {

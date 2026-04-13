@@ -27,27 +27,40 @@ function getAudioContext(): AudioContext {
  */
 export function playSound(type: SoundType): void {
   try {
+    // 检查音效开关
+    let sfxEnabled = true
+    let sfxVolume = 0.7
+    try {
+      const { useSettingsStore } = require('@/stores/settingsStore')
+      const state = useSettingsStore.getState()
+      sfxEnabled = state.sound.sfxEnabled
+      sfxVolume = state.sound.sfxVolume
+    } catch {
+      // settingsStore 尚未初始化，使用默认值
+    }
+    if (!sfxEnabled) return
+
     const ctx = getAudioContext()
     if (ctx.state === 'suspended') ctx.resume()
 
     switch (type) {
       case 'click':
-        playClick(ctx)
+        playClick(ctx, sfxVolume)
         break
       case 'attack':
-        playAttack(ctx)
+        playAttack(ctx, sfxVolume)
         break
       case 'victory':
-        playVictory(ctx)
+        playVictory(ctx, sfxVolume)
         break
       case 'defeat':
-        playDefeat(ctx)
+        playDefeat(ctx, sfxVolume)
         break
       case 'pickup':
-        playPickup(ctx)
+        playPickup(ctx, sfxVolume)
         break
       case 'levelup':
-        playLevelUp(ctx)
+        playLevelUp(ctx, sfxVolume)
         break
     }
   } catch (e) {
@@ -55,20 +68,20 @@ export function playSound(type: SoundType): void {
   }
 }
 
-function playClick(ctx: AudioContext): void {
+function playClick(ctx: AudioContext, vol: number): void {
   const osc = ctx.createOscillator()
   const gain = ctx.createGain()
   osc.connect(gain)
   gain.connect(ctx.destination)
   osc.frequency.setValueAtTime(800, ctx.currentTime)
   osc.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.05)
-  gain.gain.setValueAtTime(0.15, ctx.currentTime)
+  gain.gain.setValueAtTime(0.15 * vol, ctx.currentTime)
   gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08)
   osc.start(ctx.currentTime)
   osc.stop(ctx.currentTime + 0.08)
 }
 
-function playAttack(ctx: AudioContext): void {
+function playAttack(ctx: AudioContext, vol: number): void {
   const osc = ctx.createOscillator()
   const gain = ctx.createGain()
   osc.connect(gain)
@@ -76,13 +89,13 @@ function playAttack(ctx: AudioContext): void {
   osc.type = 'sawtooth'
   osc.frequency.setValueAtTime(150, ctx.currentTime)
   osc.frequency.exponentialRampToValueAtTime(60, ctx.currentTime + 0.15)
-  gain.gain.setValueAtTime(0.3, ctx.currentTime)
+  gain.gain.setValueAtTime(0.3 * vol, ctx.currentTime)
   gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15)
   osc.start(ctx.currentTime)
   osc.stop(ctx.currentTime + 0.15)
 }
 
-function playVictory(ctx: AudioContext): void {
+function playVictory(ctx: AudioContext, vol: number): void {
   const notes = [523.25, 659.25, 783.99, 1046.5] // C5 E5 G5 C6
   notes.forEach((freq, i) => {
     const osc = ctx.createOscillator()
@@ -92,14 +105,14 @@ function playVictory(ctx: AudioContext): void {
     osc.type = 'triangle'
     osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.12)
     gain.gain.setValueAtTime(0, ctx.currentTime + i * 0.12)
-    gain.gain.linearRampToValueAtTime(0.2, ctx.currentTime + i * 0.12 + 0.02)
+    gain.gain.linearRampToValueAtTime(0.2 * vol, ctx.currentTime + i * 0.12 + 0.02)
     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.12 + 0.4)
     osc.start(ctx.currentTime + i * 0.12)
     osc.stop(ctx.currentTime + i * 0.12 + 0.4)
   })
 }
 
-function playDefeat(ctx: AudioContext): void {
+function playDefeat(ctx: AudioContext, vol: number): void {
   const notes = [392, 349.23, 293.66, 220] // G4 F4 D4 A3
   notes.forEach((freq, i) => {
     const osc = ctx.createOscillator()
@@ -108,14 +121,14 @@ function playDefeat(ctx: AudioContext): void {
     gain.connect(ctx.destination)
     osc.type = 'sine'
     osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.2)
-    gain.gain.setValueAtTime(0.15, ctx.currentTime + i * 0.2)
+    gain.gain.setValueAtTime(0.15 * vol, ctx.currentTime + i * 0.2)
     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.2 + 0.3)
     osc.start(ctx.currentTime + i * 0.2)
     osc.stop(ctx.currentTime + i * 0.2 + 0.3)
   })
 }
 
-function playPickup(ctx: AudioContext): void {
+function playPickup(ctx: AudioContext, vol: number): void {
   const osc = ctx.createOscillator()
   const gain = ctx.createGain()
   osc.connect(gain)
@@ -123,13 +136,13 @@ function playPickup(ctx: AudioContext): void {
   osc.type = 'sine'
   osc.frequency.setValueAtTime(880, ctx.currentTime)
   osc.frequency.setValueAtTime(1108, ctx.currentTime + 0.08)
-  gain.gain.setValueAtTime(0.12, ctx.currentTime)
+  gain.gain.setValueAtTime(0.12 * vol, ctx.currentTime)
   gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2)
   osc.start(ctx.currentTime)
   osc.stop(ctx.currentTime + 0.2)
 }
 
-function playLevelUp(ctx: AudioContext): void {
+function playLevelUp(ctx: AudioContext, vol: number): void {
   const notes = [523.25, 659.25, 783.99, 1046.5, 1318.5]
   notes.forEach((freq, i) => {
     const osc = ctx.createOscillator()
@@ -139,7 +152,7 @@ function playLevelUp(ctx: AudioContext): void {
     osc.type = 'triangle'
     osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.1)
     gain.gain.setValueAtTime(0, ctx.currentTime + i * 0.1)
-    gain.gain.linearRampToValueAtTime(0.18, ctx.currentTime + i * 0.1 + 0.03)
+    gain.gain.linearRampToValueAtTime(0.18 * vol, ctx.currentTime + i * 0.1 + 0.03)
     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.1 + 0.5)
     osc.start(ctx.currentTime + i * 0.1)
     osc.stop(ctx.currentTime + i * 0.1 + 0.5)
