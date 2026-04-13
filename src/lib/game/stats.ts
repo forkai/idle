@@ -9,6 +9,7 @@ import type { EquipmentState, Item, EquipmentSlot } from '@/types/items'
 import type { PlayerSkill, Skill } from '@/types/skills'
 import { SkillType } from '@/types/skills'
 import { getSkillById } from '@/constants/skills'
+import { getSetById } from '@/constants/sets'
 
 /**
  * 属性计算常量
@@ -195,10 +196,18 @@ function getClassFromStats(baseStats: BaseStats): CharacterClass {
 function applyEquipmentBonuses(stats: CharacterStats, equipment: EquipmentState): CharacterStats {
   const newStats = { ...stats }
 
+  // 统计套装装备数量
+  const setCounts: Record<string, number> = {}
+
   // 遍历所有装备槽位
   for (const slot of Object.keys(equipment) as EquipmentSlot[]) {
     const item = equipment[slot]
     if (!item) continue
+
+    // 统计套装
+    if (item.setId) {
+      setCounts[item.setId] = (setCounts[item.setId] || 0) + 1
+    }
 
     // 应用物品词缀效果
     for (const affix of item.affixes) {
@@ -224,6 +233,33 @@ function applyEquipmentBonuses(stats: CharacterStats, equipment: EquipmentState)
     // 应用物品基础属性
     if (item.stats.damage) newStats.damage += item.stats.damage
     if (item.stats.defense) newStats.defense += item.stats.defense
+  }
+
+  // 应用套装奖励
+  for (const [setId, count] of Object.entries(setCounts)) {
+    const set = getSetById(setId)
+    if (!set) continue
+
+    for (const bonus of set.bonuses) {
+      if (bonus.threshold <= count) {
+        const eff = bonus.effects
+        if (eff.strength) newStats.strength += eff.strength
+        if (eff.dexterity) newStats.dexterity += eff.dexterity
+        if (eff.vitality) newStats.vitality += eff.vitality
+        if (eff.energy) newStats.energy += eff.energy
+        if (eff.health) newStats.maxHealth += eff.health
+        if (eff.mana) newStats.maxMana += eff.mana
+        if (eff.damage) newStats.damage += eff.damage
+        if (eff.defense) newStats.defense += eff.defense
+        if (eff.attackSpeed) newStats.attackSpeed += eff.attackSpeed / 100
+        if (eff.critChance) newStats.critChance += eff.critChance / 100
+        if (eff.critDamage) newStats.critDamage += eff.critDamage / 100
+        if (eff.fireResist) newStats.fireResist += eff.fireResist
+        if (eff.coldResist) newStats.coldResist += eff.coldResist
+        if (eff.lightningResist) newStats.lightningResist += eff.lightningResist
+        if (eff.poisonResist) newStats.poisonResist += eff.poisonResist
+      }
+    }
   }
 
   // 重新计算派生属性

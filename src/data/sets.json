@@ -1,0 +1,118 @@
+{
+  "sets": [
+    {
+      "id": "set_warrior_king",
+      "name": "战士之王",
+      "icon": "👑",
+      "pieces": [
+        { "slot": "head", "name": "国王之冠", "icon": "👑" },
+        { "slot": "chest", "name": "帝王胸甲", "icon": "🛡️" },
+        { "slot": "weapon", "name": "王者之剑", "icon": "⚔️" }
+      ],
+      "bonuses": [
+        { "threshold": 2, "description": "力量+10，防御+5", "effects": { "strength": 10, "defense": 5 } },
+        { "threshold": 3, "description": "生命+100，伤害+15%", "effects": { "health": 100, "damagePercent": 15 } }
+      ]
+    },
+    {
+      "id": "set_sorcerer_arcane",
+      "name": "奥术师",
+      "icon": "✨",
+      "pieces": [
+        { "slot": "head", "name": "奥术帽", "icon": "🎩" },
+        { "slot": "chest", "name": "秘法长袍", "icon": "👘" },
+        { "slot": "amulet", "name": "秘法护符", "icon": "📿" }
+      ],
+      "bonuses": [
+        { "threshold": 2, "description": "能量+10，法力+50", "effects": { "energy": 10, "mana": 50 } },
+        { "threshold": 3, "description": "所有元素伤害+20%", "effects": { "allElementDamage": 20 } }
+      ]
+    },
+    {
+      "id": "set_rogue_shadow",
+      "name": "暗影刺客",
+      "icon": "🌙",
+      "pieces": [
+        { "slot": "gloves", "name": "暗影手套", "icon": "🧤" },
+        { "slot": "boots", "name": "幻影靴", "icon": "👢" },
+        { "slot": "weapon", "name": "无声匕首", "icon": "🗡️" }
+      ],
+      "bonuses": [
+        { "threshold": 2, "description": "敏捷+10，闪避+5%", "effects": { "dexterity": 10, "dodge": 5 } },
+        { "threshold": 3, "description": "暴击率+10%，暴击伤害+30%", "effects": { "critChance": 10, "critDamage": 30 } }
+      ]
+    },
+    {
+      "id": "set_dragon_slayer",
+      "name": "屠龙者",
+      "icon": "🐉",
+      "pieces": [
+        { "slot": "head", "name": "龙盔", "icon": "🐲" },
+        { "slot": "chest", "name": "龙鳞甲", "icon": "🛡️" },
+        { "slot": "weapon", "name": "屠龙剑", "icon": "⚔️" },
+        { "slot": "shield", "name": "龙盾", "icon": "🛡️" }
+      ],
+      "bonuses": [
+        { "threshold": 2, "description": "对龙类怪物伤害+15%", "effects": { "damageToDragon": 15 } },
+        { "threshold": 3, "description": "生命恢复+50%", "effects": { "healthRegenPercent": 50 } },
+        { "threshold": 4, "description": "对龙类怪物伤害+30%，防御+20", "effects": { "damageToDragon": 30, "defense": 20 } }
+      ]
+    },
+    {
+      "id": "set_undying",
+      "name": "不死者",
+      "icon": "💀",
+      "pieces": [
+        { "slot": "head", "name": "骷髅冠", "icon": "💀" },
+        { "slot": "chest", "name": "亡灵胸甲", "icon": "🛡️" },
+        { "slot": "boots", "name": "冥府之靴", "icon": "👢" }
+      ],
+      "bonuses": [
+        { "threshold": 2, "description": "抗死+20%，生命+100", "effects": { "deathResist": 20, "health": 100 } },
+        { "threshold": 3, "description": "死亡后复活一次（每战斗限1次）", "effects": { "onDeathRevive": 1 } }
+      ]
+    },
+    {
+      "id": "set_storm_lord",
+      "name": "风暴领主",
+      "icon": "⚡",
+      "pieces": [
+        { "slot": "weapon", "name": "风暴之杖", "icon": "⚡" },
+        { "slot": "amulet", "name": "闪电护符", "icon": "📿" },
+        { "slot": "ring1", "name": "雷鸣戒指", "icon": "💍" }
+      ],
+      "bonuses": [
+        { "threshold": 2, "description": "闪电伤害+25%", "effects": { "lightningDamage": 25 } },
+        { "threshold": 3, "description": "闪电伤害+50%，攻击速度+10%", "effects": { "lightningDamage": 50, "attackSpeed": 10 } }
+      ]
+    },
+    {
+      "id": "set_fire_walker",
+      "name": "烈焰行者",
+      "icon": "🔥",
+      "pieces": [
+        { "slot": "boots", "name": "火焰之靴", "icon": "👢" },
+        { "slot": "gloves", "name": "燃烧手套", "icon": "🧤" },
+        { "slot": "ring2", "name": "灰烬戒指", "icon": "💍" }
+      ],
+      "bonuses": [
+        { "threshold": 2, "description": "火焰伤害+25%，火焰抗性+20", "effects": { "fireDamage": 25, "fireResist": 20 } },
+        { "threshold": 3, "description": "火焰伤害+50%，敌人受到灼烧", "effects": { "fireDamage": 50 } }
+      ]
+    },
+    {
+      "id": "set_ice_guardian",
+      "name": "冰霜守护",
+      "icon": "❄️",
+      "pieces": [
+        { "slot": "shield", "name": "冰盾", "icon": "🛡️" },
+        { "slot": "chest", "name": "冰霜胸甲", "icon": "🛡️" },
+        { "slot": "amulet", "name": "寒冰护符", "icon": "📿" }
+      ],
+      "bonuses": [
+        { "threshold": 2, "description": "冰冷伤害+25%，冰冷抗性+20", "effects": { "coldDamage": 25, "coldResist": 20 } },
+        { "threshold": 3, "description": "攻击时几率冻结敌人", "effects": { "freezeChance": 10 } }
+      ]
+    }
+  ]
+}
