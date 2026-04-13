@@ -47,7 +47,13 @@
 - 导出函数/组件：JSDoc 说明用途、参数、返回值
 - 复杂逻辑：行内注释说明 **为什么**（而非 **是什么**）
 
-### 2.3 样式规范
+### 2.3 函数声明规范
+- **必须使用箭头函数和 const 声明**
+- React组件: `const Component = () => { ... }`
+- 普通函数: `const foo = () => { ... }` 或 `const foo = (arg: T) => { ... }`
+- **禁止使用 function 关键字声明函数**
+
+### 2.4 样式规范
 - **必须使用 Tailwind CSS**，不允许内联 `<style>` 块
 - 动画使用 CSS class（`animate-*`）配合 `globals.css` 中的 keyframes
 - 禁止使用 `!important`，用 Tailwind 优先级规则解决
