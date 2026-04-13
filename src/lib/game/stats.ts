@@ -11,6 +11,16 @@ import { SkillType } from '@/types/skills'
 import { getSkillById } from '@/constants/skills'
 import { getSetById } from '@/constants/sets'
 
+// 需要百分比的属性
+const PERCENT_STATS = new Set(['attackSpeed', 'critChance', 'critDamage'])
+
+// 应用套装奖励到属性
+function applySetBonus(stats: CharacterStats, key: string, value: number) {
+  const isPercent = PERCENT_STATS.has(key)
+  const actualValue = isPercent ? value / 100 : value
+  ;(stats as any)[key] = ((stats as any)[key] || 0) + actualValue
+}
+
 /**
  * 属性计算常量
  */
@@ -243,21 +253,15 @@ function applyEquipmentBonuses(stats: CharacterStats, equipment: EquipmentState)
     for (const bonus of set.bonuses) {
       if (bonus.threshold <= count) {
         const eff = bonus.effects
-        if (eff.strength) newStats.strength += eff.strength
-        if (eff.dexterity) newStats.dexterity += eff.dexterity
-        if (eff.vitality) newStats.vitality += eff.vitality
-        if (eff.energy) newStats.energy += eff.energy
-        if (eff.health) newStats.maxHealth += eff.health
-        if (eff.mana) newStats.maxMana += eff.mana
-        if (eff.damage) newStats.damage += eff.damage
-        if (eff.defense) newStats.defense += eff.defense
-        if (eff.attackSpeed) newStats.attackSpeed += eff.attackSpeed / 100
-        if (eff.critChance) newStats.critChance += eff.critChance / 100
-        if (eff.critDamage) newStats.critDamage += eff.critDamage / 100
-        if (eff.fireResist) newStats.fireResist += eff.fireResist
-        if (eff.coldResist) newStats.coldResist += eff.coldResist
-        if (eff.lightningResist) newStats.lightningResist += eff.lightningResist
-        if (eff.poisonResist) newStats.poisonResist += eff.poisonResist
+        for (const [key, value] of Object.entries(eff)) {
+          if (key !== 'damagePercent' && key !== 'healthRegenPercent' && key !== 'allElementDamage' && key !== 'damageToDragon' && key !== 'dodge' && key !== 'deathResist' && key !== 'onDeathRevive' && key !== 'freezeChance') {
+            const numValue = typeof value === 'number' ? value : 0
+            const statKey = key as keyof CharacterStats
+            if (statKey in newStats) {
+              applySetBonus(newStats, statKey, numValue)
+            }
+          }
+        }
       }
     }
   }
