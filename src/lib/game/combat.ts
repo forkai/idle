@@ -30,13 +30,15 @@ export const COMBAT_CONFIG = {
  * @param defender - 防御者属性（怪物）
  * @param skill - 使用技能（可选）
  * @param skillLevel - 技能等级
+ * @param synergyBonus - 协同加成（额外伤害倍率）
  * @returns 伤害结果
  */
 export function calculateDamage(
   attacker: CharacterStats,
   defender: MonsterStats,
   skill?: Skill,
-  skillLevel: number = 1
+  skillLevel: number = 1,
+  synergyBonus: number = 0
 ): DamageResult {
   // 基础伤害
   let baseDamage = attacker.damage
@@ -47,6 +49,11 @@ export function calculateDamage(
     if (skillEffect) {
       baseDamage = attacker.damage * skillEffect.value * (1 + (skillLevel - 1) * 0.1)
     }
+  }
+
+  // 应用协同加成
+  if (synergyBonus > 0) {
+    baseDamage *= (1 + synergyBonus)
   }
 
   // 暴击判定

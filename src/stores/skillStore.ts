@@ -16,6 +16,8 @@ interface SkillStoreState {
   unlockedSkills: string[]
   /** 技能等级映射 skillId -> level */
   skillLevels: Record<string, number>
+  /** 技能冷却时间记录 skillId -> 上次使用时间戳 */
+  skillCooldowns: Record<string, number>
 }
 
 /**
@@ -38,6 +40,15 @@ interface SkillActions {
    */
   getSkillLevel: (skillId: string) => number
   /**
+   * 记录技能已使用（设置冷却）
+   */
+  useSkill: (skillId: string) => void
+  /**
+   * 检查技能是否在冷却中
+   * @returns 剩余冷却时间（毫秒），0表示可用
+   */
+  getSkillCooldownRemaining: (skillId: string) => number
+  /**
    * 重置技能数据（新游戏时调用）
    */
   resetSkills: () => void
@@ -55,6 +66,7 @@ export const useSkillStore = create<SkillStoreState & SkillActions>()(
     immer((set, get) => ({
       unlockedSkills: [],
       skillLevels: {},
+      skillCooldowns: {},
 
       /**
        * 解锁技能
@@ -108,12 +120,36 @@ export const useSkillStore = create<SkillStoreState & SkillActions>()(
       },
 
       /**
+       * 记录技能已使用（设置冷却时间）
+       */
+      useSkill: (skillId: string) => {
+        const skill = getSkillById(skillId)
+        if (!skill) return
+
+        set(state => {
+          state.skillCooldowns[skillId] = Date.now() + skill.cooldown
+        })
+      },
+
+      /**
+       * 检查技能是否在冷却中
+       * @returns 剩余冷却时间（毫秒），0表示可用
+       */
+      getSkillCooldownRemaining: (skillId: string) => {
+        const { skillCooldowns } = get()
+        const cooldownEnd = skillCooldowns[skillId] ?? 0
+        const remaining = cooldownEnd - Date.now()
+        return Math.max(0, remaining)
+      },
+
+      /**
        * 重置技能（新游戏）
        */
       resetSkills: () => {
         set(() => ({
           unlockedSkills: [],
           skillLevels: {},
+          skillCooldowns: {},
         }))
       },
 
@@ -124,6 +160,7 @@ export const useSkillStore = create<SkillStoreState & SkillActions>()(
         set(() => ({
           unlockedSkills: [...unlockedSkills],
           skillLevels: { ...skillLevels },
+          skillCooldowns: {},
         }))
       },
     })),
@@ -132,6 +169,7 @@ export const useSkillStore = create<SkillStoreState & SkillActions>()(
       partialize: (state) => ({
         unlockedSkills: state.unlockedSkills,
         skillLevels: state.skillLevels,
+        // skillCooldowns 不持久化，刷新页面后冷却重置
       }),
     }
   )

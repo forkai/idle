@@ -7,6 +7,8 @@ import type { CharacterStats, CharacterClass, BaseStats } from '@/types/game'
 import { ClassGrowthRates, CharacterClass as CharacterClassEnum } from '@/types/game'
 import type { EquipmentState, Item, EquipmentSlot } from '@/types/items'
 import type { PlayerSkill, Skill } from '@/types/skills'
+import { SkillType } from '@/types/skills'
+import { getSkillById } from '@/constants/skills'
 
 /**
  * 属性计算常量
@@ -301,9 +303,27 @@ function getEquipmentManaBonus(equipment: EquipmentState): number {
  * @returns 更新后的属性
  */
 function applySkillBonuses(stats: CharacterStats, skills: PlayerSkill[]): CharacterStats {
-  // 目前技能加成主要在战斗时计算，这里可以添加被动技能加成
-  // 预留接口
-  return stats
+  const newStats = { ...stats }
+
+  for (const playerSkill of skills) {
+    if (!playerSkill.unlocked) continue
+
+    const skill = getSkillById(playerSkill.skillId)
+    if (!skill) continue
+
+    // 被动技能效果
+    if (skill.type === SkillType.PASSIVE) {
+      for (const effect of skill.effects) {
+        if (effect.type === 'buff') {
+          // 被动技能增加伤害/防御等百分比
+          newStats.damage = Math.floor(newStats.damage * (1 + effect.value * playerSkill.level))
+          newStats.attackSpeed = Math.min(5, newStats.attackSpeed * (1 + effect.value * playerSkill.level * 0.5))
+        }
+      }
+    }
+  }
+
+  return newStats
 }
 
 /**

@@ -8,12 +8,14 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useGameStore } from '@/stores/gameStore'
 import { useCombatStore } from '@/stores/combatStore'
+import { useSkillStore } from '@/stores/skillStore'
 import { useZoneStore } from '@/stores/zoneStore'
 import { useInventoryStore } from '@/stores/inventoryStore'
 import { usePlayerStore } from '@/stores/playerStore'
 import { useCodexStore } from '@/stores/codexStore'
 import { calculateDamage, calculateMonsterDamage, calculateAttackInterval } from '@/lib/game/combat'
 import { getZoneBoss } from '@/constants/enemies'
+import { getSkillById } from '@/constants/skills'
 import type { Monster } from '@/types/enemy'
 import { MonsterType } from '@/types/enemy'
 import { CombatState } from '@/types/combat'
@@ -115,6 +117,8 @@ function CombatButtons({
   onFlee,
   canUseSkill,
   potionCount,
+  skillCooldownPercent,
+  skillName,
 }: {
   combatState: CombatState
   onAttack: () => void
@@ -123,6 +127,8 @@ function CombatButtons({
   onFlee: () => void
   canUseSkill: boolean
   potionCount: number
+  skillCooldownPercent?: number
+  skillName?: string
 }) {
   const isFighting = combatState === CombatState.FIGHTING
 
@@ -145,12 +151,12 @@ function CombatButtons({
         ⚔️ 攻击
       </button>
 
-      {/* 技能按钮 */}
+      {/* 技能按钮（带冷却进度） */}
       <button
         onClick={onSkill}
         disabled={!isFighting || !canUseSkill}
         className="
-          px-6 py-3 rounded-lg font-bold cursor-pointer
+          relative px-6 py-3 rounded-lg font-bold cursor-pointer
           bg-gradient-to-b from-blue-800 to-blue-950
           border-2 border-blue-600
           text-white
@@ -159,7 +165,16 @@ function CombatButtons({
           transition-all duration-200
         "
       >
-        ✨ 技能
+        {/* 冷却进度条背景 */}
+        {skillCooldownPercent !== undefined && skillCooldownPercent > 0 && (
+          <div
+            className="absolute inset-0 bg-blue-600/50 rounded-lg transition-all duration-100"
+            style={{ width: `${skillCooldownPercent}%` }}
+          />
+        )}
+        <span className="relative z-10">
+          {skillName || '✨'} {skillCooldownPercent !== undefined && skillCooldownPercent > 0 ? `${Math.round(skillCooldownPercent)}%` : ''}
+        </span>
       </button>
 
       {/* 药水按钮 */}
@@ -205,14 +220,37 @@ function CombatButtons({
 export function CombatArea() {
   const { computedStats, updateCombatStats, addGold, addExperience, addToInventory, player, useItem } = useGameStore()
   const { combatState, currentEnemy, startCombat, damageEnemy, resetCombat, attemptFlee, getLoot, combatLog } = useCombatStore()
+  const { unlockedSkills, skillLevels, getSkillCooldownRemaining, useSkill } = useSkillStore()
   const inventoryStore = useInventoryStore()
   const { discoverMonster, discoverEquipment } = useCodexStore()
 
   const [damageNumbers, setDamageNumbers] = useState<{ id: number; damage: number; isCrit: boolean; pos: { x: number; y: number } }[]>([])
-  const [lastSkillTime, setLastSkillTime] = useState(0)
+  const [selectedSkillId, setSelectedSkillId] = useState<string | null>(null)
+  const [, setCooldownTick] = useState(0) // 用于触发UI更新
   const [lastRewards, setLastRewards] = useState<{ exp: number; gold: number; items: number } | null>(null)
   const [defeatCountdown, setDefeatCountdown] = useState(3)
   const [isMonsterDying, setIsMonsterDying] = useState(false)
+
+  // 获取当前可用的第一个技能（简化逻辑，实际可扩展为技能选择UI）
+  const currentSkill = selectedSkillId && unlockedSkills.includes(selectedSkillId)
+    ? getSkillById(selectedSkillId)
+    : unlockedSkills.length > 0
+      ? getSkillById(unlockedSkills[0])
+      : null
+
+  const currentSkillLevel = currentSkill ? skillLevels[currentSkill.id] ?? 1 : 1
+  const cooldownRemaining = currentSkill ? getSkillCooldownRemaining(currentSkill.id) : 0
+  const cooldownTotal = currentSkill?.cooldown ?? 0
+  const cooldownPercent = cooldownTotal > 0 ? ((cooldownTotal - cooldownRemaining) / cooldownTotal) * 100 : 100
+
+  // 冷却刷新定时器
+  useEffect(() => {
+    if (combatState !== CombatState.FIGHTING) return
+    const interval = setInterval(() => {
+      setCooldownTick(t => t + 1)
+    }, 100)
+    return () => clearInterval(interval)
+  }, [combatState])
 
   // 战斗循环（玩家自动攻击）
   useEffect(() => {
@@ -273,13 +311,38 @@ export function CombatArea() {
     damageEnemy(result.finalDamage, result.isCrit, result.element)
   }
 
-  // 使用技能（简化版：造成1.5倍伤害）
+  // 使用技能
   const handleSkill = () => {
-    if (!currentEnemy || Date.now() - lastSkillTime < 3000) return
+    if (!currentEnemy || !currentSkill) return
 
-    const result = calculateDamage(computedStats, currentEnemy.monster.stats)
-    damageEnemy(Math.floor(result.finalDamage * 1.5), true, result.element)
-    setLastSkillTime(Date.now())
+    // 检查冷却
+    if (cooldownRemaining > 0) return
+
+    // 检查法力值
+    const manaCost = currentSkill.cost.mana
+    if (computedStats.mana < manaCost) return
+
+    // 计算协同加成
+    const synergyBonus = currentSkill.synergies
+      ? currentSkill.synergies.reduce((bonus, syn) => {
+          if (unlockedSkills.includes(syn.skillId)) {
+            return bonus + syn.bonus * currentSkillLevel
+          }
+          return bonus
+        }, 0)
+      : 0
+
+    // 计算技能伤害（使用技能模板+等级+协同加成）
+    const result = calculateDamage(computedStats, currentEnemy.monster.stats, currentSkill, currentSkillLevel, synergyBonus)
+
+    // 扣除法力值
+    usePlayerStore.getState().updateCombatStats(undefined, computedStats.mana - manaCost)
+
+    // 造成伤害
+    damageEnemy(result.finalDamage, result.isCrit, result.element)
+
+    // 设置冷却
+    useSkill(currentSkill.id)
   }
 
   // 统计背包中生命药水的数量
@@ -463,8 +526,10 @@ export function CombatArea() {
               onSkill={handleSkill}
               onUsePotion={handleUsePotion}
               onFlee={handleFlee}
-              canUseSkill={Date.now() - lastSkillTime >= 3000}
+              canUseSkill={!!currentSkill && cooldownRemaining === 0 && computedStats.mana >= (currentSkill?.cost.mana ?? 0)}
               potionCount={potionCount}
+              skillCooldownPercent={cooldownPercent}
+              skillName={currentSkill?.icon}
             />
           </div>
         </div>
