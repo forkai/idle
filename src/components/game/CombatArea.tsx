@@ -53,17 +53,20 @@ function DamageNumber({ damage, isCrit, position, onComplete }: DamageNumberProp
 /**
  * 怪物卡片组件
  */
-function MonsterCard({ monster, health, maxHealth }: { monster: Monster; health: number; maxHealth: number }) {
+function MonsterCard({ monster, health, maxHealth, isDying }: { monster: Monster; health: number; maxHealth: number; isDying?: boolean }) {
   const healthPercent = (health / maxHealth) * 100
   const isBoss = monster.type === MonsterType.BOSS
+  const isLowHealth = healthPercent < 30
 
   return (
     <div className={`
       relative p-4 rounded-lg border-2 text-center
       ${isBoss
-        ? 'bg-gradient-to-b from-purple-950 to-gray-900 border-purple-500'
+        ? 'bg-gradient-to-b from-purple-950 to-gray-900 border-purple-500 animate-boss-appear'
         : 'bg-gray-900 border-gray-700'
       }
+      ${isDying ? 'animate-monster-death' : ''}
+      ${isLowHealth && !isDying ? 'animate-health-critical' : ''}
     `}>
       {/* Boss标识 */}
       {isBoss && (
@@ -73,7 +76,9 @@ function MonsterCard({ monster, health, maxHealth }: { monster: Monster; health:
       )}
 
       {/* 怪物图标 */}
-      <div className="text-6xl mb-2">{monster.icon}</div>
+      <div className={`text-6xl mb-2 ${isDying ? 'animate-monster-death' : ''}`}>
+        {monster.icon}
+      </div>
 
       {/* 怪物名称 */}
       <h3 className={`font-bold ${isBoss ? 'text-purple-300' : 'text-gray-200'}`}>
@@ -87,7 +92,7 @@ function MonsterCard({ monster, health, maxHealth }: { monster: Monster; health:
           <span>❤️ {health.toLocaleString()}</span>
           <span>{maxHealth.toLocaleString()}</span>
         </div>
-        <div className="h-3 bg-gray-800 rounded-full overflow-hidden border border-gray-700">
+        <div className={`h-3 bg-gray-800 rounded-full overflow-hidden border border-gray-700 ${isLowHealth ? 'animate-health-critical' : ''}`}>
           <div
             className="h-full bg-gradient-to-r from-red-700 to-red-900 transition-all duration-300"
             style={{ width: `${healthPercent}%` }}
@@ -205,6 +210,7 @@ export function CombatArea() {
   const [lastSkillTime, setLastSkillTime] = useState(0)
   const [lastRewards, setLastRewards] = useState<{ exp: number; gold: number; items: number } | null>(null)
   const [defeatCountdown, setDefeatCountdown] = useState(3)
+  const [isMonsterDying, setIsMonsterDying] = useState(false)
 
   // 战斗循环（玩家自动攻击）
   useEffect(() => {
@@ -300,6 +306,7 @@ export function CombatArea() {
   // 战斗胜利处理
   useEffect(() => {
     if (combatState === CombatState.VICTORY && currentEnemy) {
+      setIsMonsterDying(true)
       // 计算并发放奖励
       const expReward = currentEnemy.monster.stats.expReward
       const goldReward = Math.floor(
@@ -320,6 +327,7 @@ export function CombatArea() {
       setTimeout(() => {
         resetCombat()
         setLastRewards(null)
+        setIsMonsterDying(false)
       }, 3000)
     }
   }, [combatState, currentEnemy])
@@ -343,6 +351,7 @@ export function CombatArea() {
         clearInterval(tick)
         updateCombatStats(computedStats.maxHealth, computedStats.maxMana)
         resetCombat()
+        setIsMonsterDying(false)
       }, 3000)
     }
   }, [combatState])
@@ -385,22 +394,22 @@ export function CombatArea() {
         </div>
       ) : combatState === CombatState.VICTORY ? (
         /* 胜利状态 */
-        <div className="text-center py-8">
+        <div className="text-center py-8 animate-victory">
           <p className="text-3xl mb-2">🎉</p>
-          <p className="text-2xl font-bold text-amber-400 mb-2">胜利!</p>
+          <p className="text-2xl font-bold text-amber-400 mb-2 animate-victory">胜利!</p>
           {lastRewards && (
-            <div className="space-y-1 text-gray-300">
+            <div className="space-y-1 text-gray-300 animate-reward-glow inline-block px-4 py-2 rounded-lg">
               <p>+{lastRewards.exp} 经验</p>
               <p>+{lastRewards.gold} 金币</p>
               {lastRewards.items > 0 && (
-                <p className="text-green-400">📦 获得 {lastRewards.items} 件战利品（已放入背包）</p>
+                <p className="text-green-400 animate-loot-drop">📦 获得 {lastRewards.items} 件战利品（已放入背包）</p>
               )}
             </div>
           )}
         </div>
       ) : combatState === CombatState.DEFEAT ? (
         /* 失败状态 - 带倒计时动画 */
-        <div className="text-center py-8 animate-pulse">
+        <div className="text-center py-8 animate-defeat">
           <p className="text-4xl mb-2">💀</p>
           <p className="text-2xl font-bold text-red-400 mb-2">体力耗尽...</p>
           <div className="flex items-center justify-center gap-2 text-gray-400">
@@ -435,6 +444,7 @@ export function CombatArea() {
               monster={currentEnemy.monster}
               health={currentEnemy.currentHealth}
               maxHealth={currentEnemy.maxHealth}
+              isDying={isMonsterDying}
             />
           )}
 

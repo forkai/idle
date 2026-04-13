@@ -42,7 +42,7 @@ export default function GamePage() {
     <div className="min-h-screen bg-gradient-to-b from-gray-950 to-gray-900 flex flex-col">
       {/* 顶部导航栏 */}
       <header className="bg-gray-900/95 border-b border-gray-800 sticky top-0 z-50 shrink-0">
-        <div className="max-w-6xl mx-auto px-3 py-2">
+        <div className="max-w-7xl mx-auto px-4 py-2">
           <div className="flex items-center justify-between gap-2">
             <h1 className="text-sm sm:text-xl font-bold text-amber-500 tracking-wider">
               DIABLO IDLE
@@ -82,7 +82,7 @@ export default function GamePage() {
       </header>
 
       {/* 主内容区 */}
-      <main className="flex-1 max-w-6xl mx-auto w-full px-3 py-4">
+      <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-4">
         {/* 移动端：状态栏折叠为紧凑行 */}
         <div className="lg:hidden mb-3">
           <StatusBar />
@@ -125,7 +125,7 @@ export default function GamePage() {
 
       {/* 底部信息栏 */}
       <footer className="bg-gray-900/95 border-t border-gray-800 shrink-0">
-        <div className="max-w-6xl mx-auto px-4 py-2">
+        <div className="max-w-7xl mx-auto px-4 py-2">
           <div className="flex items-center justify-between text-[10px] sm:text-xs text-gray-500">
             <span>v0.1.0</span>
             <span>自动保存</span>
