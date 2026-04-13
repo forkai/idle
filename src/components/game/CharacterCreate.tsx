@@ -30,7 +30,7 @@ function ClassCard({ classId, name, description, icon, selected, onClick }: Clas
     <button
       onClick={onClick}
       className={`
-        p-4 rounded-lg border-2 transition-all duration-200 text-left
+        p-4 rounded-lg border-2 transition-all duration-200 text-left cursor-pointer
         ${selected
           ? 'border-amber-500 bg-amber-950/30 shadow-lg shadow-amber-500/20'
           : 'border-gray-700 bg-gray-900/50 hover:border-gray-500'
@@ -194,6 +194,7 @@ export function CharacterCreate() {
               hover:from-red-700 hover:to-red-900
               disabled:from-gray-700 disabled:to-gray-800
               disabled:border-gray-600 disabled:text-gray-500
+              disabled:cursor-not-allowed cursor-pointer
               transition-all duration-200
               shadow-lg hover:shadow-red-900/50
             "

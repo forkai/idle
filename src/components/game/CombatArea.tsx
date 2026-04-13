@@ -132,7 +132,7 @@ function CombatButtons({
         onClick={onAttack}
         disabled={!isFighting}
         className="
-          px-6 py-3 rounded-lg font-bold
+          px-6 py-3 rounded-lg font-bold cursor-pointer
           bg-gradient-to-b from-red-800 to-red-950
           border-2 border-red-600
           text-white
@@ -149,7 +149,7 @@ function CombatButtons({
         onClick={onSkill}
         disabled={!isFighting || !canUseSkill}
         className="
-          px-6 py-3 rounded-lg font-bold
+          px-6 py-3 rounded-lg font-bold cursor-pointer
           bg-gradient-to-b from-blue-800 to-blue-950
           border-2 border-blue-600
           text-white
@@ -166,7 +166,7 @@ function CombatButtons({
         onClick={onUsePotion}
         disabled={!isFighting || potionCount <= 0}
         className="
-          px-6 py-3 rounded-lg font-bold
+          px-6 py-3 rounded-lg font-bold cursor-pointer
           bg-gradient-to-b from-green-800 to-green-950
           border-2 border-green-600
           text-white
@@ -183,7 +183,7 @@ function CombatButtons({
         onClick={onFlee}
         disabled={!isFighting}
         className="
-          px-6 py-3 rounded-lg font-bold
+          px-6 py-3 rounded-lg font-bold cursor-pointer
           bg-gradient-to-b from-gray-700 to-gray-850
           border-2 border-gray-600
           text-gray-300
@@ -369,7 +369,7 @@ export function CombatArea() {
             <button
               onClick={() => handleStartCombat(false)}
               className="
-                px-6 py-3 rounded-lg font-bold
+                px-6 py-3 rounded-lg font-bold cursor-pointer
                 bg-gradient-to-b from-red-800 to-red-950
                 border-2 border-red-600 text-white
                 hover:from-red-700 hover:to-red-900
@@ -381,7 +381,7 @@ export function CombatArea() {
             <button
               onClick={() => handleStartCombat(true)}
               className="
-                px-6 py-3 rounded-lg font-bold
+                px-6 py-3 rounded-lg font-bold cursor-pointer
                 bg-gradient-to-b from-purple-800 to-purple-950
                 border-2 border-purple-600 text-purple-200
                 hover:from-purple-700 hover:to-purple-900

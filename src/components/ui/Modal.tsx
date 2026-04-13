@@ -138,7 +138,7 @@ export function Modal({
             {showClose && (
               <button
                 onClick={onClose}
-                className="ml-auto text-gray-500 hover:text-gray-300 transition-colors text-lg leading-none"
+                className="ml-auto text-gray-500 hover:text-gray-300 transition-colors text-lg leading-none cursor-pointer"
                 aria-label="关闭"
               >
                 ✕

@@ -89,7 +89,7 @@ export function Tabs({
               relative flex items-center gap-1.5
               text-sm font-medium
               transition-all duration-150
-              disabled:cursor-not-allowed disabled:opacity-40
+              cursor-pointer disabled:cursor-not-allowed disabled:opacity-40
               outline-none
               ${variant === 'pill'
                 ? `

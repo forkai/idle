@@ -63,8 +63,8 @@ export default function GamePage() {
                     flex flex-col sm:flex-row items-center gap-0 sm:gap-1.5
                     px-2 sm:px-3 py-1.5 rounded-md font-medium transition-all text-xs sm:text-sm
                     ${activeTab === tab.id
-                      ? 'bg-amber-600 text-white'
-                      : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800'
+                      ? 'bg-amber-600 text-white cursor-pointer'
+                      : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800 cursor-pointer'
                     }
                   `}
                 >
@@ -74,7 +74,7 @@ export default function GamePage() {
               ))}
             </nav>
 
-            <button className="text-gray-400 hover:text-gray-200 transition-colors text-lg">
+            <button className="text-gray-400 hover:text-gray-200 transition-colors text-lg cursor-pointer">
               ⚙️
             </button>
           </div>

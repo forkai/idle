@@ -5,6 +5,7 @@
 
 import type { Metadata } from "next"
 import "./globals.css"
+import { GameSoundProvider } from "@/components/game/GameSoundProvider"
 
 export const metadata: Metadata = {
   title: "Diablo Idle - 暗黑破坏神风格放置游戏",
@@ -22,6 +23,7 @@ export default function RootLayout({
     <html lang="zh-CN">
       <body className="min-h-full flex flex-col antialiased">
         {children}
+        <GameSoundProvider />
       </body>
     </html>
   )
