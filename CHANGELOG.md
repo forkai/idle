@@ -1,6 +1,80 @@
 # 更新日志 (Changelog)
 
-## [Unreleased] - 详细开发规划
+## [Unreleased]
+
+---
+
+## [0.2.0] - 2026-04-13
+
+### Sprint 1.2: 状态管理架构重构
+
+#### 重构
+- **Store模块化拆分**: 将 `gameStore.ts` 拆分为 7 个独立 Store
+  - `playerStore.ts` - 玩家数据（属性、经验、金币、等级）
+  - `inventoryStore.ts` - 背包管理（物品堆叠、使用道具）
+  - `equipmentStore.ts` - 装备管理（穿戴、卸下、属性刷新）
+  - `skillStore.ts` - 技能状态（解锁、学习）
+  - `zoneStore.ts` - 区域进度（当前区域、章节）
+  - `combatStore.ts` - 战斗状态（自动攻击循环、敌人状态）
+  - `settingsStore.ts` - 游戏设置（音效等）
+  - `gameStore.ts` - 门面模式（向后兼容，组合7个Store）
+- Zustand `getState()` 模式解决战斗循环中的闭包陈旧问题
+
+#### 新增功能
+- **Playwright E2E测试框架** (`tests/e2e/`)
+  - `ui-layout.spec.ts` - 12项UI布局验证测试（溢出、重叠、可见性）
+  - `playwright.config.ts` - 多浏览器配置（Chromium/Firefox/Mobile）
+- **Storybook文档工具** - 组件自动化文档
+
+### Sprint 1.4 收尾 + UI/UX优化
+
+#### 样式与动画
+- **游戏级CSS动画** (`src/app/globals.css`)
+  - `damage-float` - 伤害飘字（上升渐隐）
+  - `crit-shake` - 暴击屏幕震动
+  - `monster-death` - 怪物死亡动画（缩放+变暗）
+  - `boss-appear` - Boss登场动画（缩放+模糊消失）
+  - `victory-bounce` - 胜利弹跳动画
+  - `defeat-pulse` - 失败呼吸脉冲
+  - `health-critical` - 低血量危险闪烁（HP<30%）
+  - `loot-drop` - 战利品掉落弹跳
+  - `btn-press` - 按钮按下反馈
+  - `atk-flash` - 攻击闪烁
+  - `reward-glow` - 奖励金色光晕
+  - `zone-pulse` - 区域选中呼吸光效
+  - `screen-shake` - 屏幕震动（大型暴击）
+  - `bar-shimmer` - 经验条渐变流动
+- **动画应用**:
+  - MonsterCard: Boss登场 `animate-boss-appear`、低血量 `animate-health-critical`、死亡 `animate-monster-death`
+  - 胜利状态: `animate-victory` + `animate-reward-glow` + `animate-loot-drop`
+  - 失败状态: `animate-defeat`
+
+#### 响应式布局
+- **全宽PC布局**: 移除 `max-w` 宽度限制，主区域全宽
+- **桌面端三栏**: 左侧状态栏 `xl:col-span-2`、中间战斗区 `xl:col-span-8`、右侧区域选择 `xl:col-span-2`
+- **移动端**: 顶部紧凑状态栏、底部区域选择
+
+#### 音效系统
+- **Web Audio API音效** (`src/lib/game/sound.ts`)
+  - 6种程序化合成音效：click / attack / victory / defeat / pickup / levelup
+  - 无需外部音频文件，零依赖
+- **全局点击音效** (`src/components/game/GameSoundProvider.tsx`)
+  - 事件委托自动注入，所有按钮点击播放 click 音效
+
+#### Bug修复
+- **BUG-001**: ZoneSelection侧边栏溢出 → 改为 `flex-col` 单列布局
+- **BUG-002**: 玩家死亡后敌人继续攻击 → 战斗循环内使用 `usePlayerStore.getState()` + HP>0判断
+- **BUG-003**: 胜利金币随机不一致 → `lastRewards` state 保存实际计算值
+- **BUG-004**: 死亡后无恢复提示 → DEFEAT状态显示3秒倒计时进度条
+- **BUG-005**: 药水不消耗 → 从 `inventoryStore` 真实读取和消耗
+
+#### 细节优化
+- **cursor-pointer**: 所有按钮统一添加（包括 CombatArea/CharacterCreate/Modal/Tabs/page.tsx）
+- **BUGS.md**: 新增 bug 跟踪文档，每次修复单独提交
+
+---
+
+## [0.1.0] - 2026-04-13
 
 ### 重大更新：完整开发计划
 
