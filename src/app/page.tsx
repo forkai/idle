@@ -7,7 +7,7 @@
 
 import { useEffect, useState } from 'react'
 import { useGameStore } from '@/stores/gameStore'
-import { CharacterCreate, StatusBar, CombatArea, ZoneSelection, InventoryPanel, SkillsPanel, EquipmentPanel, CodexPanel, CombatLogPanel, CharacterPanel, SettingsPanel, EnhancementPanel, AchievementPanel, SetPanel } from '@/components/game'
+import { CharacterCreate, StatusBar, CombatArea, ZoneSelection, InventoryPanel, SkillsPanel, EquipmentPanel, CodexPanel, CombatLogPanel, CharacterPanel, SettingsPanel, EnhancementPanel, AchievementPanel, SetPanel, LeaderboardPanel } from '@/components/game'
 
 /**
  * 游戏主页面组件
@@ -15,7 +15,7 @@ import { CharacterCreate, StatusBar, CombatArea, ZoneSelection, InventoryPanel, 
 export default function GamePage() {
   const { player } = useGameStore()
   const [isLoading, setIsLoading] = useState(true)
-  const [activeTab, setActiveTab] = useState<'zone' | 'inventory' | 'equipment' | 'skills' | 'codex' | 'log' | 'character' | 'enhance' | 'sets' | 'achievements'>('zone')
+  const [activeTab, setActiveTab] = useState<'zone' | 'inventory' | 'equipment' | 'skills' | 'codex' | 'log' | 'character' | 'enhance' | 'sets' | 'achievements' | 'leaderboard'>('zone')
 
   // 检查是否有存档
   useEffect(() => {
@@ -58,6 +58,7 @@ export default function GamePage() {
                 { id: 'inventory', label: '🎒', labelFull: '背包' },
                 { id: 'skills', label: '⚡', labelFull: '技能' },
                 { id: 'achievements', label: '🏆', labelFull: '成就' },
+                { id: 'leaderboard', label: '📊', labelFull: '排行' },
                 { id: 'codex', label: '📖', labelFull: '图鉴' },
                 { id: 'log', label: '📜', labelFull: '战斗日志' },
                 { id: 'character', label: '👤', labelFull: '属性' },
@@ -108,6 +109,7 @@ export default function GamePage() {
             {activeTab === 'sets' && <SetPanel />}
             {activeTab === 'skills' && <SkillsPanel />}
             {activeTab === 'achievements' && <AchievementPanel />}
+            {activeTab === 'leaderboard' && <LeaderboardPanel />}
             {activeTab === 'codex' && <CodexPanel />}
             {activeTab === 'log' && <CombatLogPanel />}
             {activeTab === 'character' && <CharacterPanel />}
