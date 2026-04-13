@@ -1,0 +1,156 @@
+{
+  "bossAbilities": [
+    {
+      "id": "boss_fireball",
+      "name": "火焰冲击",
+      "description": "向玩家投掷巨大的火球",
+      "triggerChance": 0.25,
+      "effectType": "damage",
+      "effectValue": 50,
+      "cooldown": 8000,
+      "element": "fire"
+    },
+    {
+      "id": "boss_whirlwind",
+      "name": "旋风斩",
+      "description": "旋转攻击周围所有敌人",
+      "triggerChance": 0.2,
+      "effectType": "damage",
+      "effectValue": 35,
+      "cooldown": 10000,
+      "element": null
+    },
+    {
+      "id": "boss_ground_slam",
+      "name": "大地重击",
+      "description": "猛击地面，造成范围伤害并减速",
+      "triggerChance": 0.3,
+      "effectType": "debuff",
+      "effectValue": 25,
+      "cooldown": 12000,
+      "element": null
+    },
+    {
+      "id": "boss_dark_bless",
+      "name": "暗黑祝福",
+      "description": "为自己施加暗黑护盾",
+      "triggerChance": 0.35,
+      "effectType": "buff",
+      "effectValue": 100,
+      "cooldown": 15000,
+      "element": null
+    },
+    {
+      "id": "boss_frost_nova",
+      "name": "冰霜新星",
+      "description": "释放冰冷的能量波",
+      "triggerChance": 0.2,
+      "effectType": "damage",
+      "effectValue": 40,
+      "cooldown": 10000,
+      "element": "cold"
+    },
+    {
+      "id": "boss_lightning_strike",
+      "name": "雷霆一击",
+      "description": "召唤闪电攻击",
+      "triggerChance": 0.25,
+      "effectType": "damage",
+      "effectValue": 55,
+      "cooldown": 8000,
+      "element": "lightning"
+    },
+    {
+      "id": "boss_poison_cloud",
+      "name": "毒云",
+      "description": "释放有毒气体",
+      "triggerChance": 0.3,
+      "effectType": "damage",
+      "effectValue": 30,
+      "cooldown": 12000,
+      "element": "poison"
+    },
+    {
+      "id": "boss_enrage",
+      "name": "狂怒",
+      "description": "BOSS进入狂怒状态，大幅提升攻击力",
+      "triggerChance": 0.15,
+      "effectType": "buff",
+      "effectValue": 50,
+      "cooldown": 30000,
+      "element": null
+    },
+    {
+      "id": "boss_summon_minions",
+      "name": "召唤仆从",
+      "description": "召唤小怪物协助作战",
+      "triggerChance": 0.2,
+      "effectType": "summon",
+      "effectValue": 3,
+      "cooldown": 20000,
+      "element": null
+    },
+    {
+      "id": "boss_life_steal",
+      "name": "生命吸取",
+      "description": "吸取玩家的生命值",
+      "triggerChance": 0.25,
+      "effectType": "heal",
+      "effectValue": 40,
+      "cooldown": 15000,
+      "element": null
+    },
+    {
+      "id": "boss_curse",
+      "name": "诅咒",
+      "description": "诅咒玩家，降低防御",
+      "triggerChance": 0.3,
+      "effectType": "debuff",
+      "effectValue": 20,
+      "cooldown": 18000,
+      "element": null
+    },
+    {
+      "id": "boss_teleport",
+      "name": "闪现",
+      "description": "瞬间移动到新位置",
+      "triggerChance": 0.4,
+      "effectType": "buff",
+      "effectValue": 0,
+      "cooldown": 5000,
+      "element": null
+    }
+  ],
+  "eliteAbilities": [
+    {
+      "id": "elite_charge",
+      "name": "冲锋",
+      "description": "快速冲向玩家",
+      "triggerChance": 0.3,
+      "effectType": "damage",
+      "effectValue": 20,
+      "cooldown": 6000,
+      "element": null
+    },
+    {
+      "id": "elite_rage",
+      "name": "愤怒",
+      "description": "生命值低时伤害增加",
+      "triggerChance": 0.4,
+      "effectType": "buff",
+      "effectValue": 25,
+      "cooldown": 10000,
+      "element": null
+    },
+    {
+      "id": "elite_stun",
+      "name": "击晕",
+      "description": "重击使玩家眩晕",
+      "triggerChance": 0.25,
+      "effectType": "debuff",
+      "effectValue": 15,
+      "cooldown": 10000,
+      "element": null
+    }
+  ]
+}

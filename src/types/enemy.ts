@@ -85,11 +85,13 @@ export interface MonsterAbility {
   /** 触发概率 */
   triggerChance: number
   /** 效果类型 */
-  effectType: 'damage' | 'debuff' | 'summon' | 'buff'
+  effectType: 'damage' | 'debuff' | 'summon' | 'buff' | 'heal'
   /** 效果值 */
   effectValue: number
   /** 冷却时间（毫秒） */
   cooldown: number
+  /** 关联元素（如果是元素技能） */
+  element?: string | null
 }
 
 /**
