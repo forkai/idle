@@ -623,11 +623,8 @@ export function CombatArea() {
 
   // 使用药水（从背包消耗）
   const handleUsePotion = () => {
-    // 找到第一个生命药水使用
     const potionItem = potionItems[0]
     if (!potionItem) return
-
-    // 使用背包中的药水（会自动加血）
     useItem(potionItem.id)
   }
 
