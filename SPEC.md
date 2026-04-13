@@ -6,747 +6,882 @@
 **Diablo Idle** - 暗黑破坏神风格的放置idle游戏
 
 ### 项目愿景
-一款融合暗黑破坏神经典元素的放置类挂机游戏，玩家扮演冒险者在地牢中探险，击败恶魔获取装备和经验，通过离线收益和自动化战斗机制实现持续成长。游戏强调：
-- 暗黑破坏神的哥特式视觉风格
-- 丰富的装备系统和词缀机制
-- 多职业体系与技能树
-- 离线收益与放置机制
-- AI辅助的智能战斗系统
+一款融合暗黑破坏神经典元素的放置类挂机游戏，玩家扮演冒险者在地牢中探险，击败恶魔获取装备和经验，通过离线收益和自动化战斗机制实现持续成长。
+
+### 核心循环
+```
+玩家创建角色 → 自动战斗打怪 → 获得经验和装备 → 升级和强化角色 → 挑战更强区域 → 获得更好装备 → 循环
+```
 
 ---
 
-## 📐 项目架构设计
+## 📅 详细开发计划（预估总工期：60-80小时）
 
-### 技术栈
-```
-前端框架: Next.js 14+ (App Router)
-语言: TypeScript 5.x (严格模式)
-样式: Tailwind CSS 4.x + shadcn/ui
-状态管理: Zustand + Immer
-数据库: SQL.js (浏览器端SQLite)
-测试: Vitest + React Testing Library + Playwright
-AI集成: LangChain + LangGraph (规划中)
-打包: Turbopack
-```
+### Sprint 1: 基础框架搭建（12-15小时）
 
-### 项目目录结构
-```
-diablo-idle/
-├── src/
-│   ├── app/                      # Next.js App Router
-│   │   ├── (game)/               # 游戏主页面组
-│   │   │   ├── layout.tsx        # 游戏布局
-│   │   │   ├── page.tsx          # 游戏主界面
-│   │   │   ├── inventory/        # 背包页面
-│   │   │   ├── skills/           # 技能树页面
-│   │   │   ├── equipment/        # 装备页面
-│   │   │   └── settings/         # 设置页面
-│   │   ├── api/                  # API路由
-│   │   │   └── ai/               # AI相关API
-│   │   ├── layout.tsx            # 根布局
-│   │   └── globals.css           # 全局样式
-│   │
-│   ├── components/               # React组件
-│   │   ├── ui/                   # shadcn/ui基础组件
-│   │   ├── game/                 # 游戏业务组件
-│   │   │   ├── Character/        # 角色展示组件
-│   │   │   ├── Combat/           # 战斗系统组件
-│   │   │   ├── Equipment/        # 装备系统组件
-│   │   │   ├── Skills/           # 技能系统组件
-│   │   │   └── Map/              # 地图系统组件
-│   │   └── layout/               # 布局组件
-│   │
-│   ├── lib/                      # 工具库
-│   │   ├── db/                   # 数据库相关
-│   │   │   ├── schema.ts        # 数据模型
-│   │   │   ├── queries.ts       # 数据库操作
-│   │   │   └── migrations/      # 数据库迁移
-│   │   ├── game/                 # 游戏核心逻辑
-│   │   │   ├── combat.ts        # 战斗计算
-│   │   │   ├── items.ts         # 物品系统
-│   │   │   ├── skills.ts        # 技能系统
-│   │   │   └── stats.ts         # 属性计算
-│   │   ├── ai/                   # AI集成模块
-│   │   │   ├── agent.ts         # AI代理
-│   │   │   ├── chains.ts        # LangChain链
-│   │   │   └── graph.ts         # LangGraph工作流
-│   │   └── utils/               # 通用工具
-│   │
-│   ├── stores/                  # Zustand状态管理
-│   │   ├── gameStore.ts         # 游戏状态
-│   │   ├── playerStore.ts       # 玩家状态
-│   │   └── uiStore.ts           # UI状态
-│   │
-│   ├── hooks/                    # 自定义Hooks
-│   │   ├── useGameLoop.ts       # 游戏循环
-│   │   ├── useOfflineProgress.ts # 离线收益
-│   │   └── useAutoSave.ts       # 自动保存
-│   │
-│   ├── types/                    # TypeScript类型定义
-│   │   ├── game.ts              # 游戏类型
-│   │   ├── combat.ts            # 战斗类型
-│   │   ├── items.ts             # 物品类型
-│   │   └── ai.ts                # AI类型
-│   │
-│   └── constants/               # 常量定义
-│       ├── items.ts             # 物品数据
-│       ├── enemies.ts           # 敌人数据
-│       ├── skills.ts            # 技能数据
-│       └── zones.ts             # 区域数据
-│
-├── tests/                        # 测试文件
-│   ├── unit/                    # 单元测试
-│   │   ├── lib/
-│   │   ├── components/
-│   │   └── stores/
-│   └── integration/             # 集成测试
-│
-├── public/                       # 静态资源
-│   └── assets/
-│
-├── docs/                         # 开发文档
-│   ├── architecture.md         # 架构文档
-│   ├── database-schema.md     # 数据库设计
-│   └── ai-integration.md      # AI集成设计
-│
-└── package.json
-```
+#### 1.1 项目配置与初始化（2小时）
+- [ ] Next.js 14+ 多语言配置（中文/英文/日文）
+- [ ] TypeScript严格模式配置与自定义规则
+- [ ] Tailwind CSS暗黑主题配置系统
+- [ ] ESLint/Prettier代码规范配置
+- [ ] Vitest单元测试框架搭建
+- [ ] Playwright E2E测试框架搭建
+- [ ] **任务工时**: 2小时
+
+#### 1.2 状态管理架构（3小时）
+- [ ] Zustand Store模块化拆分
+  - `playerStore.ts` - 玩家数据（角色属性、经验、金币）
+  - `inventoryStore.ts` - 背包管理
+  - `equipmentStore.ts` - 装备管理
+  - `skillStore.ts` - 技能状态
+  - `zoneStore.ts` - 地图进度
+  - `combatStore.ts` - 战斗状态
+  - `settingsStore.ts` - 设置选项
+- [ ] Store持久化方案（localStorage + IndexedDB）
+- [ ] Store中间件开发（日志、调试、性能监控）
+- [ ] **任务工时**: 3小时
+
+#### 1.3 数据层架构（3小时）
+- [ ] SQL.js数据库初始化与迁移系统
+- [ ] 数据库Schema设计
+  - 玩家存档表
+  - 角色属性表
+  - 背包表
+  - 装备表
+  - 技能表
+  - 成就表
+  - 统计表
+- [ ] 数据导出/导入功能（JSON格式）
+- [ ] 自动备份机制
+- [ ] **任务工时**: 3小时
+
+#### 1.4 基础UI组件库（4小时）
+- [ ] Button组件（主要、次要、危险、禁用状态）
+- [ ] Input/TextField组件
+- [ ] Select/Dropdown组件
+- [ ] Modal/Dialog组件
+- [ ] Tabs组件
+- [ ] Tooltip组件
+- [ ] Badge/Chip组件
+- [ ] ProgressBar组件
+- [ ] **任务工时**: 4小时
+
+#### 1.5 暗黑主题系统（2小时）
+- [ ] CSS变量配置（颜色、排版、间距）
+- [ ] 暗色模式/亮色模式切换
+- [ ] 主题定制API（允许用户调整配色）
+- [ ] 动画效果库（fade、slide、bounce等）
+- [ ] **任务工时**: 2小时
+
+#### 1.6 国际化（i18n）（1小时）
+- [ ] next-intl配置
+- [ ] 中文语言包
+- [ ] 英文语言包
+- [ ] 动态语言切换
+- [ ] **任务工时**: 1小时
+
+---
+
+### Sprint 2: 角色系统（8-10小时）
+
+#### 2.1 角色创建系统（2小时）
+- [ ] 职业选择界面开发
+  - 战士技能预览
+  - 法师技能预览
+  - 刺客技能预览
+- [ ] 角色名称输入与验证
+- [ ] 角色外观自定义（发型、肤色、配饰）
+- [ ] 角色确认与创建流程
+- [ ] **任务工时**: 2小时
+
+#### 2.2 属性系统（2小时）
+- [ ] 四大基础属性开发（力量/敏捷/体力/能量）
+- [ ] 派生属性计算系统
+  - 伤害 = 力量 * 系数 + 装备加成
+  - 防御 = (敏捷 * 系数 + 体力 * 系数) + 装备加成
+  - 生命 = 体力 * 系数 + 基础值
+  - 法力 = 能量 * 系数 + 基础值
+- [ ] 属性点分配系统
+- [ ] 属性重置功能（消耗金币）
+- [ ] **任务工时**: 2小时
+
+#### 2.3 升级系统（2小时）
+- [ ] 经验值获取与计算
+- [ ] 升级弹窗与动画
+- [ ] 每级属性成长
+- [ ] 等级上限设计（99级）
+- [ ] 经验惩罚/加成系统（刷级）
+- [ ] **任务工时**: 2小时
+
+#### 2.4 职业系统（3小时）
+- [ ] 战士职业深度开发
+  - 专属属性成长（力量+3/级，体力+3/级）
+  - 战士特有被动技能
+  - 战士武器专精
+- [ ] 法师职业深度开发
+  - 专属属性成长（能量+4/级）
+  - 法师特有被动技能
+  - 法术暴击加成
+- [ ] 刺客职业深度开发
+  - 专属属性成长（敏捷+4/级）
+  - 刺客特有被动技能
+  - 闪避与暴击加成
+- [ ] 转职系统设计（二次觉醒）
+- [ ] **任务工时**: 3小时
+
+#### 2.5 角色状态UI（1小时）
+- [ ] 角色详情面板
+- [ ] 属性展示与重置
+- [ ] 角色传记/信息
+- [ ] **任务工时**: 1小时
+
+---
+
+### Sprint 3: 战斗系统（10-12小时）
+
+#### 3.1 基础战斗机制（3小时）
+- [ ] 回合制战斗逻辑
+- [ ] 攻击间隔计算
+- [ ] 伤害公式实现
+  - 基础伤害 = 武器伤害 * 技能倍率 * (1 + 加成%)
+  - 最终伤害 = 基础伤害 * (1 - 防御减免) * (1 - 抗性减免)
+- [ ] 暴击系统
+  - 暴击率计算
+  - 暴击伤害计算
+  - 暴击特效动画
+- [ ] 闪避系统
+- [ ] **任务工时**: 3小时
+
+#### 3.2 元素系统（2小时）
+- [ ] 六大元素类型（物理、火、冰、电、毒、魔法）
+- [ ] 元素抗性计算
+- [ ] 元素伤害加成
+- [ ] 元素效果触发（燃烧、冰冻、感电、中毒）
+- [ ] 元素精通被动
+- [ ] **任务工时**: 2小时
+
+#### 3.3 技能系统（4小时）
+- [ ] 技能释放与冷却
+- [ ] 技能消耗（法力/生命）
+- [ ] 技能效果实现
+  - 伤害技能
+  - 治疗技能
+  - 增益技能
+  - 减益技能
+  - 召唤技能
+- [ ] 技能连击系统
+- [ ] 技能优先級配置
+- [ ] 自动战斗AI（基础版）
+- [ ] **任务工时**: 4小时
+
+#### 3.4 战斗UI（2小时）
+- [ ] 战斗场景渲染
+- [ ] 技能快捷栏
+- [ ] 目标选择器
+- [ ] 战斗日志面板
+- [ ] 伤害数字飘字
+- [ ] 战斗动画系统
+- [ ] **任务工时**: 2小时
+
+#### 3.5 Boss战系统（1小时）
+- [ ] Boss特殊机制
+- [ ] Boss阶段设计
+- [ ] Boss战奖励
+- [ ] **任务工时**: 1小时
+
+---
+
+### Sprint 4: 地图与怪物系统（8-10小时）
+
+#### 4.1 区域系统（2小时）
+- [ ] 区域数据结构设计
+- [ ] 区域解锁条件
+- [ ] 区域难度分级
+- [ ] 区域奖励倍率
+- [ ] 区域背景与氛围
+- [ ] **任务工时**: 2小时
+
+#### 4.2 怪物系统（3小时）
+- [ ] 怪物属性模板
+- [ ] 怪物AI行为
+- [ ] 怪物掉落系统
+- [ ] 怪物图鉴
+- [ ] 精英怪与稀有怪
+- [ ] 怪物等级缩放
+- [ ] **任务工时**: 3小时
+
+#### 4.3 地图探索UI（2小时）
+- [ ] 世界地图界面
+- [ ] 区域节点导航
+- [ ] 路径可视化
+- [ ] 探索进度
+- [ ] **任务工时**: 2小时
+
+#### 4.4 第一章完整内容（3小时）
+- [ ] 鲜血湿地关卡设计（5-8个场景）
+- [ ] 黑暗洞穴关卡设计（8-10个场景）
+- [ ] 不死族墓穴关卡设计（8-10个场景）
+- [ ] Boss战设计（3个）
+- [ ] 剧情过场动画
+- [ ] **任务工时**: 3小时
+
+---
+
+### Sprint 5: 装备系统（10-12小时）
+
+#### 5.1 装备基础系统（2小时）
+- [ ] 装备槽位定义（10个槽位）
+- [ ] 装备属性系统
+- [ ] 装备稀有度（白/蓝/黄/橙/绿）
+- [ ] 装备图标与模型
+- [ ] 装备Tooltip
+- [ ] **任务工时**: 2小时
+
+#### 5.2 随机词缀系统（3小时）
+- [ ] 前缀词缀库（30+词缀）
+- [ ] 后缀词缀库（30+词缀）
+- [ ] 词缀生成算法
+- [ ] 词缀等级匹配
+- [ ] 暗金物品固定词缀
+- [ ] 套装物品设计
+- [ ] **任务工时**: 3小时
+
+#### 5.3 装备生成系统（2小时）
+- [ ] 基础属性随机
+- [ ] 词缀数量随机（稀有度决定）
+- [ ] 装备等级计算
+- [ ] 装备评分系统
+- [ ] 装备比较功能
+- [ ] **任务工时**: 2小时
+
+#### 5.4 装备强化系统（3小时）
+- [ ] 强化石系统
+- [ ] 强化成功率
+- [ ] 强化失败惩罚
+- [ ] 强化等级上限
+- [ ] 强化特效
+- [ ] 安全强化选项（消耗更多材料）
+- [ ] **任务工时**: 3小时
+
+#### 5.5 装备打造系统（2小时）
+- [ ] 配方系统
+- [ ] 材料收集
+- [ ] 打造流程
+- [ ] 打造品质控制
+- [ ] 传说打造
+- [ ] **任务工时**: 2小时
+
+---
+
+### Sprint 6: 背包与仓库系统（4-5小时）
+
+#### 6.1 背包系统（2小时）
+- [ ] 背包格子系统（60格）
+- [ ] 物品堆叠规则
+- [ ] 物品排序功能
+- [ ] 物品筛选
+- [ ] 物品搜索
+- [ ] 物品详情查看
+- [ ] **任务工时**: 2小时
+
+#### 6.2 仓库系统（1小时）
+- [ ] 仓库分页
+- [ ] 仓库容量扩展
+- [ ] 物品存入取出
+- [ ] 仓库密码保护（可选）
+- [ ] **任务工时**: 1小时
+
+#### 6.3 物品管理UI（2小时）
+- [ ] 物品图标设计
+- [ ] 物品拖拽
+- [ ] 物品丢弃确认
+- [ ] 物品出售
+- [ ] 物品锁定/解锁
+- [ ] 批量操作
+- [ ] **任务工时**: 2小时
+
+---
+
+### Sprint 7: 技能树系统（6-8小时）
+
+#### 7.1 技能树UI（2小时）
+- [ ] 技能树可视化
+- [ ] 技能节点交互
+- [ ] 技能连线显示
+- [ ] 技能解锁状态
+- [ ] 技能点分配
+- [ ] **任务工时**: 2小时
+
+#### 7.2 技能升级系统（2小时）
+- [ ] 技能点获取
+- [ ] 技能升级材料
+- [ ] 技能升级成功率
+- [ ] 技能重置
+- [ ] 技能协同效果
+- [ ] **任务工时**: 2小时
+
+#### 7.3 三大职业技能树（4小时）
+- [ ] 战士技能树（10个技能，5层）
+- [ ] 法师技能树（10个技能，5层）
+- [ ] 刺客技能树（10个技能，5层）
+- [ ] 终极技能设计
+- [ ] **任务工时**: 4小时
+
+---
+
+### Sprint 8: 离线收益系统（4-5小时）
+
+#### 8.1 离线计算引擎（2小时）
+- [ ] 离线时间记录
+- [ ] 收益计算算法
+  - 基于历史战斗数据推算
+  - 怪物击杀数 = 离线时间 / 平均击杀时间
+  - 经验收益 = 怪物数 * 怪物经验
+  - 金币收益 = 怪物数 * 怪物金币
+- [ ] 收益上限控制（24小时）
+- [ ] **任务工时**: 2小时
+
+#### 8.2 离线奖励UI（1小时）
+- [ ] 离线奖励展示
+- [ ] 收益明细
+- [ ] 一键领取
+- [ ] **任务工时**: 1小时
+
+#### 8.3 离线战斗系统（2小时）
+- [ ] 离线自动战斗
+- [ ] 断线重连
+- [ ] 后台运行检测
+- [ ] **任务工时**: 2小时
+
+---
+
+### Sprint 9: 经济系统（4-5小时）
+
+#### 9.1 金币系统（1小时）
+- [ ] 金币获取途径
+- [ ] 金币消耗途径
+- [ ] 金币显示优化
+- [ ] **任务工时**: 1小时
+
+#### 9.2 商店系统（2小时）
+- [ ] 杂货商
+- [ ] 铁匠铺
+- [ ] 魔法商人
+- [ ] 流浪商人（随机商品）
+- [ ] 商店刷新机制
+- [ ] **任务工时**: 2小时
+
+#### 9.3 交易系统（2小时）
+- [ ] 玩家间交易
+- [ ] 拍卖行系统
+- [ ] 物品定价
+- [ ] 交易记录
+- [ ] **任务工时**: 2小时
+
+---
+
+### Sprint 10: 成就与进度系统（3-4小时）
+
+#### 10.1 成就系统（2小时）
+- [ ] 成就分类（战斗、收集、探索）
+- [ ] 成就条件检测
+- [ ] 成就奖励
+- [ ] 成就展示
+- [ ] **任务工时**: 2小时
+
+#### 10.2 排行榜系统（1小时）
+- [ ] 等级排行榜
+- [ ] 战力排行榜
+- [ ] 击杀排行榜
+- [ ] 财富排行榜
+- [ ] **任务工时**: 1小时
+
+#### 10.3 进度保存（1小时）
+- [ ] 自动保存
+- [ ] 手动保存
+- [ ] 云端同步（localStorage备份）
+- [ ] **任务工时**: 1小时
+
+---
+
+### Sprint 11: UI/UX优化（4-5小时）
+
+#### 11.1 战斗特效（2小时）
+- [ ] 伤害数字飘字
+- [ ] 暴击特效
+- [ ] 技能特效
+- [ ] 元素效果
+- [ ] **任务工时**: 2小时
+
+#### 11.2 界面动画（1小时）
+- [ ] 界面过渡动画
+- [ ] 按钮点击效果
+- [ ] 弹窗动画
+- [ ] **任务工时**: 1小时
+
+#### 11.3 音效系统（1小时）
+- [ ] 背景音乐
+- [ ] 战斗音效
+- [ ] UI音效
+- [ ] 音效设置
+- [ ] **任务工时**: 1小时
+
+#### 11.4 快捷键系统（1小时）
+- [ ] 技能快捷键
+- [ ] 物品使用快捷键
+- [ ] 界面快捷键
+- [ ] 自定义配置
+- [ ] **任务工时**: 1小时
+
+---
+
+### Sprint 12: AI功能扩展（付费DLC）（12-15小时）
+
+#### 12.1 AI战斗助手（5小时）
+- [ ] LangChain集成
+- [ ] 战斗决策Agent
+- [ ] 技能释放优化
+- [ ] 战斗策略学习
+- [ ] **任务工时**: 5小时
+
+#### 12.2 AI装备推荐（3小时）
+- [ ] 角色Build分析
+- [ ] 装备评分算法
+- [ ] 最优装备推荐
+- [ ] 套装搭配建议
+- [ ] **任务工时**: 3小时
+
+#### 12.3 AI酒馆系统（4小时）
+- [ ] NPC对话生成
+- [ ] LangGraph对话流程
+- [ ] 游戏攻略问答
+- [ ] 剧情事件生成
+- [ ] **任务工时**: 4小时
+
+#### 12.4 AI地图探索（3小时）
+- [ ] 最优路线规划
+- [ ] 收益最大化策略
+- [ ] 自动探索Agent
+- [ ] **任务工时**: 3小时
+
+---
+
+### Sprint 13: 内容扩展（8-10小时）
+
+#### 13.1 第二章内容（4小时）
+- [ ] 沙漠之城区域设计
+- [ ] 10个新怪物
+- [ ] 2个新Boss
+- [ ] 新装备掉落
+- [ ] **任务工时**: 4小时
+
+#### 13.2 套装系统（3小时）
+- [ ] 套装设计（10+套装）
+- [ ] 套装奖励触发
+- [ ] 套装展示UI
+- [ ] **任务工时**: 3小时
+
+#### 13.3 赛季系统（3小时）
+- [ ] 赛季数据重置
+- [ ] 赛季成就
+- [ ] 赛季奖励
+- [ ] **任务工时**: 3小时
+
+---
+
+## 📊 工时统计汇总
+
+| Sprint | 内容 | 工时 |
+|--------|------|------|
+| Sprint 1 | 基础框架搭建 | 12-15h |
+| Sprint 2 | 角色系统 | 8-10h |
+| Sprint 3 | 战斗系统 | 10-12h |
+| Sprint 4 | 地图与怪物 | 8-10h |
+| Sprint 5 | 装备系统 | 10-12h |
+| Sprint 6 | 背包与仓库 | 4-5h |
+| Sprint 7 | 技能树系统 | 6-8h |
+| Sprint 8 | 离线收益 | 4-5h |
+| Sprint 9 | 经济系统 | 4-5h |
+| Sprint 10 | 成就与进度 | 3-4h |
+| Sprint 11 | UI/UX优化 | 4-5h |
+| Sprint 12 | AI功能(付费) | 12-15h |
+| Sprint 13 | 内容扩展 | 8-10h |
+| **总计** | | **83-106h** |
 
 ---
 
 ## 🎮 功能模块详细设计
 
-### 1. 角色系统 (Character System)
+### 核心玩法循环
 
-#### 1.1 职业体系
-```typescript
-// 三大经典职业
-enum CharacterClass {
-  WARRIOR = "warrior",     // 战士 - 物理近战
-  SORCERER = "sorcerer",   // 法师 - 魔法远程
-  ROGUE = "rogue"          // 刺客 - 物理远程/陷阱
-}
-
-// 每个职业有独特的属性成长和技能树
-```
-
-#### 1.2 属性系统
-```typescript
-interface CharacterStats {
-  // 基础属性
-  strength: number;      // 力量 - 物理伤害
-  dexterity: number;     // 敏捷 - 攻击速度/闪避
-  vitality: number;     // 体力 - 生命值/防御
-  energy: number;        // 能量 - 法力值/魔法伤害
-
-  // 战斗属性
-  health: number;        // 当前生命
-  mana: number;          // 当前法力
-  damage: number;        // 伤害
-  defense: number;        // 防御
-  attackSpeed: number;   // 攻击速度
-  critChance: number;    // 暴击率
-  critDamage: number;    // 暴击伤害
-
-  // 抗性
-  fireResist: number;    // 火焰抗性
-  coldResist: number;    // 冰冷抗性
-  lightningResist: number; // 闪电抗性
-  poisonResist: number;  // 毒素抗性
-}
-```
-
-### 2. 战斗系统 (Combat System)
-
-#### 2.1 实时战斗机制
-- 自动攻击：角色自动攻击当前目标
-- 攻击间隔：根据攻击速度计算
-- 伤害计算：参考暗黑破坏神公式
-- 暴击机制：暴击造成双倍伤害
-- 元素伤害：火、冰、电、毒四种元素
-
-#### 2.2 战斗公式（暗黑破坏神风格）
-```typescript
-// 伤害计算公式
-const calculateDamage = (attacker: CharacterStats, defender: CharacterStats, skill: Skill): DamageResult => {
-  const weaponDamage = attacker.damage;
-  const skillMultiplier = skill.damageMultiplier;
-
-  // 基础伤害
-  let damage = weaponDamage * skillMultiplier;
-
-  // 暴击判定
-  const isCrit = Math.random() < attacker.critChance;
-  if (isCrit) {
-    damage *= attacker.critDamage;
-  }
-
-  // 防御减免 (暗黑风格: 伤害 * 防御 / (防御 + 某个常数))
-  const damageReduction = defender.defense / (defender.defense + 100);
-  damage *= (1 - damageReduction);
-
-  // 元素伤害加成
-  if (skill.element) {
-    damage = applyElementalResist(damage, defender, skill.element);
-  }
-
-  return { damage, isCrit, finalDamage: Math.floor(damage) };
-};
-```
-
-### 3. 装备系统 (Equipment System)
-
-#### 3.1 装备槽位
-```typescript
-enum EquipmentSlot {
-  HEAD = "head",           // 头部
-  CHEST = "chest",         // 胸甲
-  GLOVES = "gloves",       // 手套
-  BOOTS = "boots",         // 靴子
-  BELT = "belt",           // 腰带
-  SHIELD = "shield",       // 盾牌
-  RING1 = "ring1",         // 戒指1
-  RING2 = "ring2",         // 戒指2
-  AMULET = "amulet",       // 护符
-  WEAPON = "weapon",       // 武器
-}
-```
-
-#### 3.2 装备稀有度
-```typescript
-enum ItemRarity {
-  NORMAL = "normal",       // 普通 - 白色
-  MAGIC = "magic",         // 魔法 - 蓝色
-  RARE = "rare",           // 稀有 - 黄色
-  UNIQUE = "unique",       // 独特 - 橙色
-  SET = "set"              // 套装 - 绿色
-}
-```
-
-#### 3.3 词缀系统（暗黑风格）
-```typescript
-// 前缀 (影响数值)
-const prefixes = [
-  { name: "强化的", effect: { damage: 10 } },
-  { name: "活力的", effect: { health: 50 } },
-  { name: "聪慧的", effect: { mana: 30 } },
-  // ... 更多前缀
-];
-
-// 后缀 (附加属性)
-const suffixes = [
-  { name: "力量", effect: { strength: 5 } },
-  { name: "敏捷", effect: { dexterity: 5 } },
-  // ... 更多后缀
-];
-
-// 暗金物品有固定词缀
-interface UniqueItem extends Item {
-  fixedAffixes: Affix[];  // 固定词缀
-  setBonus?: SetBonus;    // 套装奖励
-}
-```
-
-### 4. 技能系统 (Skill System)
-
-#### 4.1 技能树结构
-```typescript
-// 每个职业有独立技能树
-interface SkillTree {
-  classId: CharacterClass;
-  tiers: SkillTier[];  // 技能层
-}
-
-interface SkillTier {
-  level: number;       // 解锁等级
-  skills: Skill[];     // 该层技能
-}
-
-// 技能分类
-enum SkillType {
-  PASSIVE = "passive",     // 被动技能
-  ACTIVE = "active",       // 主动技能
-  AURA = "aura",           // 光环技能
-  SUMMON = "summon",       // 召唤技能
-}
-```
-
-#### 4.2 战士技能树示例
-```typescript
-const warriorSkills: SkillTree = {
-  classId: CharacterClass.WARRIOR,
-  tiers: [
-    {
-      level: 1,
-      skills: [
-        { id: "slash", name: "重砍", type: SkillType.ACTIVE, damage: 1.2, manaCost: 5 },
-        { id: "block", name: "格挡", type: SkillType.ACTIVE, defense: 20, duration: 3000 },
-      ]
-    },
-    {
-      level: 6,
-      skills: [
-        { id: "cleave", name: "顺劈", type: SkillType.ACTIVE, damage: 1.5, aoe: true },
-        { id: "battleOrders", name: "战斗号令", type: SkillType.AURA, effect: { allStats: 10% } },
-      ]
-    },
-    // ... 更多层
-  ]
-};
-```
-
-### 5. 地图系统 (Map System)
-
-#### 5.1 区域设计
-```typescript
-interface Zone {
-  id: string;
-  name: string;                // 区域名称
-  description: string;           // 描述
-  requiredLevel: number;         // 等级要求
-  monsters: MonsterType[];       // 怪物类型
-  boss?: Monster;                // Boss
-  rewards: ZoneRewards;          // 奖励加成
-  background: string;            // 背景图
-  music: string;                 // 背景音乐
-}
-
-const zones: Zone[] = [
-  {
-    id: "blood-marsh",
-    name: "鲜血湿地",
-    description: "一片被诅咒的沼泽，充斥着腐烂的气息...",
-    requiredLevel: 1,
-    monsters: ["skeleton", "zombie", "corrupt-spirit"],
-    boss: { id: "blood-witch", name: "血腥女巫", health: 500 },
-    rewards: { goldBonus: 1.0, expBonus: 1.0 },
-  },
-  // ... 更多区域
-];
-```
-
-#### 5.2 世界结构
-```typescript
-// 五大章节
-enum Act {
-  ACT_1 = "act1",    // 堕落者的洞穴
-  ACT_2 = "act2",    // 沙漠之城
-  ACT_3 = "act3",    // 库拉斯特丛林
-  ACT_4 = "act4",    // 地狱难度
-  ACT_5 = "act5",    // 混沌难度
-}
-
-// 每章节有多个区域
-const acts = {
-  act1: {
-    name: "第一章：堕落者的洞穴",
-    zones: ["blood-marsh", "dark-cave", "undead Crypt", "boss:diablo-clone"],
-    difficulty: 1,
-  },
-  // ...
-};
-```
-
-### 6. 离线收益系统 (Offline Progress)
-
-#### 6.1 离线计算机制
-```typescript
-interface OfflineProgress {
-  startTime: number;       // 离线开始时间
-  endTime: number;         // 离线结束时间
-  duration: number;        // 离线时长(秒)
-  zoneId: string;          // 所在区域
-  monstersKilled: number;  // 击杀怪物数
-  goldEarned: number;      // 获得金币
-  expEarned: number;       // 获得经验
-  itemsFound: Item[];      // 获得物品
-}
-
-const calculateOfflineProgress = async (lastSave: GameSave): Promise<OfflineProgress> => {
-  const now = Date.now();
-  const duration = Math.min(now - lastSave.lastActiveTime, MAX_OFFLINE_TIME); // 最多24小时
-
-  // 基于历史战斗数据推算收益
-  const avgGoldPerSecond = lastSave.goldPerMinute / 60;
-  const avgExpPerSecond = lastSave.expPerMinute / 60;
-
-  return {
-    startTime: lastSave.lastActiveTime,
-    endTime: now,
-    duration,
-    zoneId: lastSave.currentZone,
-    monstersKilled: Math.floor(duration / lastSave.avgKillTime),
-    goldEarned: Math.floor(avgGoldPerSecond * duration),
-    expEarned: Math.floor(avgExpPerSecond * duration),
-    itemsFound: generateLoot(duration, lastSave.luckBonus),
-  };
-};
-```
-
-### 7. 怪物系统 (Monster System)
-
-#### 7.1 怪物类型
-```typescript
-interface Monster {
-  id: string;
-  name: string;
-  type: MonsterType;
-  health: number;
-  damage: number;
-  defense: number;
-  attackSpeed: number;
-  element?: Element;       // 元素属性
-  abilities: string[];     // 特殊能力
-  lootTable: LootEntry[];  // 掉落表
-  expReward: number;        // 经验奖励
-  goldReward: number;       // 金币奖励
-}
-
-enum MonsterType {
-  BEAST = "beast",         // 野兽
-  UNDEAD = "undead",       // 不死族
-  DEMON = "demon",         // 恶魔
-  ELEMENTAL = "elemental", // 元素生物
-  BOSS = "boss",           // Boss
-}
-```
-
-### 8. 背包系统 (Inventory System)
-
-#### 8.1 背包配置
-```typescript
-const INVENTORY_SIZE = 60;  // 60格背包
-const STASH_SIZE = 120;     // 仓库120格
-const CUBE_SIZE = 4;        // 合成框4格
-
-interface Inventory {
-  slots: (Item | null)[];  // 60个槽位
-  gold: number;             // 金币
-  gems: Gem[];             // 宝石
-}
-```
-
-#### 8.2 物品堆叠规则
-```typescript
-const STACK_LIMITS = {
-  gold: Infinity,           // 金币不限制
-  potion: 99,              // 药水99个
-  gem: 99,                 // 宝石99个
-  material: 99,            // 材料99个
-  equipment: 1,            // 装备不可堆叠
-};
-```
-
----
-
-## 🤖 AI集成设计 (LangChain + LangGraph) - 付费模块
-
-### ⚠️ 重要更新：AI功能现在是付费模块
-AI辅助功能作为游戏的付费DLC模块出售，默认不启用。用户需要购买后才能体验AI功能。
-未购买AI模块时，游戏提供基础的自动战斗和手动操作体验。
-
-### 设计目标
-利用AI增强游戏体验，提供智能战斗辅助、个性化推荐、剧情生成等功能。
-
-### 付费模块定价策略（建议）
-```
-AI战斗助手模块 - ¥18（一次性购买）
-├── 智能战斗建议
-├── 自动战斗优化
-└── 怪物弱点分析
-
-AI全套尊享包 - ¥48（一次性购买）
-├── AI战斗助手模块全部功能
-├── 智能装备推荐
-├── Build优化器
-├── 自动刷图优化
-└── 未来更新免费
-```
-
-### 免费功能 vs 付费功能对比
-| 功能 | 免费版 | AI尊享包 |
-|------|--------|----------|
-| 自动战斗 | ✅ 基础版 | ✅ AI优化版 |
-| 装备管理 | ✅ 手动 | ✅ AI推荐 |
-| 技能释放 | ✅ 手动/自动 | ✅ AI智能 |
-| 地图探索 | ✅ 手动 | ✅ AI优化路线 |
-| Build建议 | ❌ 无 | ✅ AI分析 |
-| 剧情对话 | ❌ 无 | ✅ AI生成 |
-
-### 架构设计
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                    用户界面 (UI Layer)                   │
-├─────────────────────────────────────────────────────────┤
-│                  Next.js App Router                     │
-├─────────────────────────────────────────────────────────┤
-│                   游戏逻辑层 (Game Logic)                 │
-├─────────────────────────────────────────────────────────┤
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐     │
-│  │  LangChain  │  │  LangGraph  │  │   工具链   │     │
-│  │  (LLM调用)  │  │ (工作流编排) │  │ (游戏API)  │     │
-│  └─────────────┘  └─────────────┘  └─────────────┘     │
-├─────────────────────────────────────────────────────────┤
-│                    模型层 (Model Layer)                   │
-│         Claude / GPT-4 / 本地模型 (可选)                  │
+│                        核心循环                            │
+│                                                         │
+│  ┌─────────┐    ┌─────────┐    ┌─────────┐             │
+│  │ 战斗打怪 │ ──▶│ 获得掉落 │ ──▶│ 装备提升 │             │
+│  └─────────┘    └─────────┘    └─────────┘             │
+│       │                              │                   │
+│       │         ┌─────────┐          │                   │
+│       └────────▶│ 升级变强 │◀─────────┘                   │
+│                 └─────────┘                              │
+│                     │                                    │
+│                 ┌─────────┐                            │
+│                 │ 挑战更高 │                            │
+│                 │   难度   │                            │
+│                 └─────────┘                            │
 └─────────────────────────────────────────────────────────┘
 ```
 
-### AI功能模块
+### 装备稀有度系统
 
-#### 1. 智能战斗助手 (Combat Advisor)
+| 稀有度 | 颜色 | 词缀数量 | 概率 |
+|--------|------|----------|------|
+| 普通 | 白色 | 0 | 基础 |
+| 魔法 | 蓝色 | 1-2 | 30% |
+| 稀有 | 黄色 | 3-4 | 15% |
+| 暗金 | 橙色 | 固定 | 2% |
+| 套装 | 绿色 | 固定+套装奖励 | 1% |
+
+### 伤害计算公式
+
 ```typescript
-// LangGraph 战斗决策图
-const combatAdvisorGraph = new StateGraph({
-  state: CombatState,
-  nodes: {
-    analyzeEnemy: analyzeEnemyNode,
-    evaluateSkills: evaluateSkillsNode,
-    selectAction: selectActionNode,
-    executeAndLearn: executeAndLearnNode,
-  },
-  edges: [
-    ["analyzeEnemy", "evaluateSkills"],
-    ["evaluateSkills", "selectAction"],
-    ["selectAction", "executeAndLearn"],
-    ["executeAndLearn", "analyzeEnemy"], // 循环直到战斗结束
-  ],
-});
-```
+// 最终伤害 = 基础伤害 × 技能倍率 × (1 + 伤害加成%) × 暴击乘数 × (1 - 防御减免) × (1 - 抗性减免)
 
-#### 2. 智能装备推荐
-```typescript
-// 根据当前Build推荐最佳装备
-const equipmentRecommender = new RunnableSequence([
-  // 1. 分析当前角色属性
-  analyzeCharacterStats,
-  // 2. 分析当前装备
-  analyzeCurrentEquipment,
-  // 3. 计算最优替换
-  calculateOptimalBuild,
-  // 4. 生成推荐理由
-  generateRecommendationReason,
-]);
-```
+// 防御减免
+const defenseReduction = defense / (defense + 100)
 
-#### 3. 自动战斗策略生成
-```typescript
-// 使用LangChain生成战斗策略
-const strategyPrompt = `你是暗黑破坏神游戏的战斗策略专家。
-当前角色：{characterClass} Lv.{level}
-当前装备：{equipment}
-面对怪物：{monsterType}
-分析最佳战斗策略...`;
-```
+// 抗性减免
+const resistReduction = resist / (resist + 100) // 抗性上限75%
 
-#### 4. 剧情对话系统（规划中）
-```typescript
-// NPC对话生成
-const npcDialogueChain = new LLMChain({
-  llm: chatModel,
-  prompt: dialoguePrompt,
-  outputParser: dialogueParser,
-});
-```
-
-### LangChain集成点
-```typescript
-// src/lib/ai/agent.ts - AI代理核心
-import { ChatOpenAI } from "@langchain/openai";
-import { initializeAgentExecutor } from "langchain/agents";
-import { SerpAPI, DatabaseTool, CombatTool } from "./tools";
-
-// 可用工具
-const tools = [
-  new CombatTool(),      // 战斗操作
-  new InventoryTool(),   // 背包管理
-  new EquipmentTool(),    // 装备管理
-  new StatsTool(),       // 属性查询
-  new SearchTool(),      // 搜索游戏数据
-];
-```
-
-### 未来增强功能（付费DLC内容）
-1. **AI战斗助手**：智能战斗建议和自动战斗优化
-2. **AI装备推荐**：根据Build分析最优装备搭配
-3. **AI酒馆**：与AI NPC对话，获取游戏攻略和建议（LangChain驱动）
-4. **AI地图探索**：AI决定最优探索路线
-5. **AI剧情生成**：动态生成事件和对话内容
-6. **语音交互**：支持语音指挥战斗（规划中）
-
----
-
-
----
-
-## 🗄️ 数据库设计 (SQL.js)
-
-### 核心表结构
-```sql
--- 玩家存档表
-CREATE TABLE player (
-  id TEXT PRIMARY KEY,
-  name TEXT NOT NULL,
-  class TEXT NOT NULL,
-  level INTEGER DEFAULT 1,
-  experience INTEGER DEFAULT 0,
-  gold INTEGER DEFAULT 0,
-  created_at INTEGER,
-  updated_at INTEGER
-);
-
--- 角色属性表
-CREATE TABLE character_stats (
-  player_id TEXT PRIMARY KEY,
-  strength INTEGER DEFAULT 10,
-  dexterity INTEGER DEFAULT 10,
-  vitality INTEGER DEFAULT 10,
-  energy INTEGER DEFAULT 10,
-  health INTEGER DEFAULT 100,
-  mana INTEGER DEFAULT 50,
-  FOREIGN KEY (player_id) REFERENCES player(id)
-);
-
--- 装备表
-CREATE TABLE equipment (
-  id TEXT PRIMARY KEY,
-  player_id TEXT,
-  slot TEXT,
-  item_data TEXT,  -- JSON存储物品数据
-  is_equipped INTEGER DEFAULT 0,
-  FOREIGN KEY (player_id) REFERENCES player(id)
-);
-
--- 背包表
-CREATE TABLE inventory (
-  id TEXT PRIMARY KEY,
-  player_id TEXT,
-  slot_index INTEGER,
-  item_id TEXT,
-  quantity INTEGER DEFAULT 1,
-  FOREIGN KEY (player_id) REFERENCES player(id)
-);
-
--- 技能表
-CREATE TABLE skills (
-  player_id TEXT,
-  skill_id TEXT,
-  level INTEGER DEFAULT 1,
-  unlocked INTEGER DEFAULT 0,
-  PRIMARY KEY (player_id, skill_id),
-  FOREIGN KEY (player_id) REFERENCES player(id)
-);
-
--- 游戏进度表
-CREATE TABLE game_progress (
-  player_id TEXT PRIMARY KEY,
-  current_zone TEXT DEFAULT 'blood-marsh',
-  highest_zone TEXT DEFAULT 'blood-marsh',
-  current_act INTEGER DEFAULT 1,
-  FOREIGN KEY (player_id) REFERENCES player(id)
-);
-
--- 统计表
-CREATE TABLE statistics (
-  player_id TEXT,
-  total_damage_dealt INTEGER DEFAULT 0,
-  total_monsters_killed INTEGER DEFAULT 0,
-  total_gold_earned INTEGER DEFAULT 0,
-  total_time_played INTEGER DEFAULT 0,
-  PRIMARY KEY (player_id),
-  FOREIGN KEY (player_id) REFERENCES player(id)
-);
+// 暴击伤害
+const critDamage = isCrit ? baseDamage * critMultiplier : baseDamage
 ```
 
 ---
 
-## 🎨 UI/UX设计
+## 🔧 技术架构
 
-### 视觉风格
-- **主题**：暗黑破坏神哥特式风格
-- **主色调**：深红(#8B0000)、暗金(#B8860B)、深紫(#2E1A47)
-- **强调色**：血红(#DC143C)、金色(#FFD700)
-- **背景**：暗色系，带有纹理质感
-- **字体**：哥特式/中世纪风格字体
-
-### 组件设计
-使用shadcn/ui组件，定制暗黑主题：
-- 深色背景的卡片组件
-- 红色/金色边框的按钮
-- 暗色输入框和选择器
-- 符文风格的图标
-- 技能图标使用暗黑风格设计
-
-### 布局结构
+### 目录结构
 ```
-┌──────────────────────────────────────────────────────┐
-│  顶部状态栏 (金币/经验/角色信息)                       │
-├────────────┬─────────────────────────┬───────────────┤
-│            │                         │               │
-│  左侧菜单   │      主游戏区域          │   右侧面板    │
-│  (技能/背包 │   (地图/战斗动画)         │  (怪物/掉落)  │
-│   /装备)   │                         │               │
-│            │                         │               │
-├────────────┴─────────────────────────┴───────────────┤
-│  底部工具栏 (快捷技能/角色状态/设置)                    │
-└──────────────────────────────────────────────────────┘
+src/
+├── app/                    # Next.js App Router
+├── components/             # React组件
+│   ├── ui/                 # 基础UI组件
+│   ├── game/              # 游戏业务组件
+│   │   ├── character/     # 角色相关
+│   │   ├── combat/        # 战斗相关
+│   │   ├── equipment/     # 装备相关
+│   │   ├── inventory/     # 背包相关
+│   │   ├── map/          # 地图相关
+│   │   └── skill/         # 技能相关
+├── stores/                 # Zustand状态管理
+├── lib/                    # 工具库
+│   ├── db/                # 数据库
+│   ├── game/              # 游戏逻辑
+│   ├── ai/                # AI功能
+│   └── utils/             # 通用工具
+├── hooks/                  # 自定义Hooks
+├── types/                  # TypeScript类型
+├── constants/              # 常量数据
+├── locales/                # 国际化
+└── styles/                 # 样式文件
 ```
 
----
-
-## 🧪 测试策略
-
-### 单元测试 (Vitest)
-- 游戏逻辑计算函数
-- 状态管理Store
-- 工具函数
-- 组件渲染测试
-
-### 集成测试
-- 数据库操作
-- 游戏流程测试
-- 保存/加载功能
-
-### 测试覆盖率目标
-- 核心逻辑: 90%+
-- 组件: 80%+
-- 总覆盖率: 70%+
-
----
-
-## 📅 开发计划
-
-### Phase 1: 项目基础 (MVP)
-- [x] 项目初始化
-- [ ] 数据库设计
-- [ ] 基础状态管理
-- [ ] 角色创建
-- [ ] 基础战斗系统
-
-### Phase 2: 核心循环
-- [ ] 地图系统
-- [ ] 怪物系统
-- [ ] 装备系统
-- [ ] 背包系统
-
-### Phase 3: 深度系统
-- [ ] 技能树系统
-- [ ] 离线收益
-- [ ] 存档系统
-
-### Phase 4: 内容扩展（后续版本）
-- [ ] 更多区域和章节
-- [ ] 更多装备和暗金物品
-- [ ] 套装系统
-- [ ] 剧情事件系统
-
-### Phase 5: AI功能扩展（付费DLC）
-- [ ] AI战斗助手模块
-- [ ] AI装备推荐系统
-- [ ] AI酒馆交互功能（LangChain对话）
-- [ ] AI地图探索优化
-- [ ] LangChain + LangGraph集成
+### 数据持久化策略
+1. **localStorage** - 用户设置、小数据
+2. **IndexedDB** - 游戏存档、大数据
+3. **自动保存** - 每30秒自动保存
+4. **手动保存** - 支持导出/导入JSON
 
 ---
 
 > 📝 更新日志已移至 [CHANGELOG.md](CHANGELOG.md)
+
+---
+
+## 👿 超大型功能模块：魔王系统（Demon Lord System）
+
+> 玩家在主线角色达到最高等级（Lv.99）后，可解锁魔王转职，进入全新游戏模式。
+> 魔王系统的镜像对立面是**神主系统**——玩家选择信仰路线成为祝福者。
+
+### 设计理念
+魔王系统是一套**玩家生成内容（UGC）+ PvP**的混合玩法：
+- 玩家从冒险者视角切换为**地下城设计者**视角
+- 自行设计的地下城成为**其他玩家的冒险目标**
+- 通过防守成功获得魔王经验和奖励
+- 形成**玩家vs玩家**的双向博弈生态
+
+### 魔王核心循环
+```
+达到Lv.99 → 转职为魔王 → 设计地下城 → 部署怪物/陷阱
+     ↑                                          ↓
+ 魔王升级 ← 杀死冒险者 ← 冒险者挑战 ← 地下城公开
+     ↓                                          ↓
+ 解锁更强怪物                            奖励设定(诱惑冒险者)
+```
+
+### 功能规格
+
+#### 1. 魔王等级系统
+```typescript
+interface DemonLord {
+  playerId: string
+  demonLordLevel: number        // 魔王等级（独立于角色等级）
+  title: string                 // 魔王称号（由等级和击杀数决定）
+  totalAdventurerKills: number  // 累计击杀冒险者数
+  totalDefenseWins: number      // 地下城防守成功次数
+  totalDefenseLosses: number    // 地下城被攻克次数
+  prestige: number              // 威望值（影响排行榜）
+  dungeonSlots: number          // 可创建的地下城数量（等级提升可增加）
+}
+```
+
+#### 2. 地下城可视化设计器
+- **与游戏内置地下城架构一致**（使用相同的Zone/Monster数据结构）
+- 可视化网格编辑器（拖拽部署怪物、陷阱、宝箱）
+- 支持多房间/多楼层设计
+- 自定义Boss（从解锁的怪物中选择）
+- 设置地下城主题（沙漠、冰雪、地狱等）
+
+```typescript
+interface DungeonDesign {
+  id: string
+  lordId: string              // 所属魔王
+  name: string                // 地下城名称
+  theme: DungeonTheme         // 视觉主题
+  floors: DungeonFloor[]      // 多楼层结构
+
+  // 奖励设定（越丰厚越吸引冒险者挑战）
+  rewardPool: {
+    minGold: number
+    maxGold: number
+    itemDropTable: LootEntry[]
+    guaranteedRareChance: number
+  }
+
+  // 推荐挑战等级
+  recommendedLevel: number
+  difficulty: 'easy' | 'normal' | 'hard' | 'nightmare'
+
+  // 统计数据
+  totalChallenges: number     // 被挑战总次数
+  successDefenses: number     // 防守成功次数
+  isPublished: boolean        // 是否开放给其他玩家
+}
+
+interface DungeonFloor {
+  floorNumber: number
+  rooms: DungeonRoom[]
+  bossRoom: BossRoom | null
+}
+
+interface DungeonRoom {
+  id: string
+  type: 'combat' | 'treasure' | 'trap' | 'rest'
+  monsters: MonsterPlacement[]  // 怪物部署
+  traps: TrapPlacement[]        // 陷阱部署
+  treasures: TreasurePlacement[] // 宝箱
+}
+```
+
+#### 3. 怪物部署规则
+- 魔王解锁等级越高，可部署的怪物种类越多
+- 怪物有**部署费用**（魔王积分），强力怪物消耗更多
+- **怪物越强 → 奖励池要求更高** → 吸引更高等级冒险者
+- 支持设置怪物行为模式（积极、守势、伏击）
+- 特殊机关：毒雾、熔岩地板、传送门、陷阱
+
+```typescript
+interface MonsterPlacement {
+  monsterId: string
+  position: { x: number; y: number }
+  behavior: 'aggressive' | 'defensive' | 'ambush' | 'patrol'
+  level: number   // 怪物部署等级（基于魔王等级缩放）
+  eliteModifiers?: string[]  // 精英词缀（额外强化）
+}
+```
+
+#### 4. 魔王 vs 冒险者 机制
+- **冒险者视角**：看到排行榜上开放的地下城，选择挑战
+- **胜负判定**：
+  - 冒险者通关 → 获得奖励池物品；魔王失去防守积分
+  - 冒险者失败 → 魔王获得击杀经验；冒险者损失部分金币
+- **实时/离线防守**：魔王不需要在线，AI自动控制怪物行为
+
+#### 5. 魔王成长与激励
+| 魔王等级 | 称号 | 解锁内容 |
+|---------|------|---------|
+| Lv.1-10 | 地穴守卫 | 基础怪物解锁、1个地下城槽位 |
+| Lv.11-30 | 黑暗领主 | 精英怪物、陷阱系统、2个槽位 |
+| Lv.31-50 | 深渊魔王 | Boss自定义、多楼层、3个槽位 |
+| Lv.51-80 | 混沌之王 | 特殊机关、4个槽位、联名地下城 |
+| Lv.81-99 | 不灭魔神 | 传说怪物、无限槽位、专属称号 |
+
+#### 6. 魔王排行榜
+- **威望排行**：击杀冒险者数 × 地下城评分
+- **防守率排行**：防守成功 / 被挑战次数
+- **设计评分**：玩家游玩后的评分（趣味性/难度/奖励）
+
+#### 7. 平衡设计原则
+- 魔王不能同时作为冒险者（模式互斥，可切换）
+- 奖励池物品来自魔王自己的装备/金币（需要投入才能吸引冒险者）
+- 防止「空房间」欺骗：地下城必须通过设计审核才能发布
+- 反刷分机制：同一冒险者24小时内只能挑战同一地下城3次
+
+### 技术架构
+```
+src/
+├── app/
+│   ├── demon-lord/           # 魔王主页面
+│   │   ├── page.tsx          # 魔王大厅（转职、状态）
+│   │   ├── designer/         # 地下城设计器
+│   │   │   └── page.tsx
+│   │   ├── dungeons/         # 我的地下城列表
+│   │   │   └── page.tsx
+│   │   └── ranking/          # 魔王排行榜
+│   │       └── page.tsx
+├── components/
+│   ├── demon-lord/
+│   │   ├── DungeonDesigner.tsx   # 可视化设计器（核心组件）
+│   │   ├── DungeonGrid.tsx       # 网格编辑器
+│   │   ├── MonsterPalette.tsx    # 怪物选择面板
+│   │   ├── DungeonPreview.tsx    # 地下城预览
+│   │   ├── RewardEditor.tsx      # 奖励池编辑
+│   │   └── DemonLordStats.tsx    # 魔王属性面板
+├── stores/
+│   ├── demonLordStore.ts         # 魔王状态
+│   └── dungeonStore.ts           # 地下城设计状态
+├── lib/
+│   ├── game/
+│   │   ├── dungeon-validator.ts  # 地下城合法性检验
+│   │   └── dungeon-simulator.ts  # 地下城模拟运行（预览战斗）
+└── types/
+    └── demonLord.ts              # 魔王系统类型定义
+```
+
+### 开发规划
+> **Sprint 19-22: 魔王系统（预估 25-30小时）**
+- Sprint 19（8h）: 魔王转职系统 + 基础地下城数据结构
+- Sprint 20（8h）: 可视化地下城设计器（网格编辑器）
+- Sprint 21（8h）: 冒险者挑战系统 + PvP结算逻辑
+- Sprint 22（6h）: 魔王排行榜 + 平衡性调整
+
+---
+
+## 🙏 超大型功能模块：神主系统（God Master System）
+
+> 玩家在主线角色达到最高等级（Lv.99）后，可选择**魔王路线**或**神主路线**。
+> 神主是魔王的镜像玩法：魔王是攻击方（设计地下城杀勇者），神主是守护方（通过恩赐帮助勇者变强）。
+> 两条路线在同一服务器内形成生态循环。
+
+### 神主核心循环
+```
+达到Lv.99 → 选择信仰路线（神主/魔王二选一）
+     ↓
+成为神主 → 设计恩赐任务 → 吸引信徒 → 信徒完成任务
+     ↑                                          ↓
+  神主升级 ← 完成任务的信徒越多 ← 奖励发放
+     ↓
+ 解锁更强恩赐 ← 神主层级提升 ← 信徒越来越多
+```
+
+### 功能规格
+
+#### 1. 神主等级系统
+```typescript
+interface GodMaster {
+  playerId: string
+  godLevel: number        // 神主等级（独立于角色等级）
+  title: string          // 神主称号
+  totalBelievers: number // 累计信仰该神主的勇者总数
+  activeBelievers: number // 当前活跃信徒数
+  divinePower: number     // 神力值（影响恩赐奖励幅度）
+  tier: number          // 神主层级（1-5）
+  totalTasksCompleted: number  // 累计完成任务数
+  prestige: number       // 威望值
+}
+```
+
+#### 2. 恩赐系统（核心玩法）
+- **恩赐任务**：神主发布的任务，勇者自愿接受并完成
+- 任务类型：击杀怪物、收集物品、通关区域、击败其他玩家
+- 任务奖励由神主设定（需消耗神力值）
+- 每日/每周任务自动刷新
+- 信徒完成恩赐 → 神主获得经验 + 神力值
+
+```typescript
+interface DivineBlessing {
+  id: string
+  godId: string
+  name: string          // 恩赐名称
+  description: string
+  taskGoals: TaskGoal[] // 任务目标
+  rewards: {
+    exp: number
+    gold: number
+    items: Item[]
+    divineGrace: number  // 额外神力奖励
+  }
+  cooldown: number      // 冷却时间（ms）
+  maxDailyCompletions: number
+  faithRequired: number // 需要的虔诚值门槛
+  tierRequired: number  // 需要的神主层级
+}
+
+interface TaskGoal {
+  type: 'kill_monster' | 'collect_item' | 'clear_zone' | 'defeat_dungeon' | 'gather_faith'
+  targetId: string
+  targetCount: number
+  current: number
+  completed: boolean
+}
+```
+
+#### 3. 信徒系统
+- 勇者选择信仰某位神主（可切换，需冷却时间）
+- 虔诚度：信徒完成任务越多，虔诚度越高
+- 高虔诚度信徒的奖励倍率更高
+- 信徒流失：长时间不完成恩赐，虔诚度下降甚至脱离
+
+#### 4. 神主 vs 魔王 生态
+- 魔王设计的地下城 → 勇者（可能信仰神主）去挑战
+- 神主的恩赐任务 → 帮助勇者变强，更容易通关魔王的地下城
+- 形成良性循环，两种路线互相依存
+
+#### 5. 神主层级与能力
+| 神主层级 | 称号 | 解锁内容 |
+|---------|------|---------|
+| Tier 1 | 初级神主 | 每日3个恩赐任务、基础奖励池 |
+| Tier 2 | 中级神主 | 每日5个任务、更好奖励类型 |
+| Tier 3 | 高级神主 | 每日8个任务、传说任务解锁 |
+| Tier 4 | 大神主 | 每日12个任务、自定义恩赐外观 |
+| Tier 5 | 至高神主 | 无限任务、服务器广播特权 |
+
+### 技术架构
+```
+src/
+├── app/
+│   ├── god-master/           # 神主主页面
+│   │   ├── page.tsx         # 神主大厅
+│   │   ├── blessings/       # 恩赐管理
+│   │   ├── believers/       # 信徒管理
+│   │   └── ranking/         # 神主排行榜
+├── components/
+│   ├── god-master/
+│   │   ├── BlessingEditor.tsx    # 恩赐任务编辑器
+│   │   ├── BelieverList.tsx      # 信徒列表
+│   │   ├── DivinePowerBar.tsx    # 神力值显示
+│   │   └── GodMasterStats.tsx   # 神主属性面板
+├── stores/
+│   ├── godMasterStore.ts         # 神主状态
+│   └── blessingStore.ts          # 恩赐任务状态
+└── types/
+    └── godMaster.ts               # 神主系统类型定义
+```
+
+### 开发规划
+> **Sprint 23-25: 神主系统（预估 20-25小时）**
+- Sprint 23（8h）: 神主转职 + 恩赐系统数据结构
+- Sprint 24（8h）: 信徒系统 + 任务流程
+- Sprint 25（6h）: 神主排行榜 + 两种模式切换
