@@ -374,6 +374,12 @@ export function CombatArea() {
   const cooldownTotal = currentSkill?.cooldown ?? 0
   const cooldownPercent = cooldownTotal > 0 ? ((cooldownTotal - cooldownRemaining) / cooldownTotal) * 100 : 100
 
+  // 药水数量计算（需要在useEffect之前）
+  const potionItems = inventoryStore.inventory.slots.filter(
+    slot => slot && slot.type === 'potion' && slot.name.includes('生命')
+  )
+  const potionCount = potionItems.reduce((sum, item) => sum + (item?.quantity ?? 0), 0)
+
   // 冷却刷新定时器
   useEffect(() => {
     if (combatState !== CombatState.FIGHTING) return
@@ -383,9 +389,11 @@ export function CombatArea() {
     return () => clearInterval(interval)
   }, [combatState])
 
-  // 生命/法力恢复定时器（每100ms增加一次）
+  // 生命/法力恢复定时器（每100ms增加一次）+ 低血量自动喝药水
   useEffect(() => {
     if (combatState !== CombatState.FIGHTING) return
+
+    let autoPotionCooldown = false // 防止连续自动喝药水
 
     const regenInterval = setInterval(() => {
       const playerState = usePlayerStore.getState()
@@ -400,13 +408,23 @@ export function CombatArea() {
       newHealth = Math.min(stats.maxHealth, newHealth + stats.healthRegen * regenTick)
       newMana = Math.min(stats.maxMana, newMana + stats.manaRegen * regenTick)
 
+      // 低血量自动喝药水（低于30%且有药水且不在冷却中）
+      if (newHealth / stats.maxHealth < 0.3 && potionCount > 0 && !autoPotionCooldown) {
+        const potionItem = potionItems[0]
+        if (potionItem) {
+          useItem(potionItem.id)
+          autoPotionCooldown = true
+          setTimeout(() => { autoPotionCooldown = false }, 2000) // 2秒冷却
+        }
+      }
+
       if (newHealth !== stats.health || newMana !== stats.mana) {
         playerState.updateCombatStats(newHealth, newMana)
       }
     }, 100)
 
     return () => clearInterval(regenInterval)
-  }, [combatState])
+  }, [combatState, potionCount])
 
   // 战斗循环（玩家自动攻击+技能自动释放）
   useEffect(() => {
@@ -623,11 +641,6 @@ export function CombatArea() {
   }
 
   // 统计背包中生命药水的数量
-  const potionItems = inventoryStore.inventory.slots.filter(
-    slot => slot && slot.type === 'potion' && slot.name.includes('生命')
-  )
-  const potionCount = potionItems.reduce((sum, item) => sum + (item?.quantity ?? 0), 0)
-
   // 使用药水（从背包消耗）
   const handleUsePotion = () => {
     const potionItem = potionItems[0]
