@@ -2,6 +2,29 @@
 
 ## [Unreleased]
 
+### 重构
+
+- **组件拆分**: `CombatArea.tsx` 拆分为 5 个子组件、`EquipmentPanel.tsx` 拆分为 3 个子组件
+- **常量JSON化**: `skills.ts` 数据迁移至 `skills.json`、`items.ts` 消耗品迁移至 `consumables.json`
+- **怪物数据统一**: `monster-templates.json` 与 `enemies.ts` 数据合并为单一数据源
+- **单元测试**: 新增 `fn.test.ts`、`migrations.test.ts`、`sound.test.ts`、`procedural.test.ts`
+
+---
+
+## [0.2.1] - 2026-04-14
+
+### 重构
+- `CombatArea.tsx` (892行→453行) 拆分为 DamageNumber、MonsterCard、CombatButtons、PlayerStatusDisplay、SkillHotbar
+- `EquipmentPanel.tsx` (555行→320行) 拆分为 EquipTooltip、EquipSlotButton、BackpackSlot
+- `skills.ts` (715行→115行) 技能数据迁移至 `skills.json`
+- `enemies.ts` (1006行→218行) 怪物数据与 `monster-templates.json` 统一
+
+### 测试
+- 新增 `tests/unit/lib/fn.test.ts` (52测试)
+- 新增 `tests/unit/lib/migrations.test.ts` (19测试)
+- 新增 `tests/unit/lib/sound.test.ts` (8测试)
+- 新增 `tests/unit/lib/procedural.test.ts` (6测试)
+
 ---
 
 ## [0.2.0] - 2026-04-13

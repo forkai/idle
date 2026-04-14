@@ -259,7 +259,14 @@ src/constants/
 ```
 src/data/
 ├── equipment-templates.json  ✅ 120+装备模板
-└── monster-templates.json  ✅ 50+怪物模板
+├── monster-templates.json   ✅ 50+怪物模板（含BOSS技能）
+├── prefixes.json            ✅ 15个前缀词缀
+├── suffixes.json           ✅ 20个后缀词缀
+├── uniques.json            ✅ 13个暗金装备
+├── skills.json            ✅ 30个职业技能
+├── consumables.json        ✅ 7个消耗品
+├── boss-abilities.json     ✅ BOSS技能配置
+└── sets.json              ✅ 8套套装
 ```
 
 ### 核心逻辑
@@ -304,10 +311,18 @@ src/components/game/
 ├── CharacterCreate.tsx   ✅ 角色创建
 ├── StatusBar.tsx         ✅ 状态栏
 ├── CombatArea.tsx        ✅ 战斗区域
+│   ├── DamageNumber.tsx     ✅ 伤害数字
+│   ├── MonsterCard.tsx       ✅ 怪物卡片
+│   ├── CombatButtons.tsx    ✅ 战斗按钮
+│   ├── PlayerStatusDisplay.tsx ✅ 玩家状态显示
+│   └── SkillHotbar.tsx      ✅ 技能热键栏
 ├── ZoneSelection.tsx     ✅ 区域选择
 ├── InventoryPanel.tsx    ✅ 背包
 ├── SkillsPanel.tsx      ✅ 技能
 ├── EquipmentPanel.tsx    ✅ 装备
+│   ├── EquipTooltip.tsx     ✅ 装备提示
+│   ├── EquipSlotButton.tsx  ✅ 装备槽按钮
+│   └── BackpackSlot.tsx     ✅ 背包格子
 ├── CodexPanel.tsx       ✅ 图鉴
 ├── CombatLogPanel.tsx   ✅ 战斗日志
 ├── CharacterPanel.tsx   ✅ 角色属性
@@ -322,11 +337,19 @@ src/components/game/
 ### 测试
 ```
 tests/unit/lib/
-├── combat.test.ts    ✅ 18个测试
-└── stats.test.ts     ✅ 10个测试
+├── combat.test.ts         ✅ 18个测试
+├── stats.test.ts          ✅ 10个测试
+├── combat-ai.test.ts     ✅ 20个测试
+├── infinite-floor.test.ts ✅ 5个测试
+├── offline-rewards.test.ts ✅ 5个测试
+├── fn.test.ts            ✅ 52个测试
+├── migrations.test.ts    ✅ 19个测试
+├── sound.test.ts         ✅ 8个测试
+└── procedural.test.ts    ✅ 6个测试 (验证导出)
 tests/e2e/
 ├── character-create.spec.ts  ✅
-└── panels.spec.ts          ✅
+├── panels.spec.ts          ✅
+└── ui-layout.spec.ts       ✅
 ```
 
 ---
@@ -382,4 +405,4 @@ style: 格式调整
 
 ---
 
-**最后更新**: 2026-04-13
+**最后更新**: 2026-04-14
