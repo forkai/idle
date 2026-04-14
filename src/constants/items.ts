@@ -5,175 +5,14 @@
 
 import type { Item, Affix } from '@/types/items'
 import { ItemType, EquipmentSlot, ItemRarity } from '@/types/items'
-import type { Element } from '@/types/combat'
 import { v4 as uuidv4 } from 'uuid'
-import { getPrefixesByLevel, getSuffixesByLevel } from './affixes'
+import { getPrefixes, getPrefixesByLevel, getSuffixes, getSuffixesByLevel, getUniques } from './affixes'
+import consumablesData from '@/data/consumables.json'
 
 /**
- * 物品前缀词缀列表
+ * 消耗品数据（从JSON加载）
  */
-export const PREFIXES: Affix[] = [
-  {
-    id: 'prefix_fierce',
-    name: '凶猛的',
-    type: 'prefix',
-    effects: { damage: 10, strength: 2 },
-    minLevel: 1,
-  },
-  {
-    id: 'prefix_quick',
-    name: '迅捷的',
-    type: 'prefix',
-    effects: { attackSpeed: 0.1, dexterity: 2 },
-    minLevel: 1,
-  },
-  {
-    id: 'prefix_vigorous',
-    name: '活力的',
-    type: 'prefix',
-    effects: { health: 20, vitality: 2 },
-    minLevel: 1,
-  },
-  {
-    id: 'prefix_arcane',
-    name: '奥术的',
-    type: 'prefix',
-    effects: { mana: 15, energy: 2 },
-    minLevel: 1,
-  },
-  {
-    id: 'prefix_iron',
-    name: '铁制的',
-    type: 'prefix',
-    effects: { defense: 5, vitality: 1 },
-    minLevel: 3,
-  },
-  {
-    id: 'prefix_burning',
-    name: '燃烧的',
-    type: 'prefix',
-    effects: { fireDamage: 5, damage: 3 },
-    minLevel: 5,
-  },
-  {
-    id: 'prefix_frozen',
-    name: '冰冻的',
-    type: 'prefix',
-    effects: { coldDamage: 5, attackSpeed: 0.05 },
-    minLevel: 5,
-  },
-  {
-    id: 'prefix_shocking',
-    name: '电击的',
-    type: 'prefix',
-    effects: { lightningDamage: 5, critChance: 0.02 },
-    minLevel: 5,
-  },
-  {
-    id: 'prefix_venomous',
-    name: '毒液的',
-    type: 'prefix',
-    effects: { poisonDamage: 5, damage: 2 },
-    minLevel: 5,
-  },
-  {
-    id: 'prefix_elite',
-    name: '精英的',
-    type: 'prefix',
-    effects: { damage: 15, defense: 5, allStats: 3 },
-    minLevel: 15,
-  },
-]
-
-/**
- * 物品后缀词缀列表
- */
-export const SUFFIXES: Affix[] = [
-  {
-    id: 'suffix_strength',
-    name: '力量',
-    type: 'suffix',
-    effects: { strength: 3 },
-    minLevel: 1,
-  },
-  {
-    id: 'suffix_dexterity',
-    name: '敏捷',
-    type: 'suffix',
-    effects: { dexterity: 3 },
-    minLevel: 1,
-  },
-  {
-    id: 'suffix_vitality',
-    name: '体力',
-    type: 'suffix',
-    effects: { vitality: 3 },
-    minLevel: 1,
-  },
-  {
-    id: 'suffix_energy',
-    name: '能量',
-    type: 'suffix',
-    effects: { energy: 3 },
-    minLevel: 1,
-  },
-  {
-    id: 'suffix_might',
-    name: '威能',
-    type: 'suffix',
-    effects: { damage: 8 },
-    minLevel: 3,
-  },
-  {
-    id: 'suffix_guardian',
-    name: '守护',
-    type: 'suffix',
-    effects: { defense: 8 },
-    minLevel: 3,
-  },
-  {
-    id: 'suffix_life',
-    name: '生命',
-    type: 'suffix',
-    effects: { health: 30 },
-    minLevel: 5,
-  },
-  {
-    id: 'suffix_mana',
-    name: '法力',
-    type: 'suffix',
-    effects: { mana: 20 },
-    minLevel: 5,
-  },
-  {
-    id: 'suffix_precision',
-    name: '精准',
-    type: 'suffix',
-    effects: { critChance: 0.03, critDamage: 0.1 },
-    minLevel: 7,
-  },
-  {
-    id: 'suffix_swiftness',
-    name: '速度',
-    type: 'suffix',
-    effects: { attackSpeed: 0.15 },
-    minLevel: 10,
-  },
-  {
-    id: 'suffix_resistance',
-    name: '抗性',
-    type: 'suffix',
-    effects: { fireResist: 10, coldResist: 10, lightningResist: 10, poisonResist: 10 },
-    minLevel: 12,
-  },
-  {
-    id: 'suffix_balance',
-    name: '平衡',
-    type: 'suffix',
-    effects: { strength: 2, dexterity: 2, vitality: 2, energy: 2 },
-    minLevel: 15,
-  },
-]
+export const CONSUMABLES = consumablesData.consumables
 
 /**
  * 基础武器模板
@@ -380,50 +219,6 @@ export const BASE_JEWELRY: Partial<Item>[] = [
 ]
 
 /**
- * 消耗品模板
- */
-export const CONSUMABLES: Partial<Item>[] = [
-  {
-    type: ItemType.POTION,
-    name: '生命药水',
-    icon: '🧪',
-    stats: {},
-    description: '恢复50点生命值',
-    sellPrice: 5,
-  },
-  {
-    type: ItemType.POTION,
-    name: '法力药水',
-    icon: '💧',
-    stats: {},
-    description: '恢复30点法力值',
-    sellPrice: 5,
-  },
-]
-
-/**
- * 暗金物品列表
- */
-export const UNIQUE_ITEMS: Partial<Item>[] = [
-  {
-    id: 'unique_horizon',
-    name: '末日',
-    icon: '⚔️',
-    stats: { damage: 50, attackSpeed: 0.2 },
-    description: '传说中能够毁灭一切的神兵利器',
-    sellPrice: 5000,
-  },
-  {
-    id: 'unique_shadow',
-    name: '暗影',
-    icon: '🌑',
-    stats: { damage: 30, critChance: 0.15, critDamage: 0.5 },
-    description: '由暗影中淬炼出的匕首',
-    sellPrice: 3000,
-  },
-]
-
-/**
  * 根据等级范围生成随机物品（使用程序化生成系统）
  * @param level - 玩家等级
  * @param type - 物品类型（可选，暂未使用）
@@ -520,8 +315,25 @@ function generateAffixes(rarity: ItemRarity, level: number, template: Partial<It
       }
       break
     case ItemRarity.UNIQUE:
-      // 暗金物品固定词缀
-      affixes.push(...UNIQUE_ITEMS[0].affixes || [])
+      // 暗金物品固定词缀（从JSON加载）
+      const uniques = getUniques()
+      if (uniques.length > 0) {
+        const uniqueItem = uniques[0]
+        if (uniqueItem.effects) {
+          // 将effects转换为affix格式
+          for (const [key, value] of Object.entries(uniqueItem.effects)) {
+            if (typeof value === 'number') {
+              affixes.push({
+                id: `${uniqueItem.id}_effect_${key}`,
+                name: uniqueItem.name,
+                type: 'prefix',
+                effects: { [key]: value },
+                minLevel: 1,
+              })
+            }
+          }
+        }
+      }
       break
     case ItemRarity.SET:
       // 套装物品
@@ -539,7 +351,11 @@ function generateAffixes(rarity: ItemRarity, level: number, template: Partial<It
  */
 function rollAffix(level: number, type: 'prefix' | 'suffix'): Affix {
   const validAffixes = type === 'prefix' ? getPrefixesByLevel(level) : getSuffixesByLevel(level)
-  if (validAffixes.length === 0) return type === 'prefix' ? PREFIXES[0] : SUFFIXES[0]
+  if (validAffixes.length === 0) {
+    // fallback to first available affix from JSON
+    const allAffixes = type === 'prefix' ? getPrefixes() : getSuffixes()
+    if (allAffixes.length > 0) return allAffixes[0]
+  }
   return validAffixes[Math.floor(Math.random() * validAffixes.length)]
 }
 

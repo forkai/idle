@@ -1,0 +1,74 @@
+{
+  "consumables": [
+    {
+      "id": "potion_health_small",
+      "name": "生命药水",
+      "icon": "🧪",
+      "type": "POTION",
+      "stats": {},
+      "description": "恢复50点生命值",
+      "sellPrice": 5,
+      "effect": { "type": "heal", "value": 50 }
+    },
+    {
+      "id": "potion_mana_small",
+      "name": "法力药水",
+      "icon": "💧",
+      "type": "POTION",
+      "stats": {},
+      "description": "恢复30点法力值",
+      "sellPrice": 5,
+      "effect": { "type": "mana", "value": 30 }
+    },
+    {
+      "id": "potion_health_medium",
+      "name": "中型生命药水",
+      "icon": "🧪",
+      "type": "POTION",
+      "stats": {},
+      "description": "恢复150点生命值",
+      "sellPrice": 15,
+      "effect": { "type": "heal", "value": 150 }
+    },
+    {
+      "id": "potion_mana_medium",
+      "name": "中型法力药水",
+      "icon": "💧",
+      "type": "POTION",
+      "stats": {},
+      "description": "恢复100点法力值",
+      "sellPrice": 15,
+      "effect": { "type": "mana", "value": 100 }
+    },
+    {
+      "id": "potion_health_large",
+      "name": "大型生命药水",
+      "icon": "⚗️",
+      "type": "POTION",
+      "stats": {},
+      "description": "恢复300点生命值",
+      "sellPrice": 40,
+      "effect": { "type": "heal", "value": 300 }
+    },
+    {
+      "id": "potion_mana_large",
+      "name": "大型法力药水",
+      "icon": "⚗️",
+      "type": "POTION",
+      "stats": {},
+      "description": "恢复200点法力值",
+      "sellPrice": 40,
+      "effect": { "type": "mana", "value": 200 }
+    },
+    {
+      "id": "scroll_tp",
+      "name": "传送卷轴",
+      "icon": "📜",
+      "type": "POTION",
+      "stats": {},
+      "description": "立即返回城镇",
+      "sellPrice": 20,
+      "effect": { "type": "tp", "value": 0 }
+    }
+  ]
+}

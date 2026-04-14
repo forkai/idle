@@ -1,77 +1,294 @@
 {
   "version": "1.0.0",
-  "description": "怪物模板数据 - 支持上百种怪物生成",
+  "description": "怪物模板数据 - 统一的手工内容和程序化生成数据",
   "zones": {
     "blood-marsh": {
       "name": "鲜血湿地",
+      "description": "一片被诅咒的沼泽，充斥着腐烂的气息。骷髅和僵尸在这里游荡。",
+      "background": "沼泽",
       "levelRange": [1, 15],
       "monsters": [
-        { "id": "skeleton", "name": "骷髅", "icon": "💀", "type": "UNDEAD", "level": 1, "baseStats": { "health": 30, "damage": 3, "defense": 1, "attackSpeed": 0.8, "expReward": 8, "goldReward": { "min": 3, "max": 8 }, "resists": { "fire": -10, "cold": 20, "lightning": 0, "poison": 30 } }, "abilities": [], "lootTable": ["wp_001", "ar_001", "jw_001"], "description": "被黑暗力量复活的亡者骨架" },
-        { "id": "zombie", "name": "僵尸", "icon": "🧟", "type": "UNDEAD", "level": 2, "baseStats": { "health": 45, "damage": 4, "defense": 2, "attackSpeed": 0.5, "expReward": 12, "goldReward": { "min": 5, "max": 12 }, "resists": { "fire": -20, "cold": 30, "lightning": 0, "poison": 50 } }, "abilities": [], "lootTable": ["ar_002", "jw_001"], "description": "腐烂的行尸走肉" },
-        { "id": "slime", "name": "史莱姆", "icon": "🟢", "type": "BEAST", "level": 1, "baseStats": { "health": 20, "damage": 2, "defense": 0, "attackSpeed": 1.0, "expReward": 5, "goldReward": { "min": 2, "max": 5 }, "resists": { "fire": -30, "cold": 10, "lightning": 10, "poison": 20 } }, "abilities": [], "lootTable": ["wp_001"], "description": "最基础的怪物，QQ弹弹" },
-        { "id": "goblin", "name": "哥布林", "icon": "👺", "type": "HUMANOID", "level": 3, "baseStats": { "health": 50, "damage": 6, "defense": 3, "attackSpeed": 1.2, "expReward": 15, "goldReward": { "min": 8, "max": 18 }, "resists": { "fire": 0, "cold": 0, "lightning": 10, "poison": 10 } }, "abilities": [], "lootTable": ["wp_003", "ar_034", "jw_002"], "description": "成群结队的绿皮小怪物" },
-        { "id": "bat", "name": "蝙蝠", "icon": "🦇", "type": "BEAST", "level": 2, "baseStats": { "health": 25, "damage": 4, "defense": 1, "attackSpeed": 1.5, "expReward": 8, "goldReward": { "min": 3, "max": 8 }, "resists": { "fire": -10, "cold": 5, "lightning": 10, "poison": 5 } }, "abilities": [], "lootTable": [], "description": "喜欢在阴暗处群居" },
-        { "id": "spider", "name": "毒蜘蛛", "icon": "🕷️", "type": "BEAST", "level": 4, "baseStats": { "health": 55, "damage": 7, "defense": 4, "attackSpeed": 1.1, "expReward": 18, "goldReward": { "min": 10, "max": 20 }, "resists": { "fire": -20, "cold": 10, "lightning": 5, "poison": 40 } }, "abilities": [], "lootTable": ["ar_033", "jw_003"], "description": "编织蛛网，有毒" },
-        { "id": "skeleton_archer", "name": "骷髅弓手", "icon": "🏹", "type": "UNDEAD", "level": 5, "baseStats": { "health": 40, "damage": 9, "defense": 2, "attackSpeed": 0.9, "expReward": 20, "goldReward": { "min": 12, "max": 25 }, "resists": { "fire": -10, "cold": 25, "lightning": 0, "poison": 20 } }, "abilities": [], "lootTable": ["wp_019", "ar_043"], "description": "远程攻击的骷髅" },
-        { "id": "orc", "name": "兽人", "icon": "👹", "type": "HUMANOID", "level": 6, "baseStats": { "health": 80, "damage": 10, "defense": 6, "attackSpeed": 0.7, "expReward": 28, "goldReward": { "min": 18, "max": 35 }, "resists": { "fire": 10, "cold": -10, "lightning": 5, "poison": 5 } }, "abilities": [], "lootTable": ["wp_004", "ar_019", "sh_003"], "description": "强壮的绿色战士" },
-        { "id": "orc_shaman", "name": "兽人萨满", "icon": "🧙", "type": "HUMANOID", "level": 7, "baseStats": { "health": 60, "damage": 12, "defense": 3, "attackSpeed": 0.8, "expReward": 35, "goldReward": { "min": 25, "max": 45 }, "resists": { "fire": 20, "cold": 0, "lightning": 15, "poison": 10 } }, "abilities": [], "lootTable": ["wp_008", "ar_022", "jw_007"], "description": "使用元素魔法的兽人" },
-        { "id": "ghost", "name": "幽灵", "icon": "👻", "type": "UNDEAD", "level": 8, "baseStats": { "health": 50, "damage": 14, "defense": 2, "attackSpeed": 1.3, "expReward": 40, "goldReward": { "min": 30, "max": 50 }, "resists": { "fire": -30, "cold": 50, "lightning": 10, "poison": 80 } }, "abilities": [], "lootTable": ["ar_007", "jw_008"], "description": "虚无缥缈的灵魂" },
-        { "id": "werewolf", "name": "狼人", "icon": "🐺", "type": "BEAST", "level": 9, "baseStats": { "health": 90, "damage": 16, "defense": 8, "attackSpeed": 1.4, "expReward": 50, "goldReward": { "min": 35, "max": 60 }, "resists": { "fire": -10, "cold": 20, "lightning": 10, "poison": 15 } }, "abilities": [], "lootTable": ["wp_005", "ar_045", "sh_004"], "description": "月圆之夜的恐惧" },
-        { "id": "vampire", "name": "吸血鬼", "icon": "🧛", "type": "UNDEAD", "level": 10, "baseStats": { "health": 75, "damage": 18, "defense": 6, "attackSpeed": 1.2, "expReward": 60, "goldReward": { "min": 50, "max": 80 }, "resists": { "fire": -40, "cold": 40, "lightning": 5, "poison": 60 } }, "abilities": [], "lootTable": ["wp_010", "ar_023", "jw_006"], "description": "吸食鲜血的不死族" },
-        { "id": "swamp_beast", "name": "沼澤巨兽", "icon": "🐸", "type": "BEAST", "level": 11, "baseStats": { "health": 120, "damage": 15, "defense": 12, "attackSpeed": 0.6, "expReward": 70, "goldReward": { "min": 45, "max": 75 }, "resists": { "fire": -20, "cold": 30, "lightning": 10, "poison": 50 } }, "abilities": [], "lootTable": ["wp_006", "ar_046", "sh_005"], "description": "湿地深处的巨型怪物" },
-        { "id": "dark_paladin", "name": "黑暗圣骑士", "icon": "⚔️", "type": "UNDEAD", "level": 12, "baseStats": { "health": 100, "damage": 20, "defense": 15, "attackSpeed": 0.9, "expReward": 85, "goldReward": { "min": 60, "max": 100 }, "resists": { "fire": 10, "cold": 20, "lightning": 15, "poison": 30 } }, "abilities": [], "lootTable": ["wp_009", "ar_005", "ar_035", "sh_004"], "description": "堕落的圣骑士" },
-        { "id": "swamp_witch", "name": "沼泽女巫", "icon": "🧙‍♀️", "type": "HUMANOID", "level": 13, "baseStats": { "health": 70, "damage": 25, "defense": 5, "attackSpeed": 1.0, "expReward": 95, "goldReward": { "min": 70, "max": 110 }, "resists": { "fire": 20, "cold": 30, "lightning": 25, "poison": 60 } }, "abilities": [], "lootTable": ["wp_008", "ar_006", "jw_007", "jw_008"], "description": "操控毒沼的女巫" },
-        { "id": "lichen", "name": " Lich  lich", "icon": "💀", "type": "UNDEAD", "level": 14, "baseStats": { "health": 130, "damage": 28, "defense": 10, "attackSpeed": 0.8, "expReward": 120, "goldReward": { "min": 90, "max": 150 }, "resists": { "fire": -20, "cold": 50, "lightning": 20, "poison": 70 } }, "abilities": [], "lootTable": ["wp_011", "ar_012", "jw_010", "jw_011"], "description": "强大的亡灵法师" },
-        { "id": "blood_golem", "name": "血肉傀儡", "icon": "🗿", "type": "UNDEAD", "level": 15, "baseStats": { "health": 200, "damage": 22, "defense": 20, "attackSpeed": 0.5, "expReward": 150, "goldReward": { "min": 120, "max": 200 }, "resists": { "fire": -10, "cold": 30, "lightning": 10, "poison": 50 } }, "abilities": [], "lootTable": ["wp_013", "ar_014", "sh_006"], "description": "鲜血湿地BOSS" }
+        {
+          "id": "skeleton", "name": "骷髅", "icon": "💀", "type": "UNDEAD", "level": 1,
+          "baseStats": { "health": 30, "damage": 3, "defense": 1, "attackSpeed": 0.8, "expReward": 8, "goldReward": { "min": 3, "max": 8 }, "resists": { "fire": -10, "cold": 20, "lightning": 0, "poison": 30 } },
+          "abilities": [],
+          "lootTable": [], "description": "被黑暗力量复活的亡者骨架"
+        },
+        {
+          "id": "zombie", "name": "僵尸", "icon": "🧟", "type": "UNDEAD", "level": 2,
+          "baseStats": { "health": 45, "damage": 4, "defense": 2, "attackSpeed": 0.5, "expReward": 12, "goldReward": { "min": 5, "max": 12 }, "resists": { "fire": -20, "cold": 30, "lightning": 0, "poison": 50 } },
+          "abilities": [
+            { "id": "zombie_poison", "name": "尸毒", "description": "攻击时附带毒素", "triggerChance": 0.2, "effectType": "debuff", "effectValue": 2, "cooldown": 3000 }
+          ],
+          "lootTable": [], "description": "腐烂的尸体在沼泽中游荡"
+        },
+        {
+          "id": "corrupt_spirit", "name": "腐化幽灵", "icon": "👻", "type": "DEMON", "level": 3,
+          "baseStats": { "health": 40, "damage": 6, "defense": 0, "attackSpeed": 1.2, "expReward": 18, "goldReward": { "min": 8, "max": 15 }, "resists": { "fire": 20, "cold": 20, "lightning": 20, "poison": 20 } },
+          "abilities": [],
+          "lootTable": [], "description": "被腐蚀的灵魂生物"
+        },
+        {
+          "id": "blood_witch", "name": "血腥女巫", "icon": "🧙‍♀️", "type": "BOSS", "level": 5,
+          "baseStats": { "health": 200, "damage": 12, "defense": 5, "attackSpeed": 0.7, "expReward": 80, "goldReward": { "min": 50, "max": 100 }, "resists": { "fire": 30, "cold": 30, "lightning": 30, "poison": 30 } },
+          "abilities": [
+            { "id": "witch_curse", "name": "诅咒", "description": "降低玩家防御", "triggerChance": 0.3, "effectType": "debuff", "effectValue": 3, "cooldown": 5000 },
+            { "id": "witch_heal", "name": "生命汲取", "description": "吸取玩家生命", "triggerChance": 0.15, "effectType": "damage", "effectValue": 8, "cooldown": 8000 }
+          ],
+          "lootTable": [{ "itemId": "magic_robe", "chance": 0.3, "minQuantity": 1, "maxQuantity": 1 }],
+          "description": "鲜血湿地的统治者，使用黑暗魔法"
+        },
+        {
+          "id": "cave_rat", "name": "洞穴鼠", "icon": "🐀", "type": "BEAST", "level": 3,
+          "baseStats": { "health": 25, "damage": 5, "defense": 0, "attackSpeed": 1.5, "expReward": 10, "goldReward": { "min": 2, "max": 6 }, "resists": { "fire": -10, "cold": 0, "lightning": 0, "poison": 10 } },
+          "abilities": [], "lootTable": [], "description": "洞穴中的变异老鼠"
+        },
+        {
+          "id": "bat_swarm", "name": "蝙蝠群", "icon": "🦇", "type": "BEAST", "level": 4,
+          "baseStats": { "health": 60, "damage": 7, "defense": 1, "attackSpeed": 2.0, "expReward": 20, "goldReward": { "min": 5, "max": 10 }, "resists": { "fire": -20, "cold": 0, "lightning": 0, "poison": 0 } },
+          "abilities": [], "lootTable": [], "description": "成群结队的吸血蝙蝠"
+        },
+        {
+          "id": "shadow_cave", "name": "暗影", "icon": "🌑", "type": "DEMON", "level": 5,
+          "baseStats": { "health": 70, "damage": 10, "defense": 3, "attackSpeed": 1.0, "expReward": 30, "goldReward": { "min": 10, "max": 20 }, "resists": { "fire": 20, "cold": 20, "lightning": 20, "poison": 20 } },
+          "abilities": [
+            { "id": "shadow_strike", "name": "暗影打击", "description": "造成额外伤害", "triggerChance": 0.25, "effectType": "damage", "effectValue": 5, "cooldown": 3000 }
+          ],
+          "lootTable": [], "description": "从黑暗中诞生的暗影生物"
+        },
+        {
+          "id": "cave_troll", "name": "洞穴巨魔", "icon": "🧌", "type": "BEAST", "level": 8,
+          "baseStats": { "health": 150, "damage": 18, "defense": 8, "attackSpeed": 0.6, "expReward": 60, "goldReward": { "min": 20, "max": 40 }, "resists": { "fire": -20, "cold": 20, "lightning": 0, "poison": 30 } },
+          "abilities": [
+            { "id": "troll_regen", "name": "再生", "description": "缓慢恢复生命", "triggerChance": 0.1, "effectType": "buff", "effectValue": 5, "cooldown": 2000 }
+          ],
+          "lootTable": [], "description": "潜伏在洞穴深处的巨大生物"
+        },
+        {
+          "id": "skeleton_warrior", "name": "骷髅战士", "icon": "💀", "type": "UNDEAD", "level": 6,
+          "baseStats": { "health": 80, "damage": 12, "defense": 5, "attackSpeed": 0.9, "expReward": 35, "goldReward": { "min": 12, "max": 25 }, "resists": { "fire": -10, "cold": 30, "lightning": 10, "poison": 40 } },
+          "abilities": [], "lootTable": [], "description": "穿着铠甲的骷髅战士"
+        },
+        {
+          "id": "ghost", "name": "幽灵", "icon": "👻", "type": "UNDEAD", "level": 7,
+          "baseStats": { "health": 60, "damage": 15, "defense": 0, "attackSpeed": 1.3, "expReward": 40, "goldReward": { "min": 15, "max": 30 }, "resists": { "fire": -30, "cold": 50, "lightning": 20, "poison": 50 } },
+          "abilities": [
+            { "id": "ghost_phase", "name": "相位变换", "description": "回避下一次攻击", "triggerChance": 0.15, "effectType": "buff", "effectValue": 0, "cooldown": 10000 }
+          ],
+          "lootTable": [], "description": "在墓穴中游荡的怨灵"
+        },
+        {
+          "id": "mummy", "name": "木乃伊", "icon": "🧌", "type": "UNDEAD", "level": 9,
+          "baseStats": { "health": 120, "damage": 16, "defense": 6, "attackSpeed": 0.7, "expReward": 55, "goldReward": { "min": 18, "max": 35 }, "resists": { "fire": -20, "cold": 20, "lightning": 20, "poison": 80 } },
+          "abilities": [
+            { "id": "mummy_curse", "name": "法老诅咒", "description": "降低玩家攻击力", "triggerChance": 0.2, "effectType": "debuff", "effectValue": 3, "cooldown": 6000 }
+          ],
+          "lootTable": [], "description": "古老埃及法老的守卫"
+        },
+        {
+          "id": "crypt_lord", "name": "墓穴领主", "icon": "👑", "type": "BOSS", "level": 12,
+          "baseStats": { "health": 500, "damage": 25, "defense": 15, "attackSpeed": 0.8, "expReward": 200, "goldReward": { "min": 100, "max": 200 }, "resists": { "fire": 10, "cold": 40, "lightning": 20, "poison": 60 } },
+          "abilities": [
+            { "id": "crypt_summon", "name": "召唤骷髅", "description": "召唤骷髅助手", "triggerChance": 0.1, "effectType": "summon", "effectValue": 2, "cooldown": 15000 },
+            { "id": "crypt_smash", "name": "重击", "description": "造成大量伤害", "triggerChance": 0.2, "effectType": "damage", "effectValue": 15, "cooldown": 5000 }
+          ],
+          "lootTable": [
+            { "itemId": "ancient_sword", "chance": 0.2, "minQuantity": 1, "maxQuantity": 1 },
+            { "itemId": "cursed_shield", "chance": 0.15, "minQuantity": 1, "maxQuantity": 1 }
+          ],
+          "description": "不死族墓穴的最高统治者"
+        },
+        {
+          "id": "forest_wolf", "name": "森林狼", "icon": "🐺", "type": "BEAST", "level": 10,
+          "baseStats": { "health": 120, "damage": 12, "defense": 5, "attackSpeed": 1.2, "expReward": 45, "goldReward": { "min": 25, "max": 50 }, "resists": { "fire": 0, "cold": 10, "lightning": 5, "poison": 15 } },
+          "abilities": [], "lootTable": [], "description": "暮光森林中的顶级捕食者"
+        },
+        {
+          "id": "fire_sprite", "name": "火元素精魄", "icon": "🔥", "type": "ELEMENTAL", "level": 11,
+          "baseStats": { "health": 80, "damage": 18, "defense": 2, "attackSpeed": 1.5, "expReward": 55, "goldReward": { "min": 30, "max": 60 }, "resists": { "fire": 50, "cold": -30, "lightning": 10, "poison": 20 } },
+          "abilities": [
+            { "id": "fireball", "name": "火球术", "description": "发射一个火球攻击", "triggerChance": 0.25, "effectType": "damage", "effectValue": 20, "cooldown": 4000, "element": "fire" }
+          ],
+          "lootTable": [], "description": "由火焰凝聚而成的元素生物"
+        },
+        {
+          "id": "ice_shard", "name": "寒冰晶体", "icon": "❄️", "type": "ELEMENTAL", "level": 12,
+          "baseStats": { "health": 100, "damage": 15, "defense": 8, "attackSpeed": 1.0, "expReward": 50, "goldReward": { "min": 28, "max": 55 }, "resists": { "fire": -30, "cold": 60, "lightning": 10, "poison": 10 } },
+          "abilities": [
+            { "id": "frost_nova", "name": "冰霜新星", "description": "释放冰冷的能量波", "triggerChance": 0.2, "effectType": "damage", "effectValue": 18, "cooldown": 5000, "element": "cold" }
+          ],
+          "lootTable": [], "description": "冰冷的元素生命体"
+        },
+        {
+          "id": "lightning_eagle", "name": "闪电鹰", "icon": "🦅", "type": "BEAST", "level": 13,
+          "baseStats": { "health": 90, "damage": 20, "defense": 3, "attackSpeed": 1.8, "expReward": 60, "goldReward": { "min": 35, "max": 65 }, "resists": { "fire": 10, "cold": 10, "lightning": 50, "poison": 5 } },
+          "abilities": [
+            { "id": "lightning_bolt", "name": "闪电箭", "description": "快速发射一道闪电", "triggerChance": 0.3, "effectType": "damage", "effectValue": 25, "cooldown": 3000, "element": "lightning" }
+          ],
+          "lootTable": [], "description": "驾驭闪电的神秘猛禽"
+        },
+        {
+          "id": "corrupted_tree", "name": "腐化古树", "icon": "🌳", "type": "ELEMENTAL", "level": 15,
+          "baseStats": { "health": 200, "damage": 10, "defense": 15, "attackSpeed": 0.5, "expReward": 70, "goldReward": { "min": 40, "max": 80 }, "resists": { "fire": -20, "cold": 20, "lightning": 20, "poison": 40 } },
+          "abilities": [
+            { "id": "entangle", "name": "缠绕", "description": "用根须缠绕敌人", "triggerChance": 0.15, "effectType": "debuff", "effectValue": 10, "cooldown": 8000 }
+          ],
+          "lootTable": [], "description": "被黑暗力量侵蚀的古树"
+        },
+        {
+          "id": "ancient_golem", "name": "远古傀儡", "icon": "🗿", "type": "DEMON", "level": 18,
+          "baseStats": { "health": 300, "damage": 25, "defense": 25, "attackSpeed": 0.6, "expReward": 100, "goldReward": { "min": 60, "max": 120 }, "resists": { "fire": 30, "cold": 30, "lightning": 30, "poison": 20 } },
+          "abilities": [
+            { "id": "stone_slam", "name": "巨石冲击", "description": "重击地面造成范围伤害", "triggerChance": 0.2, "effectType": "damage", "effectValue": 35, "cooldown": 6000 }
+          ],
+          "lootTable": [], "description": "远古文明留下的魔法守卫"
+        },
+        {
+          "id": "plague_rat", "name": "瘟疫鼠王", "icon": "🐀", "type": "BEAST", "level": 19,
+          "baseStats": { "health": 180, "damage": 22, "defense": 8, "attackSpeed": 1.1, "expReward": 85, "goldReward": { "min": 50, "max": 100 }, "resists": { "fire": -10, "cold": 0, "lightning": 0, "poison": 60 } },
+          "abilities": [
+            { "id": "plague_bite", "name": "瘟疫撕咬", "description": "攻击附带瘟疫效果", "triggerChance": 0.3, "effectType": "debuff", "effectValue": 15, "cooldown": 4000 }
+          ],
+          "lootTable": [], "description": "携带瘟疫病毒的变异鼠群首领"
+        },
+        {
+          "id": "shadow_assassin", "name": "暗影刺客", "icon": "🗡️", "type": "DEMON", "level": 20,
+          "baseStats": { "health": 150, "damage": 35, "defense": 5, "attackSpeed": 2.0, "expReward": 110, "goldReward": { "min": 70, "max": 130 }, "resists": { "fire": 10, "cold": 10, "lightning": 10, "poison": 30 } },
+          "abilities": [
+            { "id": "backstab", "name": "背刺", "description": "从阴影中发动致命一击", "triggerChance": 0.25, "effectType": "damage", "effectValue": 45, "cooldown": 5000 }
+          ],
+          "lootTable": [], "description": "潜伏在黑暗中的致命杀手"
+        },
+        {
+          "id": "cursed_knight", "name": "诅咒骑士", "icon": "⚔️", "type": "UNDEAD", "level": 22,
+          "baseStats": { "health": 280, "damage": 30, "defense": 20, "attackSpeed": 0.9, "expReward": 120, "goldReward": { "min": 80, "max": 150 }, "resists": { "fire": -30, "cold": 40, "lightning": 20, "poison": 50 } },
+          "abilities": [
+            { "id": "dark_strike", "name": "暗影打击", "description": "诅咒之剑造成额外伤害", "triggerChance": 0.2, "effectType": "damage", "effectValue": 40, "cooldown": 4000 }
+          ],
+          "lootTable": [], "description": "被诅咒盔甲控制的亡魂骑士"
+        },
+        {
+          "id": "demon_hunter", "name": "恶魔猎手", "icon": "🏹", "type": "DEMON", "level": 25,
+          "baseStats": { "health": 220, "damage": 40, "defense": 12, "attackSpeed": 1.4, "expReward": 150, "goldReward": { "min": 100, "max": 200 }, "resists": { "fire": 40, "cold": 0, "lightning": 20, "poison": 10 } },
+          "abilities": [
+            { "id": "demon_arrow", "name": "恶魔箭雨", "description": "召唤恶魔之力射出箭矢", "triggerChance": 0.25, "effectType": "damage", "effectValue": 50, "cooldown": 5000 }
+          ],
+          "lootTable": [], "description": "与恶魔签订契约的堕落猎手"
+        },
+        {
+          "id": "hellfire_imp", "name": "狱火小鬼", "icon": "😈", "type": "DEMON", "level": 26,
+          "baseStats": { "health": 200, "damage": 38, "defense": 8, "attackSpeed": 1.6, "expReward": 140, "goldReward": { "min": 90, "max": 180 }, "resists": { "fire": 60, "cold": -40, "lightning": 10, "poison": 20 } },
+          "abilities": [
+            { "id": "hellfire_blast", "name": "狱火爆破", "description": "释放地狱火焰", "triggerChance": 0.3, "effectType": "damage", "effectValue": 45, "cooldown": 4000, "element": "fire" }
+          ],
+          "lootTable": [], "description": "来自地狱的火焰仆从"
+        },
+        {
+          "id": "pit_fiend", "name": "深渊魔兽", "icon": "👹", "type": "DEMON", "level": 28,
+          "baseStats": { "health": 350, "damage": 45, "defense": 18, "attackSpeed": 1.0, "expReward": 180, "goldReward": { "min": 120, "max": 250 }, "resists": { "fire": 50, "cold": 10, "lightning": 20, "poison": 30 } },
+          "abilities": [
+            { "id": "infernal_roar", "name": "炼狱咆哮", "description": "震耳欲聋的咆哮", "triggerChance": 0.15, "effectType": "debuff", "effectValue": 20, "cooldown": 10000 }
+          ],
+          "lootTable": [], "description": "深渊中诞生的恐怖巨兽"
+        },
+        {
+          "id": "forest_spirit_queen", "name": "森林精灵女王", "icon": "👸", "type": "BOSS", "level": 18,
+          "baseStats": { "health": 800, "damage": 30, "defense": 15, "attackSpeed": 1.0, "expReward": 400, "goldReward": { "min": 300, "max": 500 }, "resists": { "fire": 20, "cold": 40, "lightning": 30, "poison": 50 } },
+          "abilities": [
+            { "id": "nature_wrath", "name": "自然之怒", "description": "召唤自然力量攻击", "triggerChance": 0.3, "effectType": "damage", "effectValue": 60, "cooldown": 8000 },
+            { "id": "forest_heal", "name": "森林治愈", "description": "汲取森林之力恢复生命", "triggerChance": 0.2, "effectType": "heal", "effectValue": 100, "cooldown": 15000 }
+          ],
+          "lootTable": [
+            { "itemId": "forest_spirit_staff", "chance": 0.3, "minQuantity": 1, "maxQuantity": 1 },
+            { "itemId": "nature_blessing_robe", "chance": 0.25, "minQuantity": 1, "maxQuantity": 1 }
+          ],
+          "description": "暮光森林的守护者和统治者"
+        },
+        {
+          "id": "plague_lord", "name": "瘟疫领主", "icon": "☠️", "type": "BOSS", "level": 28,
+          "baseStats": { "health": 1200, "damage": 45, "defense": 25, "attackSpeed": 0.8, "expReward": 600, "goldReward": { "min": 400, "max": 700 }, "resists": { "fire": 10, "cold": 10, "lightning": 10, "poison": 80 } },
+          "abilities": [
+            { "id": "plague_cloud", "name": "瘟疫云", "description": "释放致命瘟疫", "triggerChance": 0.25, "effectType": "damage", "effectValue": 80, "cooldown": 10000 },
+            { "id": "contagion", "name": "传染", "description": "使疾病扩散", "triggerChance": 0.2, "effectType": "debuff", "effectValue": 50, "cooldown": 12000 }
+          ],
+          "lootTable": [
+            { "itemId": "plague_scepter", "chance": 0.3, "minQuantity": 1, "maxQuantity": 1 },
+            { "itemId": "toxic_armor", "chance": 0.25, "minQuantity": 1, "maxQuantity": 1 }
+          ],
+          "description": "瘟疫与死亡的化身"
+        },
+        {
+          "id": "demon_lord", "name": "恶魔领主", "icon": "👿", "type": "BOSS", "level": 35,
+          "baseStats": { "health": 2000, "damage": 60, "defense": 30, "attackSpeed": 0.9, "expReward": 1000, "goldReward": { "min": 600, "max": 1000 }, "resists": { "fire": 70, "cold": -20, "lightning": 30, "poison": 40 } },
+          "abilities": [
+            { "id": "inferno", "name": "炼狱火海", "description": "召唤地狱火焰席卷战场", "triggerChance": 0.3, "effectType": "damage", "effectValue": 100, "cooldown": 8000, "element": "fire" },
+            { "id": "demon_summon", "name": "恶魔召唤", "description": "召唤地狱仆从", "triggerChance": 0.15, "effectType": "summon", "effectValue": 3, "cooldown": 20000 },
+            { "id": "hellfire_shield", "name": "地狱烈焰护盾", "description": "获得火焰护盾", "triggerChance": 0.2, "effectType": "buff", "effectValue": 200, "cooldown": 15000 }
+          ],
+          "lootTable": [
+            { "itemId": "demon_lord_sword", "chance": 0.35, "minQuantity": 1, "maxQuantity": 1 },
+            { "itemId": "hellfire_cape", "chance": 0.3, "minQuantity": 1, "maxQuantity": 1 },
+            { "itemId": "demon_crown", "chance": 0.15, "minQuantity": 1, "maxQuantity": 1 }
+          ],
+          "description": "地狱的统治者，黑暗力量的巅峰"
+        }
       ]
     },
-    "dark_forest": {
-      "name": "黑暗森林",
-      "levelRange": [15, 30],
-      "monsters": [
-        { "id": "forest_spider", "name": "森林巨蜘蛛", "icon": "🕷️", "type": "BEAST", "level": 16, "baseStats": { "health": 150, "damage": 25, "defense": 12, "attackSpeed": 1.2, "expReward": 100, "goldReward": { "min": 80, "max": 130 }, "resists": { "fire": -20, "cold": 20, "lightning": 10, "poison": 60 } }, "abilities": [], "lootTable": ["wp_012", "ar_036"], "description": "森林中的巨型蜘蛛" },
-        { "id": "treant", "name": "树人", "icon": "🌲", "type": "ELEMENTAL", "level": 17, "baseStats": { "health": 220, "damage": 20, "defense": 25, "attackSpeed": 0.4, "expReward": 130, "goldReward": { "min": 100, "max": 160 }, "resists": { "fire": -40, "cold": 30, "lightning": 10, "poison": 80 } }, "abilities": [], "lootTable": ["ar_048", "jw_009"], "description": "守护森林的古老生命" },
-        { "id": "dark_elf", "name": "黑暗精灵", "icon": "🧝", "type": "HUMANOID", "level": 18, "baseStats": { "health": 120, "damage": 30, "defense": 14, "attackSpeed": 1.5, "expReward": 140, "goldReward": { "min": 110, "max": 180 }, "resists": { "fire": 20, "cold": 30, "lightning": 25, "poison": 30 } }, "abilities": [], "lootTable": ["wp_020", "ar_037", "jw_013"], "description": "敏捷而致命的战士" },
-        { "id": "forest_witch", "name": "森林女巫", "icon": "🧙‍♀️", "type": "HUMANOID", "level": 19, "baseStats": { "health": 100, "damage": 35, "defense": 8, "attackSpeed": 1.0, "expReward": 160, "goldReward": { "min": 130, "max": 200 }, "resists": { "fire": 30, "cold": 40, "lightning": 35, "poison": 50 } }, "abilities": [], "lootTable": ["wp_016", "ar_022", "jw_011"], "description": "森林深处的魔法使用者" },
-        { "id": "ogre", "name": "食人魔", "icon": "👹", "type": "BEAST", "level": 20, "baseStats": { "health": 280, "damage": 35, "defense": 22, "attackSpeed": 0.6, "expReward": 180, "goldReward": { "min": 140, "max": 220 }, "resists": { "fire": 10, "cold": 10, "lightning": 10, "poison": 20 } }, "abilities": [], "lootTable": ["wp_005", "ar_039", "sh_006"], "description": "巨大而愚蠢的怪物" },
-        { "id": "vampire_lord", "name": "吸血鬼领主", "icon": "🧛", "type": "UNDEAD", "level": 22, "baseStats": { "health": 200, "damage": 40, "defense": 18, "attackSpeed": 1.3, "expReward": 220, "goldReward": { "min": 180, "max": 280 }, "resists": { "fire": -50, "cold": 50, "lightning": 15, "poison": 70 } }, "abilities": [], "lootTable": ["wp_017", "ar_011", "jw_013", "jw_024"], "description": "吸血鬼中的贵族" },
-        { "id": "wraith", "name": "怨灵", "icon": "👻", "type": "UNDEAD", "level": 23, "baseStats": { "health": 160, "damage": 45, "defense": 10, "attackSpeed": 1.4, "expReward": 250, "goldReward": { "min": 200, "max": 320 }, "resists": { "fire": -30, "cold": 70, "lightning": 20, "poison": 90 } }, "abilities": [], "lootTable": ["ar_047", "jw_008"], "description": "充满怨恨的灵魂" },
-        { "id": "minotaur", "name": "牛头人", "icon": "🐮", "type": "BEAST", "level": 24, "baseStats": { "health": 300, "damage": 42, "defense": 28, "attackSpeed": 0.8, "expReward": 280, "goldReward": { "min": 220, "max": 350 }, "resists": { "fire": 15, "cold": 10, "lightning": 15, "poison": 20 } }, "abilities": [], "lootTable": ["wp_009", "ar_040", "sh_007"], "description": "迷宫中的恐怖存在" },
-        { "id": "dark_druid", "name": "黑暗德鲁伊", "icon": "🌙", "type": "HUMANOID", "level": 25, "baseStats": { "health": 180, "damage": 38, "defense": 16, "attackSpeed": 1.1, "expReward": 300, "goldReward": { "min": 250, "max": 400 }, "resists": { "fire": 20, "cold": 40, "lightning": 30, "poison": 60 } }, "abilities": [], "lootTable": ["wp_016", "ar_023", "jw_012", "jw_025"], "description": "堕落的自然守护者" },
-        { "id": "troll", "name": "巨魔", "icon": "🧌", "type": "BEAST", "level": 26, "baseStats": { "health": 350, "damage": 45, "defense": 25, "attackSpeed": 0.7, "expReward": 350, "goldReward": { "min": 280, "max": 450 }, "resists": { "fire": -20, "cold": 30, "lightning": 20, "poison": 40 } }, "abilities": [], "lootTable": ["wp_014", "ar_049", "sh_008"], "description": "再生的恐怖力量" },
-        { "id": "bone_golem", "name": "骨魔", "icon": "💀", "type": "UNDEAD", "level": 27, "baseStats": { "health": 320, "damage": 48, "defense": 30, "attackSpeed": 0.5, "expReward": 380, "goldReward": { "min": 300, "max": 480 }, "resists": { "fire": -10, "cold": 40, "lightning": 15, "poison": 60 } }, "abilities": [], "lootTable": ["wp_015", "ar_050", "sh_009"], "description": "由无数骸骨构成" },
-        { "id": "shadow_assassin", "name": "暗影刺客", "icon": "🗡️", "type": "HUMANOID", "level": 28, "baseStats": { "health": 160, "damage": 55, "defense": 12, "attackSpeed": 1.8, "expReward": 420, "goldReward": { "min": 350, "max": 550 }, "resists": { "fire": 20, "cold": 30, "lightning": 30, "poison": 40 } }, "abilities": [], "lootTable": ["wp_014", "ar_037", "jw_013"], "description": "来无影去无踪" },
-        { "id": "lich_king", "name": "巫妖王", "icon": "👑", "type": "UNDEAD", "level": 30, "baseStats": { "health": 400, "damage": 60, "defense": 35, "attackSpeed": 0.9, "expReward": 500, "goldReward": { "min": 500, "max": 800 }, "resists": { "fire": -20, "cold": 70, "lightning": 40, "poison": 80 } }, "abilities": [], "lootTable": ["wp_018", "ar_013", "ar_051", "sh_009", "jw_014"], "description": "黑暗森林BOSS" }
-      ]
+    "dark-cave": {
+      "name": "黑暗洞穴",
+      "description": "深邃的地下洞穴，是各种变异生物的栖息地。",
+      "background": "洞穴",
+      "requiredLevel": 3,
+      "monsterLevelRange": { "min": 3, "max": 8 },
+      "monsters": []
     },
-    "volcano": {
-      "name": "火山地带",
-      "levelRange": [30, 45],
-      "monsters": [
-        { "id": "fire_elemental", "name": "火元素", "icon": "🔥", "type": "ELEMENTAL", "level": 31, "baseStats": { "health": 250, "damage": 50, "defense": 20, "attackSpeed": 1.2, "expReward": 400, "goldReward": { "min": 350, "max": 550 }, "resists": { "fire": 100, "cold": -50, "lightning": 20, "poison": 30 } }, "abilities": [], "lootTable": ["wp_011", "ar_050", "jw_007"], "description": "纯粹的火焰生命" },
-        { "id": "lava_golem", "name": "熔岩傀儡", "icon": "🌋", "type": "ELEMENTAL", "level": 32, "baseStats": { "health": 450, "damage": 55, "defense": 40, "attackSpeed": 0.5, "expReward": 480, "goldReward": { "min": 400, "max": 650 }, "resists": { "fire": 100, "cold": -80, "lightning": 10, "poison": 50 } }, "abilities": [], "lootTable": ["wp_013", "ar_015", "sh_007"], "description": "火山深处的守护者" },
-        { "id": "demon_soldier", "name": "恶魔士兵", "icon": "😈", "type": "DEMON", "level": 33, "baseStats": { "health": 300, "damage": 60, "defense": 30, "attackSpeed": 1.0, "expReward": 520, "goldReward": { "min": 450, "max": 700 }, "resists": { "fire": 60, "cold": -20, "lightning": 20, "poison": 30 } }, "abilities": [], "lootTable": ["wp_015", "ar_016", "sh_008"], "description": "地狱军团的普通士兵" },
-        { "id": "hell_hound", "name": "地狱犬", "icon": "🐕", "type": "DEMON", "level": 34, "baseStats": { "health": 280, "damage": 65, "defense": 22, "attackSpeed": 1.6, "expReward": 560, "goldReward": { "min": 480, "max": 750 }, "resists": { "fire": 80, "cold": -30, "lightning": 25, "poison": 20 } }, "abilities": [], "lootTable": ["wp_025", "ar_039"], "description": "地狱三头犬" },
-        { "id": "fire_wizard", "name": "火焰法师", "icon": "🧙", "type": "HUMANOID", "level": 35, "baseStats": { "health": 220, "damage": 70, "defense": 15, "attackSpeed": 1.1, "expReward": 600, "goldReward": { "min": 520, "max": 820 }, "resists": { "fire": 80, "cold": -30, "lightning": 30, "poison": 30 } }, "abilities": [], "lootTable": ["wp_016", "ar_022", "jw_007", "jw_024"], "description": "操控火焰的法师" },
-        { "id": "dragon_whelp", "name": "幼龙", "icon": "🐉", "type": "DRAGON", "level": 36, "baseStats": { "health": 380, "damage": 68, "defense": 35, "attackSpeed": 1.0, "expReward": 680, "goldReward": { "min": 600, "max": 950 }, "resists": { "fire": 90, "cold": 20, "lightning": 30, "poison": 40 } }, "abilities": [], "lootTable": ["wp_025", "ar_015", "jw_014"], "description": "还未成年的火龙" },
-        { "id": "infernal_demon", "name": "炼狱恶魔", "icon": "👹", "type": "DEMON", "level": 38, "baseStats": { "health": 420, "damage": 75, "defense": 38, "attackSpeed": 1.1, "expReward": 750, "goldReward": { "min": 680, "max": 1050 }, "resists": { "fire": 90, "cold": -20, "lightning": 35, "poison": 40 } }, "abilities": [], "lootTable": ["wp_017", "ar_040", "sh_010"], "description": "来自深渊的恐怖" },
-        { "id": "phoenix", "name": "凤凰", "icon": "🔥", "type": "ELEMENTAL", "level": 40, "baseStats": { "health": 350, "damage": 80, "defense": 25, "attackSpeed": 1.5, "expReward": 900, "goldReward": { "min": 800, "max": 1200 }, "resists": { "fire": 100, "cold": 50, "lightning": 50, "poison": 50 } }, "abilities": [], "lootTable": ["wp_029", "ar_016", "jw_015"], "description": "浴火重生的神鸟" },
-        { "id": "archdevil", "name": "大魔鬼", "icon": "👿", "type": "DEMON", "level": 42, "baseStats": { "health": 500, "damage": 85, "defense": 45, "attackSpeed": 1.0, "expReward": 1000, "goldReward": { "min": 900, "max": 1400 }, "resists": { "fire": 100, "cold": 30, "lightning": 40, "poison": 50 } }, "abilities": [], "lootTable": ["wp_030", "ar_029", "sh_011"], "description": "地狱的高阶领主" },
-        { "id": "dragon_lord", "name": "巨龙", "icon": "🐲", "type": "DRAGON", "level": 45, "baseStats": { "health": 800, "damage": 100, "defense": 60, "attackSpeed": 0.8, "expReward": 1500, "goldReward": { "min": 1500, "max": 2500 }, "resists": { "fire": 100, "cold": 40, "lightning": 50, "poison": 60 } }, "abilities": [], "lootTable": ["wp_037", "ar_029", "ar_049", "sh_011", "jw_028"], "description": "火山地带BOSS" }
-      ]
+    "undead-crypt": {
+      "name": "不死族墓穴",
+      "description": "古老的墓穴，沉睡着强大的不死族生物。",
+      "background": "墓穴",
+      "requiredLevel": 6,
+      "monsterLevelRange": { "min": 6, "max": 12 },
+      "monsters": []
     },
-    "frozen_peaks": {
-      "name": "冰封峰",
-      "levelRange": [45, 60],
-      "monsters": [
-        { "id": "ice_elemental", "name": "冰元素", "icon": "❄️", "type": "ELEMENTAL", "level": 46, "baseStats": { "health": 350, "damage": 70, "defense": 30, "attackSpeed": 1.1, "expReward": 1200, "goldReward": { "min": 1000, "max": 1600 }, "resists": { "fire": -60, "cold": 100, "lightning": 20, "poison": 30 } }, "abilities": [], "lootTable": ["wp_012", "ar_051", "jw_008"], "description": "纯粹的冰霜生命" },
-        { "id": "frost_giant", "name": "霜巨人", "icon": "🗻", "type": "ELEMENTAL", "level": 48, "baseStats": { "health": 600, "damage": 80, "defense": 55, "attackSpeed": 0.5, "expReward": 1500, "goldReward": { "min": 1300, "max": 2000 }, "resists": { "fire": -80, "cold": 100, "lightning": 20, "poison": 40 } }, "abilities": [], "lootTable": ["wp_026", "ar_030", "sh_008"], "description": "冰封的远古巨人" },
-        { "id": "ice_dragon", "name": "冰霜巨龙", "icon": "🐉", "type": "DRAGON", "level": 50, "baseStats": { "health": 700, "damage": 90, "defense": 50, "attackSpeed": 0.9, "expReward": 1800, "goldReward": { "min": 1600, "max": 2500 }, "resists": { "fire": -60, "cold": 100, "lightning": 30, "poison": 40 } }, "abilities": [], "lootTable": ["wp_026", "ar_030", "jw_025"], "description": "冰封峰的统治者" },
-        { "id": "snow_witch", "name": "雪女", "icon": "🧙‍♀️", "type": "HUMANOID", "level": 51, "baseStats": { "health": 380, "damage": 95, "defense": 25, "attackSpeed": 1.2, "expReward": 2000, "goldReward": { "min": 1800, "max": 2800 }, "resists": { "fire": -50, "cold": 100, "lightning": 40, "poison": 50 } }, "abilities": [], "lootTable": ["wp_016", "ar_023", "jw_025", "jw_030"], "description": "雪山上的神秘女巫" },
-        { "id": "ice_devil", "name": "冰魔", "icon": "👹", "type": "DEMON", "level": 52, "baseStats": { "health": 550, "damage": 100, "defense": 45, "attackSpeed": 1.0, "expReward": 2200, "goldReward": { "min": 2000, "max": 3200 }, "resists": { "fire": -60, "cold": 100, "lightning": 35, "poison": 45 } }, "abilities": [], "lootTable": ["wp_026", "ar_031", "sh_009"], "description": "来自极寒地狱" },
-        { "id": "frost_phoenix", "name": "冰霜凤凰", "icon": "🦅", "type": "ELEMENTAL", "level": 55, "baseStats": { "health": 450, "damage": 110, "defense": 35, "attackSpeed": 1.6, "expReward": 2800, "goldReward": { "min": 2500, "max": 4000 }, "resists": { "fire": 50, "cold": 100, "lightning": 50, "poison": 50 } }, "abilities": [], "lootTable": ["wp_039", "ar_016", "jw_015"], "description": "极寒之地的神鸟" },
-        { "id": "ancient_dragon", "name": "远古巨龙", "icon": "🐲", "type": "DRAGON", "level": 58, "baseStats": { "health": 1000, "damage": 130, "defense": 70, "attackSpeed": 0.7, "expReward": 4000, "goldReward": { "min": 4000, "max": 6000 }, "resists": { "fire": 80, "cold": 80, "lightning": 60, "poison": 60 } }, "abilities": [], "lootTable": ["wp_040", "ar_031", "ar_050", "sh_011", "jw_029", "jw_030"], "description": "冰封峰终极BOSS" }
-      ]
+    "twilight-forest": {
+      "name": "暮光森林",
+      "description": "神秘的暮光森林，蕴含着强大的自然力量与元素能量。",
+      "background": "森林",
+      "requiredLevel": 10,
+      "monsterLevelRange": { "min": 10, "max": 18 },
+      "monsters": []
+    },
+    "cursed-city": {
+      "name": "诅咒古城",
+      "description": "被诅咒的古城遗址，瘟疫与暗影在这里蔓延。",
+      "background": "废墟",
+      "requiredLevel": 18,
+      "monsterLevelRange": { "min": 18, "max": 28 },
+      "monsters": []
+    },
+    "demon-fortress": {
+      "name": "恶魔要塞",
+      "description": "通往地狱的大门，恶魔的巢穴。",
+      "background": "地狱",
+      "requiredLevel": 25,
+      "monsterLevelRange": { "min": 25, "max": 35 },
+      "monsters": []
+    }
+  },
+  "acts": {
+    "act1": {
+      "id": "act1",
+      "name": "第一章：堕落者的洞穴",
+      "description": "冒险者踏入被黑暗侵蚀的土地，面对不死族的威胁。",
+      "difficulty": 1,
+      "zones": ["blood-marsh", "dark-cave", "undead-crypt"]
+    },
+    "act2": {
+      "id": "act2",
+      "name": "第二章：暮光森林",
+      "description": "穿越黑暗森林，探索诅咒古城，最终挑战地狱领主。",
+      "difficulty": 2,
+      "zones": ["twilight-forest", "cursed-city", "demon-fortress"]
     }
   }
 }
