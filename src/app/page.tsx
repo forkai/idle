@@ -94,14 +94,14 @@ export default function GamePage() {
           <StatusBar />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-4 min-h-[calc(100vh-12rem)]">
           {/* 左侧边栏 - 状态栏（桌面端） */}
           <aside className="hidden lg:block lg:col-span-3 xl:col-span-2">
             <StatusBar />
           </aside>
 
           {/* 中间主区域 */}
-          <section className="col-span-12 lg:col-span-6 xl:col-span-8">
+          <section className="col-span-12 lg:col-span-6 xl:col-span-8 min-h-full">
             {activeTab === 'zone' && <CombatArea />}
             {activeTab === 'inventory' && <InventoryPanel />}
             {activeTab === 'equipment' && <EquipmentPanel />}

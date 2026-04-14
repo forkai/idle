@@ -127,7 +127,7 @@ export function AchievementPanel() {
       </div>
 
       {/* 成就列表 */}
-      <div className="space-y-2 max-h-96 overflow-y-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-96 overflow-y-auto">
         {filteredAchievements.map(achievement => (
           <AchievementCard
             key={achievement.id}

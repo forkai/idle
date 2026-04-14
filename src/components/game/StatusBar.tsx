@@ -75,7 +75,7 @@ export function StatusBar() {
     : 100
 
   return (
-    <div className="panel-game p-4">
+    <div className="panel-game p-4 min-h-full">
       {/* 顶部：角色信息 */}
       <div className="flex items-center gap-4 mb-4">
         {/* 角色头像 */}
