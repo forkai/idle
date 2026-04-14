@@ -68,6 +68,22 @@ export interface AISettings {
 }
 
 /**
+ * 自动探索设置
+ */
+export interface AutoExploreSettings {
+  /** 是否开启自动探索 */
+  enabled: boolean
+  /** 自动使用药水 */
+  autoPotion: boolean
+  /** 自动切换区域（效率低时） */
+  autoSwitchZone: boolean
+  /** 最低效率阈值（低于此值切换区域） */
+  minEfficiencyThreshold: number
+  /** 优先挑战Boss */
+  prioritizeBoss: boolean
+}
+
+/**
  * 设置Store状态接口
  */
 interface SettingsStoreState {
@@ -79,6 +95,8 @@ interface SettingsStoreState {
   notifications: NotificationSettings
   /** AI功能设置 */
   ai: AISettings
+  /** 自动探索设置 */
+  autoExplore: AutoExploreSettings
 }
 
 /**
@@ -99,6 +117,10 @@ interface SettingsActions {
   toggleAI: (enabled: boolean) => void
   /** 开关AI伴侣 */
   toggleCompanion: (enabled: boolean) => void
+  /** 更新自动探索设置（部分更新） */
+  updateAutoExplore: (settings: Partial<AutoExploreSettings>) => void
+  /** 开关自动探索 */
+  toggleAutoExplore: () => void
   /** 重置所有设置为默认值 */
   resetSettings: () => void
 }
@@ -132,6 +154,13 @@ const DEFAULT_SETTINGS: SettingsStoreState = {
     customEndpoint: '',
     modelName: 'gpt-4o-mini',
     companionEnabled: false,
+  },
+  autoExplore: {
+    enabled: false,
+    autoPotion: true,
+    autoSwitchZone: true,
+    minEfficiencyThreshold: 0.5,
+    prioritizeBoss: false,
   },
 }
 
@@ -214,10 +243,31 @@ export const useSettingsStore = create<SettingsStoreState & SettingsActions>()(
       },
 
       /**
+       * 更新自动探索设置
+       */
+      updateAutoExplore: (settings: Partial<AutoExploreSettings>) => {
+        set(state => {
+          Object.assign(state.autoExplore, settings)
+        })
+      },
+
+      /**
+       * 开关自动探索
+       */
+      toggleAutoExplore: () => {
+        set(state => {
+          state.autoExplore.enabled = !state.autoExplore.enabled
+        })
+      },
+
+      /**
        * 恢复默认设置
        */
       resetSettings: () => {
-        set(() => ({ ...DEFAULT_SETTINGS }))
+        set(() => ({
+          ...DEFAULT_SETTINGS,
+          autoExplore: DEFAULT_SETTINGS.autoExplore,
+        }))
       },
     })),
     {
@@ -227,9 +277,9 @@ export const useSettingsStore = create<SettingsStoreState & SettingsActions>()(
         sound: state.sound,
         display: state.display,
         notifications: state.notifications,
+        autoExplore: state.autoExplore,
         ai: {
           ...state.ai,
-          // API Key存储前不做额外处理（用户自己的浏览器localStorage）
         },
       }),
     }
