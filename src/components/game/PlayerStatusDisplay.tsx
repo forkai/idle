@@ -5,6 +5,8 @@
 
 'use client'
 
+import { cn } from '@/lib/utils'
+
 interface PlayerStatusDisplayProps {
   health: number
   maxHealth: number
@@ -39,7 +41,7 @@ const PlayerStatusDisplay = ({
         </div>
         <div className="h-2 bg-gray-800 rounded-full overflow-hidden border border-gray-700">
           <div
-            className="h-full bg-gradient-to-r from-red-700 to-red-600 transition-all duration-300"
+            className="h-full bg-gradient-to-r from-red-700 to-red-600 transition-all duration-300 rounded-full"
             style={{ width: `${healthPercent}%` }}
           />
         </div>
@@ -54,7 +56,7 @@ const PlayerStatusDisplay = ({
         </div>
         <div className="h-2 bg-gray-800 rounded-full overflow-hidden border border-gray-700">
           <div
-            className="h-full bg-gradient-to-r from-blue-700 to-blue-600 transition-all duration-300"
+            className="h-full bg-gradient-to-r from-blue-700 to-blue-600 transition-all duration-300 rounded-full"
             style={{ width: `${manaPercent}%` }}
           />
         </div>

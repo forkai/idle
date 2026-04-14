@@ -7,6 +7,7 @@
 
 import { CombatState } from '@/types/combat'
 import { getSkillById } from '@/constants/skills'
+import { cn } from '@/lib/utils'
 
 interface SkillHotbarProps {
   unlockedSkills: string[]
@@ -55,26 +56,25 @@ const SkillHotbar = ({
             key={skillId}
             onClick={() => onSkillClick(skillId)}
             disabled={!isFighting || !isReady}
-            className={`
-              relative w-12 h-12 rounded-lg border-2 flex flex-col items-center justify-center
-              transition-all duration-150 cursor-pointer
-              ${isReady
+            className={cn(
+              'relative w-12 h-12 rounded-lg border-2 flex flex-col items-center justify-center',
+              'transition-all duration-150 cursor-pointer',
+              isReady
                 ? 'bg-gray-800 border-amber-500 hover:border-amber-400 hover:scale-110'
-                : 'bg-gray-900 border-gray-700 opacity-60'
-              }
-              disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100
-            `}
+                : 'bg-gray-900 border-gray-700 opacity-60',
+              'disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100'
+            )}
             title={`${skill.name} (${index + 1})`}
           >
             {/* 冷却进度条背景 */}
             {cooldownPercent < 100 && (
               <div
-                className="absolute inset-0 bg-black/60 rounded-md transition-all duration-100"
+                className="absolute inset-0 bg-black/60 rounded-md transition-all duration-100 rounded-l-md"
                 style={{ width: `${cooldownPercent}%` }}
               />
             )}
 
-            <span className={`text-xl ${cooldownPercent < 100 ? 'grayscale' : ''}`}>{skill.icon}</span>
+            <span className={cn('text-xl', cooldownPercent < 100 && 'grayscale')}>{skill.icon}</span>
 
             {/* 法力不足指示 */}
             {!hasEnoughMana && cooldownRemaining === 0 && (

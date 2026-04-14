@@ -8,6 +8,7 @@
 import { useGameStore } from '@/stores/gameStore'
 import { CharacterClassNames } from '@/types/game'
 import { getExpForLevel } from '@/types/game'
+import { cn } from '@/lib/utils'
 
 /**
  * 状态条组件属性
@@ -22,7 +23,7 @@ interface StatBarProps {
 /**
  * 状态条组件
  */
-function StatBar({ current, max, color, label }: StatBarProps) {
+const StatBar = ({ current, max, color, label }: StatBarProps) => {
   const percentage = Math.min(100, (current / max) * 100)
 
   const colors = {
@@ -41,7 +42,7 @@ function StatBar({ current, max, color, label }: StatBarProps) {
       )}
       <div className="h-2 bg-gray-800 rounded-full overflow-hidden border border-gray-700">
         <div
-          className={`h-full ${colors[color]} transition-all duration-300`}
+          className={cn('h-full rounded-full transition-all duration-300', colors[color])}
           style={{ width: `${percentage}%` }}
         />
       </div>
@@ -52,7 +53,7 @@ function StatBar({ current, max, color, label }: StatBarProps) {
 /**
  * 角色图标组件
  */
-function CharacterIcon({ classId }: { classId: string }) {
+const CharacterIcon = ({ classId }: { classId: string }) => {
   const icons: Record<string, string> = {
     warrior: '⚔️',
     sorcerer: '🔥',
@@ -137,7 +138,7 @@ export function StatusBar() {
           </div>
           <div className="h-1.5 bg-gray-800 rounded-full overflow-hidden border border-gray-700">
             <div
-              className="h-full bg-gradient-to-r from-amber-500 to-amber-700 transition-all duration-300"
+              className="h-full bg-gradient-to-r from-amber-500 to-amber-700 transition-all duration-300 rounded-full"
               style={{ width: `${expProgress}%` }}
             />
           </div>

@@ -20,6 +20,7 @@ import { MonsterCard } from './MonsterCard'
 import { CombatButtons } from './CombatButtons'
 import { PlayerStatusDisplay } from './PlayerStatusDisplay'
 import { SkillHotbar } from './SkillHotbar'
+import { cn } from '@/lib/utils'
 
 /**
  * 战斗区域组件
@@ -344,7 +345,7 @@ const CombatArea = () => {
           </div>
           <div className="mt-4 w-48 mx-auto h-1 bg-gray-800 rounded-full overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-red-700 to-red-500 transition-all duration-1000"
+              className="h-full bg-gradient-to-r from-red-700 to-red-500 transition-all duration-1000 rounded-full"
               style={{ width: `${((3 - defeatCountdown) / 3) * 100}%` }}
             />
           </div>
@@ -387,15 +388,16 @@ const CombatArea = () => {
 
           {elementalReaction && (
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-elemental-reaction">
-              <div className={`px-4 py-2 rounded-lg font-bold text-white ${
-                elementalReaction === 'vaporize' ? 'bg-cyan-500/80' :
-                elementalReaction === 'freeze' ? 'bg-blue-500/80' :
-                elementalReaction === 'shock' ? 'bg-yellow-500/80' :
-                elementalReaction === 'burn' ? 'bg-orange-500/80' :
-                elementalReaction === 'melt' ? 'bg-red-500/80' :
-                elementalReaction === 'supercharge' ? 'bg-purple-500/80' :
-                'bg-gray-500/80'
-              }`}>
+              <div className={cn(
+                'px-4 py-2 rounded-lg font-bold text-white',
+                elementalReaction === 'vaporize' && 'bg-cyan-500/80',
+                elementalReaction === 'freeze' && 'bg-blue-500/80',
+                elementalReaction === 'shock' && 'bg-yellow-500/80',
+                elementalReaction === 'burn' && 'bg-orange-500/80',
+                elementalReaction === 'melt' && 'bg-red-500/80',
+                elementalReaction === 'supercharge' && 'bg-purple-500/80',
+                !['vaporize', 'freeze', 'shock', 'burn', 'melt', 'supercharge'].includes(elementalReaction) && 'bg-gray-500/80'
+              )}>
                 {elementalReaction === 'vaporize' && '💥 蒸发!'}
                 {elementalReaction === 'freeze' && '❄️ 冻结!'}
                 {elementalReaction === 'shock' && '⚡ 感电!'}

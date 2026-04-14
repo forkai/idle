@@ -6,6 +6,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import { cn } from '@/lib/utils'
 
 interface DamageNumberProps {
   damage: number
@@ -26,14 +27,13 @@ const DamageNumber = ({ damage, isCrit, position, onComplete }: DamageNumberProp
 
   return (
     <div
-      className={`
-        absolute font-bold pointer-events-none animate-bounce
-        ${isCrit ? 'text-2xl text-amber-400' : 'text-lg text-white'}
-      `}
+      className={cn(
+        'absolute font-bold pointer-events-none animate-float-up',
+        isCrit ? 'text-2xl text-amber-400' : 'text-lg text-white'
+      )}
       style={{
-        left: position.x,
-        top: position.y,
-        animation: 'float-up 1s ease-out forwards',
+        left: `${position.x}px`,
+        top: `${position.y}px`,
       }}
     >
       -{damage}

@@ -10,6 +10,7 @@ import { useAchievementStore } from '@/stores/achievementStore'
 import { getTotalAchievementCount } from '@/constants/achievements'
 import type { AchievementJson } from '@/types/achievement'
 import { AchievementCategory, AchievementCategoryInfo } from '@/types/achievement'
+import { cn } from '@/lib/utils'
 
 /**
  * 成就数据（带状态）
@@ -22,23 +23,25 @@ interface AchievementWithState extends AchievementJson {
 /**
  * 成就卡片组件
  */
-function AchievementCard({ achievement }: { achievement: AchievementWithState }) {
+const AchievementCard = ({ achievement }: { achievement: AchievementWithState }) => {
   const progressPercent = Math.min(100, (achievement.progress / achievement.conditionTarget) * 100)
 
   return (
-    <div className={`
-      p-3 rounded-lg border transition-all
-      ${achievement.unlocked
+    <div className={cn(
+      'p-3 rounded-lg border transition-all',
+      achievement.unlocked
         ? 'bg-amber-900/20 border-amber-600'
         : 'bg-gray-900/50 border-gray-700'
-      }
-    `}>
+    )}>
       <div className="flex items-start gap-3">
-        <span className={`text-2xl ${achievement.unlocked ? '' : 'grayscale opacity-50'}`}>
+        <span className={cn('text-2xl', !achievement.unlocked && 'grayscale opacity-50')}>
           {achievement.icon}
         </span>
         <div className="flex-1 min-w-0">
-          <p className={`font-medium ${achievement.unlocked ? 'text-amber-400' : 'text-gray-300'}`}>
+          <p className={cn(
+            'font-medium',
+            achievement.unlocked ? 'text-amber-400' : 'text-gray-300'
+          )}>
             {achievement.name}
           </p>
           <p className="text-xs text-gray-500 mt-0.5">{achievement.description}</p>
@@ -48,7 +51,7 @@ function AchievementCard({ achievement }: { achievement: AchievementWithState })
             <div className="mt-2">
               <div className="h-1.5 bg-gray-800 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-amber-600 transition-all duration-300"
+                  className="h-full bg-amber-600 transition-all duration-300 rounded-full"
                   style={{ width: `${progressPercent}%` }}
                 />
               </div>
@@ -96,7 +99,7 @@ export function AchievementPanel() {
         <div className="flex-1">
           <div className="h-2 bg-gray-800 rounded-full overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-amber-700 to-amber-500 transition-all"
+              className="h-full bg-gradient-to-r from-amber-700 to-amber-500 transition-all rounded-full"
               style={{ width: `${(unlockedCount / totalCount) * 100}%` }}
             />
           </div>
@@ -111,7 +114,10 @@ export function AchievementPanel() {
       <div className="flex flex-wrap gap-1 mb-4">
         <button
           onClick={() => setActiveCategory('all')}
-          className={`px-2 py-1 rounded text-xs ${activeCategory === 'all' ? 'bg-amber-600' : 'bg-gray-800'}`}
+          className={cn(
+            'px-2 py-1 rounded text-xs cursor-pointer transition-colors',
+            activeCategory === 'all' ? 'bg-amber-600' : 'bg-gray-800 hover:bg-gray-700'
+          )}
         >
           全部
         </button>
@@ -119,7 +125,10 @@ export function AchievementPanel() {
           <button
             key={key}
             onClick={() => setActiveCategory(key as AchievementCategory)}
-            className={`px-2 py-1 rounded text-xs ${activeCategory === key ? 'bg-amber-600' : 'bg-gray-800'}`}
+            className={cn(
+              'px-2 py-1 rounded text-xs cursor-pointer transition-colors',
+              activeCategory === key ? 'bg-amber-600' : 'bg-gray-800 hover:bg-gray-700'
+            )}
           >
             {info.icon} {info.name}
           </button>
